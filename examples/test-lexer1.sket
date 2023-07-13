@@ -1,0 +1,43 @@
+// This is a test comment
+context1 = |context: Global context>  // define the current context
+
+int = 3715  // define (an int) float
+pi = 3.14159265  // define a float
+Fred = |Fred Smith>  // define a ket
+
+bra = <Psi|
+
+ //   blah 
+
+age |Fred Smith> => |37>
+friends |Fred Smith> => |Sam> + |Max> + |Liz> + |Emma>
+spelling |Fred> => |F> . |r> . |e> . |d>
+
+foo = op4 op3 op2 7.2 op1
+
+yes = |yes>
+no = |no>
+
+not no => yes
+not yes => no
+
+clean . #=> |do clean>
+plural * #=> _self _ |s>
+fn ** #=> |do sp fn>
+
+the |string> => |alpha> __ |beta> __ |gamma>
+
+the |shopping list> => 3 |apples> + 5 |oranges> + 13 |cherries>
+
+// 0 param function definition:
+fn { } #=> |do seq fn>
+
+// 1 param function defintion:
+fn1 { p1 } #=> |do 1 param seq fn>
+
+// 3 param function definition:
+fn3 { p1, p2, p3 } #=> |do 3 param seq fn>
+
+
+another |string> => op2 op1 3 |alpha> _ 5 op3 |beta> :_ 7 |gamma> __ |delta>
+

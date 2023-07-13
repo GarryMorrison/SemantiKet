@@ -1,0 +1,6 @@
+// This is a test comment
+context1 = |context: Global context>  // define the current context
+
+int = 3715  // define (an int) float
+pi = 3.14159265  // define a float
+Fred = |Fred Smith>  // define a ket

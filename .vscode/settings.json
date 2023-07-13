@@ -1,0 +1,9 @@
+{
+  "cmake.configureSettings": {
+    "CMAKE_USER_MAKEFILE": "${workspaceFolder}/.vs/win_flex_bison_custom_build.props"
+  },
+  "files.associations": {
+    "*.l": "plaintext",
+    "*.lex": "plaintext"
+  }
+}
