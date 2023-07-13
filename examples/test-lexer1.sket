@@ -41,6 +41,6 @@ fn3 { p1, p2, p3 } #=> |do 3 param seq fn>
 
 another |string> => op2 op1 3 |alpha> _ 5 op3 |beta> :_ 7 |gamma> __ |delta>
 
-result = table[name, age, friends, spelling] rel-kets[friends]
+table[name, age, friends, spelling] rel-kets[friends]
 
 

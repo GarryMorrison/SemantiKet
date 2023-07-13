@@ -146,7 +146,7 @@ start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
 
 statements: statement | statement statements { $$ = new Tree("statements", 1010, $1, $2); };
 
-statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def ;
+statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON ;
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); };
 
