@@ -97,7 +97,7 @@
 %token      COMMA 282
 %token      LEFT_SQUARE 283
 %token      RIGHT_SQUARE 284
-
+%token      RANGE 285
 
 
 %type <treeval> start
@@ -109,7 +109,7 @@
 %type <treeval> infix_op1
 %type <treeval> expr
 %type <treeval> chain
-%type <treeval> id_or_sequence
+// %type <treeval> id_or_sequence
 %type <treeval> wildcard
 %type <treeval> wildcard_learn_rule
 %type <treeval> string_ket
@@ -122,7 +122,8 @@
 %type <treeval> fn_params
 %type <treeval> compound_fn
 %type <treeval> compound_fn_params
-
+%type <treeval> id_or_chain_ket
+%type <treeval> range
 
 %{
 
@@ -150,41 +151,54 @@ statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); };
 
-learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
+// learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
+learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 
-sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); };
+sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
+| range;
 
 id2_or_chain_ket: ID ID { $$ = new Tree("rule prefix", 1080, $1, $2); }
  | ID ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2, $3); }
 | ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2); };
 
-id_or_sequence: ID | sequence;
+// id_or_sequence: ID | sequence;
 
-wildcard_learn_rule: ID wildcard RULE id_or_sequence SEMICOLON { $$ = new Tree("wildcard learn rule", 1050, $1, $2, $3, $4); };
+// wildcard_learn_rule: ID wildcard RULE id_or_sequence SEMICOLON { $$ = new Tree("wildcard learn rule", 1050, $1, $2, $3, $4); };
+wildcard_learn_rule: ID wildcard RULE sequence SEMICOLON{ $$ = new Tree("wildcard learn rule", 1050, $1, $2, $3, $4); };
 
 wildcard: DOT | STAR | DSTAR;
 
 infix_op1: PLUS | MINUS | DOT;
 
-expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | chain | sequence ;
+expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | number | ID chain | sequence ;  // Later swap in "ID chain" with "op chain"
 
-chain:  ID | ID chain { $$ = new Tree("chain", 1050, $1, $2); }
+chain: ID 
+| ID chain { $$ = new Tree("chain", 1050, $1, $2); }
 | number | number chain { $$ = new Tree("chain", 1050, $1, $2); }
 | compound_fn | compound_fn chain { $$ = new Tree("chain", 1050, $1, $2); };
 
 number: INT | FLOAT;
 
 // string_ket: literal_or_self_ket | literal_or_self_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
-string_ket: chain_ket | chain_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+string_ket: id_or_chain_ket | id_or_chain_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+// | ID STRING_OP id_or_chain_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+// | ID STRING_OP ID { $$ = new Tree("string ket", 1060, $1, $2, $3); };
 
 literal_or_self_ket: LITERAL_KET | SELF_KET | DSELF_KET;
 
 chain_ket: literal_or_self_ket | chain literal_or_self_ket { $$ = new Tree("chain ket", 1070, $1, $2); };
 
+id_or_chain_ket: ID | chain_ket;
+
 ket: string_ket ;
 
-function_def: ID LEFT_CURLY RIGHT_CURLY RULE id_or_sequence SEMICOLON{ $$ = new Tree("function def", 1090, $1, $4, $5); }
-| ID LEFT_CURLY fn_params RIGHT_CURLY RULE id_or_sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
+range: id_or_chain_ket RANGE id_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3); }
+| id_or_chain_ket RANGE id_or_chain_ket RANGE id_or_chain_ket { $$ = new Tree("range", 1130, $1, $3, $5); };
+
+// function_def: ID LEFT_CURLY RIGHT_CURLY RULE id_or_sequence SEMICOLON{ $$ = new Tree("function def", 1090, $1, $4, $5); }
+// | ID LEFT_CURLY fn_params RIGHT_CURLY RULE id_or_sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
+function_def: ID LEFT_CURLY RIGHT_CURLY RULE sequence SEMICOLON{ $$ = new Tree("function def", 1090, $1, $4, $5); }
+| ID LEFT_CURLY fn_params RIGHT_CURLY RULE sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
 
 fn_params: ID | ID COMMA fn_params { $$ = new Tree("fn params", 1100, $1, $3); };
 

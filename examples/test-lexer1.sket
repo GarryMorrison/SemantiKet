@@ -43,4 +43,7 @@ another |string> => op2 op1 3 |alpha> _ 5 op3 |beta> :_ 7 |gamma> __ |delta>
 
 table[name, age, friends, spelling] rel-kets[friends]
 
+range-ket = |1> .. |10>
+range-op-ket = start |idx> .. end |idx>
+range-id = start .. stop
 
