@@ -95,6 +95,8 @@
 %token      LEFT_CURLY 280
 %token      RIGHT_CURLY 281
 %token      COMMA 282
+%token      LEFT_SQUARE 283
+%token      RIGHT_SQUARE 284
 
 
 
@@ -118,6 +120,8 @@
 %type <treeval> number
 %type <treeval> function_def
 %type <treeval> fn_params
+%type <treeval> compound_fn
+%type <treeval> compound_fn_params
 
 
 %{
@@ -165,7 +169,8 @@ infix_op1: PLUS | MINUS | DOT;
 expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | chain | sequence ;
 
 chain:  ID | ID chain { $$ = new Tree("chain", 1050, $1, $2); }
-| number | number chain { $$ = new Tree("chain", 1050, $1, $2); };
+| number | number chain { $$ = new Tree("chain", 1050, $1, $2); }
+| compound_fn | compound_fn chain { $$ = new Tree("chain", 1050, $1, $2); };
 
 number: INT | FLOAT;
 
@@ -182,6 +187,10 @@ function_def: ID LEFT_CURLY RIGHT_CURLY RULE id_or_sequence SEMICOLON{ $$ = new 
 | ID LEFT_CURLY fn_params RIGHT_CURLY RULE id_or_sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
 
 fn_params: ID | ID COMMA fn_params { $$ = new Tree("fn params", 1100, $1, $3); };
+
+compound_fn: ID LEFT_SQUARE compound_fn_params RIGHT_SQUARE { $$ = new Tree("compound fn", 1110, $1, $3); };
+
+compound_fn_params: chain | chain COMMA compound_fn_params { $$ = new Tree("compound fn params", 1120, $1, $3); };
 
 
 %% /*** Additional Code ***/

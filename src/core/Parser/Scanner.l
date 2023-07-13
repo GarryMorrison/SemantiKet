@@ -109,6 +109,8 @@ typedef SKet::Parser::token_type token_type;
 "{" { return scan(token::LEFT_CURLY, yylval); }
 "}" { return scan(token::RIGHT_CURLY, yylval); }
 "," { return scan(token::COMMA, yylval); }
+"[" { return scan(token::LEFT_SQUARE, yylval); }
+"]" { return scan(token::RIGHT_SQUARE, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
 [a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::ID, yylval); }
@@ -166,6 +168,7 @@ namespace SKet {
         case Parser::token::LITERAL_BRA:
         case Parser::token::BOOL_KET:
         case Parser::token::LITERAL_KET:
+        case Parser::token::RIGHT_SQUARE:
             return true;
             break;
         default:

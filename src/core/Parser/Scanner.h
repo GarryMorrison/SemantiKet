@@ -84,7 +84,9 @@ namespace SKet {
             {279, "LOGICAL_OP"},
             {280, "LEFT_CURLY"},
             {281, "RIGHT_CURLY"},
-            {282, "COMMA"}
+            {282, "COMMA"},
+            {283, "LEFT_SQUARE"},
+            {284, "RIGHT_SQUARE"}
         };
 
         std::string get_token_type(Parser::token_type token_code);
