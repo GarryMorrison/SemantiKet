@@ -90,7 +90,7 @@ namespace SKet {
             {285, "RANGE"},
             {286, "LEFT_PAREN"},
             {287, "RIGHT_PAREN"},
-            {288, "RELATION"}
+            {288, "EQUALITY"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

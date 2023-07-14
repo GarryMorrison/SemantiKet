@@ -53,4 +53,5 @@ answer3 = <rho| op3 op2 op1 |psi>
 seq = (2 |a> + 3|b> + 5|c>) . ((7|d> + 11|e>)) . |f>
 
 is-equal = alpha == beta
+test-seq-equal = (2 |a> + 3|b>) == (5|x> . 7|y>)
 
