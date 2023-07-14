@@ -116,12 +116,16 @@ typedef SKet::Parser::token_type token_type;
 ")" { return scan(token::RIGHT_PAREN, yylval); }
 "==" { return scan(token::EQUALITY, yylval); }
 "!=" { return scan(token::EQUALITY, yylval); }
+">" { return scan(token::COMPARISON, yylval); }
+">=" { return scan(token::COMPARISON, yylval); }
+"< " { return scan(token::COMPARISON, yylval); }
+"<=" { return scan(token::COMPARISON, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
 [a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::ID, yylval); }
 \"[^\"]*\"     { return scan(token::STRINGLIT, yylval); }
 "|"([^<|>]|"\\<"|"\\\|"|"\\>")*">" { return scan(token::LITERAL_KET, yylval); }
-"<"([^<|>]|"\\<"|"\\\|"|"\\>")*"|" { return scan(token::LITERAL_BRA, yylval); }
+"<"[^ =]([^<|>]|"\\<"|"\\\|"|"\\>")*"|" { return scan(token::LITERAL_BRA, yylval); }
 .  { lex_error(*yylloc, yytext); }
 %% /*** Additional Code ***/
 namespace SKet {
