@@ -47,3 +47,6 @@ range-ket = |1> .. |10>
 range-op-ket = start |idx> .. end |idx>
 range-id = start .. stop
 
+answer0 = <rho| |psi>
+answer3 = <rho| op3 op2 op1 |psi>
+

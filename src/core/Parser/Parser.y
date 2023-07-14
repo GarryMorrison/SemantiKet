@@ -124,6 +124,9 @@
 %type <treeval> compound_fn_params
 %type <treeval> id_or_chain_ket
 %type <treeval> range
+// %type <treeval> op
+%type <treeval> bra_ket
+
 
 %{
 
@@ -173,11 +176,18 @@ infix_op1: PLUS | MINUS | DOT;
 expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | number | ID chain | sequence ;  // Later swap in "ID chain" with "op chain"
 
 chain: ID 
-| ID chain { $$ = new Tree("chain", 1050, $1, $2); }
-| number | number chain { $$ = new Tree("chain", 1050, $1, $2); }
-| compound_fn | compound_fn chain { $$ = new Tree("chain", 1050, $1, $2); };
+ | ID chain { $$ = new Tree("chain", 1050, $1, $2); }
+ | number | number chain { $$ = new Tree("chain", 1050, $1, $2); }
+ | compound_fn | compound_fn chain { $$ = new Tree("chain", 1050, $1, $2); };
 
-number: INT | FLOAT;
+// chain: op | op chain { $$ = new Tree("chain", 1050, $1, $2); }; // why does this produce shift-reduce errors?
+
+number: INT | FLOAT | bra_ket;
+
+bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2); }
+ | LITERAL_BRA chain LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2, $3); };
+
+// op: ID | number | compound_fn;  // why does this produce shift-reduce errors?
 
 // string_ket: literal_or_self_ket | literal_or_self_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
 string_ket: id_or_chain_ket | id_or_chain_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
