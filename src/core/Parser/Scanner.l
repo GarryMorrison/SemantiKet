@@ -112,6 +112,8 @@ typedef SKet::Parser::token_type token_type;
 "[" { return scan(token::LEFT_SQUARE, yylval); }
 "]" { return scan(token::RIGHT_SQUARE, yylval); }
 ".." { return scan(token::RANGE, yylval); }
+"(" { return scan(token::LEFT_PAREN, yylval); }
+")" { return scan(token::RIGHT_PAREN, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
 [a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::ID, yylval); }

@@ -98,6 +98,8 @@
 %token      LEFT_SQUARE 283
 %token      RIGHT_SQUARE 284
 %token      RANGE 285
+%token      LEFT_PAREN 286
+%token      RIGHT_PAREN 287
 
 
 %type <treeval> start
@@ -126,6 +128,8 @@
 %type <treeval> range
 // %type <treeval> op
 %type <treeval> bra_ket
+%type <treeval> bracket_sequence
+%type <treeval> ket_or_bracket_sequence
 
 
 %{
@@ -157,8 +161,13 @@ assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); 
 // learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 
-sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
+// sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
+sequence: ket_or_bracket_sequence | ket_or_bracket_sequence infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
 | range;
+
+ket_or_bracket_sequence: ket | bracket_sequence;
+
+bracket_sequence: LEFT_PAREN sequence RIGHT_PAREN{ $$ = $2; };
 
 id2_or_chain_ket: ID ID { $$ = new Tree("rule prefix", 1080, $1, $2); }
  | ID ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2, $3); }
