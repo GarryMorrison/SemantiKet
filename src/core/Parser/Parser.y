@@ -100,6 +100,7 @@
 %token      RANGE 285
 %token      LEFT_PAREN 286
 %token      RIGHT_PAREN 287
+%token <treeval> RELATION 288
 
 
 %type <treeval> start
@@ -130,6 +131,7 @@
 %type <treeval> bra_ket
 %type <treeval> bracket_sequence
 %type <treeval> ket_or_bracket_sequence
+%type <treeval> relation
 
 
 %{
@@ -163,7 +165,7 @@ learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule"
 
 // sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
 sequence: ket_or_bracket_sequence | ket_or_bracket_sequence infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
-| range;
+| range | relation;  // Is this the best place to put "relation"?
 
 ket_or_bracket_sequence: ket | bracket_sequence;
 
@@ -213,6 +215,8 @@ ket: string_ket ;
 
 range: id_or_chain_ket RANGE id_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3); }
 | id_or_chain_ket RANGE id_or_chain_ket RANGE id_or_chain_ket { $$ = new Tree("range", 1130, $1, $3, $5); };
+
+relation: id_or_chain_ket RELATION id_or_chain_ket{ $$ = new Tree("relation", 1150, $1, $2, $3); };
 
 // function_def: ID LEFT_CURLY RIGHT_CURLY RULE id_or_sequence SEMICOLON{ $$ = new Tree("function def", 1090, $1, $4, $5); }
 // | ID LEFT_CURLY fn_params RIGHT_CURLY RULE id_or_sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
