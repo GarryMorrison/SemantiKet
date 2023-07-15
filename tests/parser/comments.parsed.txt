@@ -1,0 +1,14 @@
+
+Comment: // A single line comment
+
+
+Comment: /*
+  A
+  multi
+  line
+  comment
+*/
+
+Parsed: 0 tokens
+No errors
+2     (UNKNOWN): line 1, column 1

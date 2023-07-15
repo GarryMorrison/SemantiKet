@@ -1,0 +1,134 @@
+
+yytype: ID
+line: 1, column: 1
+scan: context1, len: 8
+
+yytype: EQUAL
+line: 1, column: 10
+scan: =, len: 1
+
+yytype: CONTEXT_KET
+line: 1, column: 12
+scan: |context: Global context>, len: 25
+
+Comment: // define the current context
+
+
+yytype: ID
+line: 3, column: 1
+scan: int, len: 3
+
+yytype: EQUAL
+line: 3, column: 5
+scan: =, len: 1
+
+yytype: INT
+line: 3, column: 7
+scan: 3715, len: 4
+
+Comment: // define an int
+
+
+yytype: ID
+line: 4, column: 1
+scan: pi, len: 2
+
+yytype: EQUAL
+line: 4, column: 4
+scan: =, len: 1
+
+yytype: FLOAT
+line: 4, column: 6
+scan: 3.14159265, len: 10
+
+Comment: // define a float
+
+
+yytype: ID
+line: 5, column: 1
+scan: Fred, len: 4
+
+yytype: EQUAL
+line: 5, column: 6
+scan: =, len: 1
+
+yytype: LITERAL_KET
+line: 5, column: 8
+scan: |Fred Smith>, len: 12
+
+Comment: // define a literal ket
+
+
+yytype: ID
+line: 6, column: 1
+scan: bra, len: 3
+
+yytype: EQUAL
+line: 6, column: 5
+scan: =, len: 1
+
+yytype: LITERAL_BRA
+line: 6, column: 7
+scan: <Psi|, len: 5
+
+Comment: // define a literal bra
+
+
+yytype: ID
+line: 7, column: 1
+scan: foo, len: 3
+
+yytype: EQUAL
+line: 7, column: 5
+scan: =, len: 1
+
+yytype: ID
+line: 7, column: 7
+scan: op4, len: 3
+
+yytype: ID
+line: 7, column: 11
+scan: op3, len: 3
+
+yytype: ID
+line: 7, column: 15
+scan: op2, len: 3
+
+yytype: FLOAT
+line: 7, column: 19
+scan: 7.2, len: 3
+
+yytype: ID
+line: 7, column: 23
+scan: op1, len: 3
+
+Comment: // define a chain
+
+
+Parsed: 22 tokens
+No errors
+40    root (1000): children: 1
+  39    statements (1010): children: 2
+    6    assignment (1020): children: 2
+      3    context1 (ID): line 1, column 1
+      5    |context: Global context> (CONTEXT_KET): line 1, column 12
+    38    statements (1010): children: 2
+      10    assignment (1020): children: 2
+        7    int (ID): line 3, column 1
+        9    3715 (INT): line 3, column 7
+      37    statements (1010): children: 2
+        14    assignment (1020): children: 2
+          11    pi (ID): line 4, column 1
+          13    3.14159265 (FLOAT): line 4, column 6
+        36    statements (1010): children: 2
+          18    assignment (1020): children: 2
+            15    Fred (ID): line 5, column 1
+            17    |Fred Smith> (LITERAL_KET): line 5, column 8
+          35    statements (1010): children: 2
+            22    assignment (1020): children: 2
+              19    bra (ID): line 6, column 1
+              21    <Psi| (LITERAL_BRA): line 6, column 7
+            34    statements (1010): children: 1
+              33    assignment (1020): children: 2
+                23    foo (ID): line 7, column 1
+                25    op4 (ID): line 7, column 7

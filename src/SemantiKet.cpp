@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 						std::cout << "  " << test_name << "\n";
 
 						std::string stem = entry.path().stem().string();
-						std::string parsed_file = stem + ".parsed.text";
+						std::string parsed_file = stem + ".parsed.txt";
 						std::string dot_file = stem + ".parsed.dot";
 						std::string png_file = stem + ".parsed.png";
 
@@ -74,8 +74,20 @@ int main(int argc, char* argv[])
 						std::cout << "    " << png_file << "\n";
 						std::cout << "    " << source_file << "\n";
 
+
+						std::stringstream buffer;
+						// Redirect std::cout to buffer
+						std::streambuf* prevcoutbuf = std::cout.rdbuf(buffer.rdbuf());
+
 						driver.parse_file(source_file);
 						driver.tree.print();
+
+						std::string text = buffer.str();
+						// Restore original buffer before exiting
+						std::cout.rdbuf(prevcoutbuf);
+
+						string_to_file(path_or_filename + parsed_file, text);
+
 						driver.tree.save_graph(path_or_filename + dot_file);
 						std::string dot_command = "dot -Tpng " + path_or_filename + dot_file + " > " + path_or_filename + png_file;
 						std::cout << "dot command: " << dot_command << "\n";
