@@ -1,0 +1,8 @@
+context1 = |context: Global context>  // define the current context
+
+int = 3715  // define an int
+pi = 3.14159265  // define a float
+Fred = |Fred Smith>  // define a literal ket
+bra = <Psi|  // define a literal bra
+foo = op4 op3 op2 7.2 op1  // define a chain
+
