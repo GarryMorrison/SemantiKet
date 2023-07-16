@@ -1,0 +1,5 @@
+// test sequence brackets
+// Added: 2023-7-16
+
+// test bracketing of superpositions/sequences:
+seq = (2 |a> + 3|b> + 5|c>) . ((7|d> + 11|e>)) . |f>
