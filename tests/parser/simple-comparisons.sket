@@ -1,0 +1,14 @@
+// Test comparison opertors
+// Added: 2023-7-16
+
+// ID comparison:
+compare-id = alpha <= beta
+
+// ID comparison:
+compare-id2 = gamma < delta
+
+// Ket comparison:
+compare-ket = |8> > |5>
+
+// op-ket comparison:
+compare-op-ket = end |idx> >= start |idx>
