@@ -1,0 +1,11 @@
+// Learn some simple learn rules
+
+// Learn a ket:
+age |Fred Smith> => |37>
+
+// Learn a clean superposition:
+friends |Fred Smith> => |Sam> + |Max> + |Liz> + |Emma>
+
+// Learn a clean/ket sequence:
+spelling |Fred> => |F> . |r> . |e> . |d>
+

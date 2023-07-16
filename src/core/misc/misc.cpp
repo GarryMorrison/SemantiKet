@@ -33,3 +33,43 @@ void string_to_file(const std::string& filename, const std::string& str)
         myfile.close();
     }
 }
+
+bool test_files_equal(const std::string& filename1, const std::string& filename2)
+{
+    std::string s1 = file_to_string(filename1);
+    std::string s2 = file_to_string(filename2);
+    return s1 == s2;
+}
+
+bool create_directory(const std::string& path)
+{
+    if (!std::filesystem::exists(path)) {
+        if (std::filesystem::create_directory(path)) {
+            std::cout << "Directory created: " << path << std::endl;
+            return true;
+        }
+        else {
+            std::cerr << "Failed to create directory: " << path << std::endl;
+            return false;
+        }
+    }
+    else {
+        // std::cout << "Directory already exists: " << directoryPath << std::endl;
+        return true;
+    }
+}
+
+
+std::string getCurrentDateTimeString(const std::string& date_sep, const std::string& date_time_sep, const std::string& time_sep) {
+    auto now = std::chrono::system_clock::now();
+    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+
+    std::stringstream ss;
+    // ss << std::put_time(std::localtime(&currentTime), "%Y-%m-%d %H:%M:%S");
+    std::string format_str = "%Y" + date_sep + "%m" + date_sep + "%d";
+    format_str += date_time_sep;
+    format_str += "%H" + time_sep + "%M" + time_sep + "%S";
+    ss << std::put_time(std::localtime(&currentTime), format_str.c_str());
+
+    return ss.str();
+}

@@ -11,6 +11,7 @@
 *.test.PASSED
 *.test.FAILED
 *.log
+log__*
 
 # User-specific files
 *.rsuser
