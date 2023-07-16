@@ -1,0 +1,8 @@
+// simple superpositions
+// Added: 2023-7-16
+
+// testing string concatenation:
+the |string> => |alpha> __ |beta> __ |gamma>
+
+// testing simple coeff-ket superpositions:
+the |shopping list> => 3 |apples> + 5 |oranges> + 13 |cherries>
