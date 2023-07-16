@@ -1,0 +1,11 @@
+// testing equality
+// Added: 2023-7-16
+
+// simple equality of ID's:
+is-equal = alpha == beta
+
+// simple inequality of ID's:
+is-not-equal = gamma != delta
+
+// equality of sp/sequences:
+test-seq-equal = (2 |a> + 3|b>) == (5|x> . 7|y>)
