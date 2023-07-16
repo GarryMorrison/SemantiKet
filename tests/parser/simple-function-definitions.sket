@@ -1,0 +1,14 @@
+// simple function definitions
+// Added: 2023-7-16
+
+// 0 param function definition:
+fn { } #=> |do seq fn>
+
+// 1 param function defintion:
+fn1 { p1 } #=> |do 1 param seq fn>
+
+// 2 param function defintion:
+fn2 { p1, p2 } #=> |do 2 param seq fn>
+
+// 3 param function definition:
+fn3 { p1, p2, p3 } #=> |do 3 param seq fn>
