@@ -1,0 +1,8 @@
+// simple chains
+// Added: 2023-7-16
+
+// assign a chain to "foo":
+foo = op4 op3 op2 7.2 op1
+
+// a chain by itself:
+table[name, age, friends, spelling] rel-kets[friends]
