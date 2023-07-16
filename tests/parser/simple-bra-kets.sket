@@ -1,0 +1,8 @@
+// simple bra-ket examples
+// Added: 2023-7-16
+
+// bra-ket expression:
+v1 = <rho| |psi>
+
+// bra-op-ket expression:
+v2 = <rho| op3 op2 op1 |psi>
