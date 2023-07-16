@@ -1,3 +1,6 @@
+// Learn a variety of assignment types
+// Added: 2023-7-15
+
 context1 = |context: Global context>  // define the current context
 
 int = 3715  // define an int
