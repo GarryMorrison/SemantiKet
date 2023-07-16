@@ -11,4 +11,4 @@ Comment: /*
 
 Parsed: 0 tokens
 No errors
-2     (UNKNOWN): line 1, column 1
+1     (UNKNOWN): line 1, column 1

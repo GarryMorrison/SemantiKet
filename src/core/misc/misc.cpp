@@ -59,6 +59,23 @@ bool create_directory(const std::string& path)
     }
 }
 
+bool delete_file(const std::string& filename)
+{
+    if (std::filesystem::exists(filename)) {
+        if (std::filesystem::remove(filename)) {
+            std::cout << "File deleted: " << filename << std::endl;
+            return true;
+        }
+        else {
+            std::cerr << "Failed to delete file: " << filename << std::endl;
+            return false;
+        }
+    }
+    else {
+        std::cout << "File does not exist: " << filename << std::endl;
+        return false;
+    }
+}
 
 std::string getCurrentDateTimeString(const std::string& date_sep, const std::string& date_time_sep, const std::string& time_sep) {
     auto now = std::chrono::system_clock::now();

@@ -1,0 +1,11 @@
+// Learn negation
+// Added: 2023-7-16
+
+// define the variables to the appropriate ket:
+yes = |yes>
+no = |no>
+
+// now the associated learn rules:
+not no => yes
+not yes => no
+

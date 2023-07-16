@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 		bool test_mode = mode == "--test";
 		bool test_verbose_mode = mode == "--test-verbose";
 
-		if (update_mode)
+		if (update_mode || update_new_mode)
 		{
 			std::cout << "Updating tests ... \n";
 			if (std::filesystem::is_directory(path_or_filename))
@@ -82,11 +82,16 @@ int main(int argc, char* argv[])
 						std::cout << "    " << png_file << "\n";
 						std::cout << "    " << source_file << "\n";
 
+						if (update_new_mode && std::filesystem::exists(path_or_filename + parsed_file))
+						{
+							continue;
+						}
 
 						std::stringstream buffer;
 						// Redirect std::cout to buffer
 						std::streambuf* prevcoutbuf = std::cout.rdbuf(buffer.rdbuf());
 
+						serial.reset_id();
 						driver.parse_file(source_file);
 						driver.tree.print();
 
@@ -146,6 +151,7 @@ int main(int argc, char* argv[])
 						// Redirect std::cout to buffer
 						std::streambuf* prevcoutbuf = std::cout.rdbuf(buffer.rdbuf());
 
+						serial.reset_id();
 						driver.parse_file(source_file);
 						driver.tree.print();
 
@@ -166,11 +172,15 @@ int main(int argc, char* argv[])
 						{
 							std::cout << "  " << test_count << ")  " << test_name << "  PASSED\n";
 							passed_names.push_back(test_name);
+							delete_file(path_or_filename + test_name + ".ERROR");
+							string_to_file(path_or_filename + test_name + ".PASSED", "");
 						}
 						else
 						{
 							std::cout << "  " << test_count << ")  " << test_name << "  ERROR\n";
 							error_names.push_back(test_name);
+							delete_file(path_or_filename + test_name + ".PASSED");
+							string_to_file(path_or_filename + test_name + ".ERROR", "");
 						}
 					}
 				}

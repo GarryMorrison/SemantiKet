@@ -11,6 +11,8 @@
 *.test.PASSED
 *.test.FAILED
 *.log
+*.PASSED
+*.ERROR
 log__*
 
 # User-specific files
