@@ -1,0 +1,11 @@
+// simple ranges
+// Added: 2023-7-16
+
+// define a ket range:
+range-ket = |1> .. |10>
+
+// define an op-ket range:
+range-op-ket = start |idx> .. end |idx>
+
+// define an id range:
+range-id = start .. stop
