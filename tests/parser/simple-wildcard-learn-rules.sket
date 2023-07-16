@@ -1,0 +1,11 @@
+// simple wildcard learn rules
+// Added: 2023-7-16
+
+// sigmoid wildcards:
+clean . #=> |do clean>
+
+// ket wildcards, with self-ket:
+plural * #=> _self _ |s>
+
+// sp wildcards:
+fn ** #=> |do sp fn>
