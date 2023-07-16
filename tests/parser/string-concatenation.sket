@@ -1,0 +1,8 @@
+// test string concatenation using chain-kets
+// Added: 2023-7-16
+
+// simple string concatenation:
+the |string> => |alpha> __ |beta> __ |gamma>
+
+// test string concatenation of chain-kets:
+another |string> => op2 op1 3 |alpha> _ 5 op3 |beta> :_ 7 |gamma> __ |delta>
