@@ -59,22 +59,38 @@ bool create_directory(const std::string& path)
     }
 }
 
-bool delete_file(const std::string& filename)
+bool delete_file(const std::string& filename, bool verbose)
 {
     if (std::filesystem::exists(filename)) {
         if (std::filesystem::remove(filename)) {
-            std::cout << "File deleted: " << filename << std::endl;
+            if (verbose)
+            {
+                std::cout << "File deleted: " << filename << std::endl;
+            }
             return true;
         }
         else {
-            std::cerr << "Failed to delete file: " << filename << std::endl;
+            if (verbose)
+            {
+                std::cerr << "Failed to delete file: " << filename << std::endl;
+            }
             return false;
         }
     }
     else {
-        std::cout << "File does not exist: " << filename << std::endl;
+        if (verbose)
+        {
+            std::cout << "File does not exist: " << filename << std::endl;
+        }
         return false;
     }
+}
+
+std::string remove_extension(const std::string& filename, const std::string& ext)
+{
+    size_t ext_pos = filename.rfind(ext);
+    if (ext_pos == std::string::npos) { return filename; }
+    return filename.substr(0, ext_pos);
 }
 
 std::string getCurrentDateTimeString(const std::string& date_sep, const std::string& date_time_sep, const std::string& time_sep) {

@@ -45,6 +45,35 @@ int main(int argc, char* argv[])
 	if (argc > 2)
 	{
 		std::string mode(argv[1]);
+		std::string path(argv[2]);
+		UnitTest utest;
+
+		if (mode == "--test-parser-update-all")  // Update the parse results for all of our tests, over-writting previous parses.
+		{
+			utest.ParserUpdateAll(path);
+		}
+		else if (mode == "--test-parser-update-new")  // Update the parse results for tests that don't have parse results.
+		{
+			utest.ParserUpdateNew(path);
+		}
+		else if (mode == "--test-parser")  // Run parse tests on all the tests, and then compare with the previous parses (also, write output to screen and log file).
+		{
+			utest.ParserTest(path);
+		}
+		else
+		{
+			std::cout << "\nInvalid option: " << mode << "\n";
+			std::cout << "Valid options:\n";
+			std::cout << "    --test-parser-update-all\n";
+			std::cout << "    --test-parser-update-new\n";
+			std::cout << "    --test-parser\n\n";
+			return 1;
+		}
+	}
+
+	if (false && argc > 2)
+	{
+		std::string mode(argv[1]);
 		std::string path_or_filename(argv[2]);
 		std::string sket_extension = ".sket";
 		std::string parsed_extension = ".parsed.txt";
