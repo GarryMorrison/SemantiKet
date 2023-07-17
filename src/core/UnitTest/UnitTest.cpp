@@ -2,7 +2,7 @@
 #include "../misc/misc.h"
 extern SKet::Driver driver;
 
-bool UnitTest::ParserUpdateAll(const std::string& path)  // Update the parse results for all of our tests, over-writting previous parses.
+bool UnitTest::ParserUpdateAll(const std::string& path, bool with_png)  // Update the parse results for all of our tests, over-writting previous parses.
 {
 	std::string path_out = path + "out/";  // Is this / char platform specific?
 	if (!create_directory(path_out))
@@ -11,11 +11,11 @@ bool UnitTest::ParserUpdateAll(const std::string& path)  // Update the parse res
 		return false;
 	}
 	std::cout << "Updating all tests ... \n";
-	return ParseDirectory(path, path_out, false);
+	return ParseDirectory(path, path_out, false, "", with_png);
 	// return true;
 }
 
-bool UnitTest::ParserUpdateNew(const std::string& path)  // Update the parse results for tests that don't have parse results.
+bool UnitTest::ParserUpdateNew(const std::string& path, bool with_png)  // Update the parse results for tests that don't have parse results.
 {
 	std::string path_out = path + "out/";  // Is this / char platform specific?
 	if (!create_directory(path_out))
@@ -24,11 +24,11 @@ bool UnitTest::ParserUpdateNew(const std::string& path)  // Update the parse res
 		return false;
 	}
 	std::cout << "Updating new tests ... \n";
-	return ParseDirectory(path, path_out, true);
+	return ParseDirectory(path, path_out, true, "", with_png);
 	// return true;
 }
 
-bool UnitTest::ParserTest(const std::string& path)  // Run parse tests on all the tests, and then compare with the previous parses (also, write output to screen and log file).
+bool UnitTest::ParserTest(const std::string& path, bool with_png)  // Run parse tests on all the tests, and then compare with the previous parses (also, write output to screen and log file).
 {
 	std::string path_out = path + "out/";  // Is this / char platform specific?
 	std::string path_log = path + "log/";  // Is this / char platform specific?  // log/ or logs/ ?? Which do we prefer?
@@ -43,7 +43,7 @@ bool UnitTest::ParserTest(const std::string& path)  // Run parse tests on all th
 		return false;
 	}
 	std::cout << "Running all tests ... \n";
-	ParseDirectory(path, path_out, false, ".test");
+	ParseDirectory(path, path_out, false, ".test", with_png);
 	std::set<std::string> test_passed;
 	std::set<std::string> test_failed;
 	TestDirectory(path_out, ".parsed.txt", ".test.parsed.txt", test_passed, test_failed);
@@ -54,7 +54,7 @@ bool UnitTest::ParserTest(const std::string& path)  // Run parse tests on all th
 }
 
 
-bool UnitTest::ParseDirectory(const std::string& source, const std::string& destination, bool new_only, const std::string& prefix)
+bool UnitTest::ParseDirectory(const std::string& source, const std::string& destination, bool new_only, const std::string& prefix, bool with_png)
 {
 	if (std::filesystem::is_directory(source))
 	{
@@ -111,9 +111,13 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 					string_to_file(destination + parsed_file, text);
 
 					driver.tree.save_graph(destination + dot_file);
-					std::string dot_command = "dot -Tpng " + destination + dot_file + " > " + destination + png_file;
-					std::cout << "dot command: " << dot_command << "\n";
-					std::system(dot_command.c_str());
+
+					if (with_png)
+					{
+						std::string dot_command = "dot -Tpng " + destination + dot_file + " > " + destination + png_file;
+						std::cout << "dot command: " << dot_command << "\n";
+						std::system(dot_command.c_str());
+					}
 				}
 			}
 			return true;
