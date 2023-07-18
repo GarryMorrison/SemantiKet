@@ -151,20 +151,26 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 				if (path_name_string.rfind(ext1) != std::string::npos)
 				{
 					std::string test_name = remove_extension(path_name_string, ext1);
-					type_ext1.insert(test_name);
+					if (!has_extension(test_name))
+					{
+						type_ext1.insert(test_name);
+					}
 				}
 				if (path_name_string.rfind(ext2) != std::string::npos)
 				{
 					std::string test_name = remove_extension(path_name_string, ext2);
-					type_ext2.insert(test_name);
+					if (!has_extension(test_name))
+					{
+						type_ext2.insert(test_name);
+					}
 				}
 			}
 		}
-		std::set<std::string> common_names;  // find the intersection of type_ext1 and type_ext2.  Broken! eg, if example.parsed.txt doesn't exist. FIXME!
-		std::set_intersection(type_ext1.begin(), type_ext1.end(),
+		std::set<std::string> names;  // find the union of type_ext1 and type_ext2.
+		std::set_union(type_ext1.begin(), type_ext1.end(),
 			type_ext2.begin(), type_ext2.end(),
-			std::inserter(common_names, common_names.begin()));
-		for (const auto& name : common_names)
+			std::inserter(names, names.begin()));
+		for (const auto& name : names)
 		{
 			std::string file1 = source + name + ext1;
 			std::string file2 = source + name + ext2;
@@ -179,6 +185,7 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 				// std::cout << "    " << name << "  PASSED\n";
 				delete_file(source + name + ".FAILED", false);
 				string_to_file(source + name + ".PASSED", "");
+				// delete_file(source + name + ".diff.txt", false);  // Enable later.
 				passed_names.insert(name);
 			}
 			else
@@ -206,6 +213,15 @@ std::string UnitTest::GenerateReport(const std::set<std::string>& passed_names, 
 	report = "\n---------------------------------------\n";
 	report += "Date time: " + date_time + "\n";
 	report += "---------------------------------------\n";
+	report += "Failed:\n\n";
+	for (auto name : failed_names)
+	{
+		report += name + ":\n";
+		report += "=======================================\n";
+		report += failed_messages[name] + "\n";
+		report += "=======================================\n";
+	}
+	report += "---------------------------------------\n";
 	report += "Passed:\n";
 	for (auto name : passed_names)
 	{
@@ -216,7 +232,6 @@ std::string UnitTest::GenerateReport(const std::set<std::string>& passed_names, 
 	for (auto name : failed_names)
 	{
 		report += "    " + name + "\n";
-		report += failed_messages[name] + "\n";
 	}
 	report += "---------------------------------------\n";
 	report += "Summary:\n";

@@ -93,6 +93,15 @@ std::string remove_extension(const std::string& filename, const std::string& ext
     return filename.substr(0, ext_pos);
 }
 
+bool has_extension(const std::string& filename)
+{
+    if (filename.find(".") != std::string::npos)
+    {
+        return true;
+    }
+    return false;
+}
+
 std::string getCurrentDateTimeString(const std::string& date_sep, const std::string& date_time_sep, const std::string& time_sep) {
     auto now = std::chrono::system_clock::now();
     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
