@@ -15,6 +15,7 @@
 #include "core/Parser/Driver.h"
 #include "core/misc/misc.h"
 #include "core/UnitTest/UnitTest.h"
+#include "core/Diff/diff.h"
 
 // TODO: Reference additional headers your program requires here.
 

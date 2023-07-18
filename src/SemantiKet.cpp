@@ -59,6 +59,8 @@ int main(int argc, char* argv[])
 		else if (mode == "--test-parser")  // Run parse tests on all the tests, and then compare with the previous parses (also, write output to screen and log file).
 		{
 			utest.ParserTest(path);
+			std::cout << diff_compare_strings("Hello world", "Hello there, world!");
+			std::cout << diff_compare_strings("Fish soup", "rabbit soup thingy");
 		}
 		else if (mode == "--test-parser-update-all-with-png")  // Update the parse results for all of our tests, over-writting previous parses.
 		{

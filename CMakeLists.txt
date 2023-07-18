@@ -40,7 +40,9 @@ ADD_FLEX_BISON_DEPENDENCY(Lexer Parser)
 set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core/Parser/Scanner.h" "src/core/Parser/Serial.h")
 
 # Core source files:
-set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" "src/core/UnitTest/UnitTest.h" "src/core/UnitTest/UnitTest.cpp")
+set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 
+"src/core/UnitTest/UnitTest.h" "src/core/UnitTest/UnitTest.cpp"
+"src/core/Diff/diff_match_patch.h" "src/core/Diff/diff.h" "src/core/Diff/diff.cpp")
 
 # Add source to this project's executable.
 add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${Core_SRC})
