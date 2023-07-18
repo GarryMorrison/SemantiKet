@@ -3,6 +3,7 @@
 // #include "../../SemantiKet.h"
 #include <string>
 #include <set>
+#include <map>
 #include "../Parser/Driver.h"
 // class SKet::Driver;
 // extern SKet::Driver driver;
@@ -20,7 +21,7 @@ public:
 
 private:
 	bool ParseDirectory(const std::string& source, const std::string& destination, bool new_only, const std::string& prefix = "", bool with_png = false);
-	bool TestDirectory(const std::string& source, const std::string& ext1, const std::string& ext2, std::set<std::string>& passed_names, std::set<std::string>& failed_names);
-	std::string GenerateReport(const std::set<std::string>& passed_names, const std::set<std::string>& failed_names);
+	bool TestDirectory(const std::string& source, const std::string& ext1, const std::string& ext2, std::set<std::string>& passed_names, std::set<std::string>& failed_names, std::map<std::string, std::string>& failed_messages);
+	std::string GenerateReport(const std::set<std::string>& passed_names, const std::set<std::string>& failed_names, std::map<std::string, std::string>& failed_messages);
 	void WriteLog(const std::string& destination, const std::string& report);
 };

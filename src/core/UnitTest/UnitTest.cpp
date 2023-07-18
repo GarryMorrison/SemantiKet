@@ -46,8 +46,9 @@ bool UnitTest::ParserTest(const std::string& path, bool with_png)  // Run parse 
 	ParseDirectory(path, path_out, false, ".test", with_png);
 	std::set<std::string> test_passed;
 	std::set<std::string> test_failed;
-	TestDirectory(path_out, ".parsed.txt", ".test.parsed.txt", test_passed, test_failed);
-	std::string report = GenerateReport(test_passed, test_failed);
+	std::map<std::string, std::string> failed_messages;
+	TestDirectory(path_out, ".parsed.txt", ".test.parsed.txt", test_passed, test_failed, failed_messages);
+	std::string report = GenerateReport(test_passed, test_failed, failed_messages);
 	WriteLog(path_log, report);
 	std::cout << report;
 	return true;
@@ -135,7 +136,7 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 	}
 }
 
-bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1, const std::string& ext2, std::set<std::string>& set1, std::set<std::string>& set2)
+bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1, const std::string& ext2, std::set<std::string>& passed_names, std::set<std::string>& failed_names, std::map<std::string, std::string>& failed_messages)
 {
 	if (std::filesystem::is_directory(source))
 	{
@@ -171,19 +172,23 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 			// std::cout << name << "\n";
 			// std::cout << file1 << "\n";
 			// std::cout << file2 << "\n";
-			if (test_files_equal(file1, file2))
+			std::string the_diff = diff_compare_files(file1, file2);
+			// if (test_files_equal(file1, file2))
+			if (the_diff.empty())
 			{
 				// std::cout << "    " << name << "  PASSED\n";
 				delete_file(source + name + ".FAILED", false);
 				string_to_file(source + name + ".PASSED", "");
-				set1.insert(name);
+				passed_names.insert(name);
 			}
 			else
 			{
 				// std::cout << "    " << name << "  FAILED\n";
 				delete_file(source + name + ".PASSED", false);
 				string_to_file(source + name + ".FAILED", "");
-				set2.insert(name);
+				string_to_file(source + name + ".diff.txt", the_diff);
+				failed_names.insert(name);
+				failed_messages[name] = the_diff;
 			}
 		}
 	}
@@ -194,7 +199,7 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 	}
 }
 
-std::string UnitTest::GenerateReport(const std::set<std::string>& passed_names, const std::set<std::string>& failed_names)
+std::string UnitTest::GenerateReport(const std::set<std::string>& passed_names, const std::set<std::string>& failed_names, std::map<std::string, std::string>& failed_messages)
 {
 	std::string report;
 	std::string date_time = getCurrentDateTimeString();
@@ -211,6 +216,7 @@ std::string UnitTest::GenerateReport(const std::set<std::string>& passed_names, 
 	for (auto name : failed_names)
 	{
 		report += "    " + name + "\n";
+		report += failed_messages[name] + "\n";
 	}
 	report += "---------------------------------------\n";
 	report += "Summary:\n";
