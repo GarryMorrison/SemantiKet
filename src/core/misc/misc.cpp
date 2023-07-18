@@ -1,13 +1,16 @@
 #include "misc.h"
 
-std::string file_to_string(const std::string& filename)
+std::string file_to_string(const std::string& filename, bool verbose)
 {
     std::ifstream file_stream{filename};
 
     if (file_stream.fail())
     {
         // Error opening file.
-        std::cerr << "Failed to open file: " << filename << "\n";
+        if (verbose)
+        {
+            std::cerr << "Failed to open file: " << filename << "\n";
+        }
         return "";
     }
 
@@ -17,7 +20,10 @@ std::string file_to_string(const std::string& filename)
     if (file_stream.fail() && !file_stream.eof())
     {
         // Error reading file.
-        std::cerr << "Failed to read file: " << filename << "\n";
+        if (verbose)
+        {
+            std::cerr << "Failed to read file: " << filename << "\n";
+        }
         return "";
     }
 

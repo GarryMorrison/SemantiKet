@@ -75,12 +75,14 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 					std::string parsed_file = stem + prefix + ".parsed.txt";
 					std::string dot_file = stem + prefix + ".parsed.dot";
 					std::string png_file = stem + prefix + ".parsed.png";
+					std::string error_file = stem + prefix + ".error-message.txt";
 					std::string source_file = entry.path().string();
 
 					// Comment these out later ... when finished testing.
 					std::cout << "        " << parsed_file << "\n";
 					std::cout << "        " << dot_file << "\n";
 					std::cout << "        " << png_file << "\n";
+					std::cout << "        " << error_file << "\n";
 					std::cout << "        " << source_file << "\n";
 
 					if (new_only && std::filesystem::exists(destination + parsed_file))
@@ -97,13 +99,18 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 					driver.parse_file(source_file);
 					driver.tree.print();
 
-					/*
-					if (driver.parse_error)  // Implement later.
+					
+					if (driver.parse_error)
 					{
-						std::cout << "Parse error:\n";
-						std::cout << driver.parse_error_message;
+						// std::cout << "Parse error:\n";
+						// std::cout << driver.parse_error_message;
+						string_to_file(destination + error_file, driver.parse_error_message);
 					}
-					*/
+					else
+					{
+						delete_file(destination + error_file, false);
+					}
+					
 
 					std::string text = buffer.str();
 					// Restore original buffer before exiting
@@ -179,6 +186,7 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 			// std::cout << file1 << "\n";
 			// std::cout << file2 << "\n";
 			std::string the_diff = diff_compare_files(file1, file2);
+			std::string error_message = file_to_string(source + name + ".test.error-message.txt", false);  // Somewhere we need to delete these files...
 			// if (test_files_equal(file1, file2))
 			if (the_diff.empty())
 			{
@@ -186,7 +194,15 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 				delete_file(source + name + ".FAILED", false);
 				string_to_file(source + name + ".PASSED", "");
 				// delete_file(source + name + ".diff.txt", false);  // Enable later.
-				passed_names.insert(name);
+				if (error_message.empty())
+				{
+					passed_names.insert(name);
+				}
+				else
+				{
+					failed_names.insert(name);
+					failed_messages[name] = error_message;
+				}
 			}
 			else
 			{
@@ -196,6 +212,10 @@ bool UnitTest::TestDirectory(const std::string& source, const std::string& ext1,
 				string_to_file(source + name + ".diff.txt", the_diff);
 				failed_names.insert(name);
 				failed_messages[name] = the_diff;
+				if (!error_message.empty())
+				{
+					failed_messages[name] += "\n" + error_message;
+				}
 			}
 		}
 	}

@@ -74,5 +74,9 @@ namespace SKet {
 
         // Our parse tree:
         class Tree& tree;
+
+        // Our error objects:
+        bool parse_error = false;
+        std::string parse_error_message;
     };
 }

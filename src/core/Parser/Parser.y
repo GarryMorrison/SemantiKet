@@ -240,7 +240,15 @@ compound_fn_params: chain | chain COMMA compound_fn_params { $$ = new Tree("comp
 void SKet::Parser::error(const Parser::location_type& l, const std::string& m)
 {
     driver.error(l, m);
+    /*
     std::cout << "Error on token: " << driver.lexer->last_token.text;
     std::cout << ", line " << driver.lexer->last_token.line;
     std::cout << " column " << driver.lexer->last_token.col << "\n";
+    */
+    driver.parse_error_message = m;
+    driver.parse_error_message += "Error on token: " + driver.lexer->last_token.text;
+    driver.parse_error_message += ", line " + std::to_string(driver.lexer->last_token.line);
+    driver.parse_error_message += " column " + std::to_string(driver.lexer->last_token.col) + "\n";
+    std::cout << driver.parse_error_message;
+    driver.parse_error = true;
 }

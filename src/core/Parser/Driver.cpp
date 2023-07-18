@@ -30,6 +30,10 @@ namespace SKet {
 
     bool Driver::parse_stream(std::istream& in, const std::string& sname)
     {
+        // initialize our error objects:
+        parse_error = false;
+        parse_error_message.clear();
+
         streamname = sname;
 
         Scanner scanner(&in);
