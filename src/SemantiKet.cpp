@@ -76,12 +76,12 @@ int main(int argc, char* argv[])
 		{
 			std::cout << "\nInvalid option: " << mode << "\n";
 			std::cout << "Valid options:\n";
-			std::cout << "    --test-parser-update-all\n";
-			std::cout << "    --test-parser-update-new\n";
-			std::cout << "    --test-parser\n";
-			std::cout << "    --test-parser-update-all-with-png\n";
-			std::cout << "    --test-parser-update-new-with-png\n";
-			std::cout << "    --test-parser-with-png\n\n";
+			std::cout << "    --test-parser-update-all path-to-test-files/\n";
+			std::cout << "    --test-parser-update-new path-to-test-files/\n";
+			std::cout << "    --test-parser path-to-test-files/\n";
+			std::cout << "    --test-parser-update-all-with-png path-to-test-files/\n";
+			std::cout << "    --test-parser-update-new-with-png path-to-test-files/\n";
+			std::cout << "    --test-parser-with-png path-to-test-files/\n\n";
 			return 1;
 		}
 	}

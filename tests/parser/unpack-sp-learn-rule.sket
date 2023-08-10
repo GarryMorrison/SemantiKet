@@ -1,0 +1,14 @@
+// Test sp unpacking
+// Added 2023-8-11
+
+#context = |test superposition learn rule unpacking>
+
+list-of |weekdays> => |Monday> + |Tuesday> + |Wednesday> + |Thursday> + |Friday>
+list-of |weekend> => |Saturday> + |Sunday>
+
+open list-of |weekdays> => |9 am>
+open list-of |weekend> => |10:30 am>
+
+close list-of |weekdays> => |5 pm>
+close list-of |weekend> => |4 pm>
+

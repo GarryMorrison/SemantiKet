@@ -1,0 +1,13 @@
+// Test assigning and using contexts
+// Added 2023-8-11
+
+// Define our contexts:
+#global = |global context>
+#local1 = #global :_ |local 1>
+#local2 = #global :_ |local 2>
+
+// Switch to #local2 context:
+#local2
+
+// Switch to #global context:
+#global

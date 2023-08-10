@@ -82,6 +82,12 @@ std::string diff_compare_string_lines(const std::string& s1, const std::string& 
     return result;
 }
 
+std::string diff_patch_compare_strings(const std::string& s1, const std::string& s2)
+{
+    diff_match_patch<std::string> dmp;
+    return dmp.patch_toText(dmp.patch_make(s1, s2));
+}
+
 std::string diff_compare_files(const std::string& file1, const std::string& file2)
 {
     std::string text1 = file_to_string(file1);
@@ -93,4 +99,5 @@ std::string diff_compare_files(const std::string& file1, const std::string& file
     }
     return diff_compare_strings(text1, text2);
     // return diff_compare_string_lines(text1, text2);  // Broken for now!
+    // return diff_patch_compare_strings(text1, text2);
 }

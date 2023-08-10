@@ -1,0 +1,21 @@
+// test loading and printing contexts
+// Also test scoping inside operators
+// Added: 2023-8-11
+
+#context = |test constants and scope>
+
+load-constants * #=>
+    sqrt |2> => |1.41421356>
+    global e = 2.71828282845
+    global pi = 3.14159265358
+
+print-constants * #=>
+    sprint["sqrt 2: "] sqrt |2>
+    sprint["e: "] e
+    sprint["pi: "] pi
+
+// load them into memory:
+load-constants
+
+// print them:
+print-constants
