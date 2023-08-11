@@ -121,3 +121,105 @@ std::string getCurrentDateTimeString(const std::string& date_sep, const std::str
 
     return ss.str();
 }
+
+std::string indent(int width)
+{
+    std::string s;
+    for (int i = 0; i < width; i++)
+    {
+        s.append(" ");
+    }
+    return s;
+}
+
+std::string pad_digits(int number, int width)
+{
+    std::string str_number = std::to_string(number);
+    int number_width = static_cast<int>(str_number.size());
+    if (number_width >= width)
+    {
+        return str_number;
+    }
+    int delta_width = width - number_width;
+    std::string padding;
+    for (int i = 0; i < delta_width; i++)
+    {
+        padding.append("0");
+    }
+    return padding + str_number;
+}
+
+
+std::string format_string(std::string s, std::vector<std::string>& params)
+{
+    if (params.size() == 0)
+    {
+        return s;
+    }
+    size_t param_loc = s.find_first_of("{}");
+    if (param_loc == std::string::npos)
+    {
+        return s;
+    }
+    std::string result = s.substr(0, param_loc);
+    result.append(params[0]);
+    s = s.substr(param_loc + 2);
+    for (size_t i = 1; i < params.size(); i++)
+    {
+        param_loc = s.find_first_of("{}");
+        if (param_loc == std::string::npos)
+        {
+            return result + s;
+        }
+        std::string head = s.substr(0, param_loc);
+        result.append(head);
+        result.append(params[i]);
+        s = s.substr(param_loc + 2);
+    }
+    return result + s;
+}
+
+std::string format_string(std::string s, std::string p1)
+{
+    std::vector<std::string> params;
+    params.push_back(p1);
+    return format_string(s, params);
+}
+
+std::string format_string(std::string s, std::string p1, std::string p2)
+{
+    std::vector<std::string> params;
+    params.push_back(p1);
+    params.push_back(p2);
+    return format_string(s, params);
+}
+
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3)
+{
+    std::vector<std::string> params;
+    params.push_back(p1);
+    params.push_back(p2);
+    params.push_back(p3);
+    return format_string(s, params);
+}
+
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3, std::string p4)
+{
+    std::vector<std::string> params;
+    params.push_back(p1);
+    params.push_back(p2);
+    params.push_back(p3);
+    params.push_back(p4);
+    return format_string(s, params);
+}
+
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3, std::string p4, std::string p5)
+{
+    std::vector<std::string> params;
+    params.push_back(p1);
+    params.push_back(p2);
+    params.push_back(p3);
+    params.push_back(p4);
+    params.push_back(p5);
+    return format_string(s, params);
+}

@@ -24,6 +24,10 @@ int main(int argc, char* argv[])
 {
 	std::cout << "SemantiKet says hello ... " << std::endl;
 
+	// Test format code:
+	std::string our_format_string = "Format string: alpha = {}, beta = {}, gamma = {}\n";
+	std::cout << format_string(our_format_string, "a1", "b1", "c1");
+
 	// Access command-line arguments
 	for (int i = 0; i < argc; ++i) 
 	{

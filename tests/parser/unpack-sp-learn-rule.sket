@@ -12,3 +12,5 @@ open list-of |weekend> => |10:30 am>
 close list-of |weekdays> => |5 pm>
 close list-of |weekend> => |4 pm>
 
+// See what we now know:
+dump

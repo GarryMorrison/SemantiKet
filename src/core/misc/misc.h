@@ -14,3 +14,14 @@ std::string remove_extension(const std::string& filename, const std::string& ext
 bool has_extension(const std::string& filename);
 
 std::string getCurrentDateTimeString(const std::string& date_sep = "-", const std::string& date_time_sep = " ", const std::string& time_sep = ":");
+
+std::string indent(int width);
+std::string pad_digits(int number, int width);
+
+std::string format_string(std::string s, std::vector<std::string>& params);
+std::string format_string(std::string s, std::string p1);
+std::string format_string(std::string s, std::string p1, std::string p2);
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3);
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3, std::string p4);
+std::string format_string(std::string s, std::string p1, std::string p2, std::string p3, std::string p4, std::string p5);
+
