@@ -311,9 +311,13 @@ namespace SKet {
 
     void yyTOKEN::print()
     {
+        /*
         std::cout << "\nyytype: " << get_token_type(code) << "\n";
         std::cout << "line: " << line << ", column: " << col << "\n";
         std::cout << "scan: " << text << ", len: " << text.size() << "\n";
+        */
+        // std::cout << format_string(token_string, pad_digits(line, num_width), pad_digits(col, num_width), pad_str_right(get_token_type(code), str_width), text);
+        std::cout << format_string(token_string, pad_str(std::to_string(line), " ", num_width), pad_str(std::to_string(col), " ", num_width), pad_str_right(get_token_type(code), str_width), text);
     }
 
     std::string yyTOKEN::unescape(const std::string& sin)

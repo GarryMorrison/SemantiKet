@@ -45,6 +45,11 @@ namespace SKet {
         yyTOKEN() {};
         yyTOKEN(Parser::token_type token_code, const std::string& s, int lineno, int colno);
 
+        int num_width = 4;
+        int str_width = 20;
+        // std::string token_string = ">>>  LINE {}  COLUMN {}  TYPE {}  VALUE {}\n";
+        std::string token_string = ">>>  LINE {}  COLUMN {}\t{}{}\n";
+
         void print();
 
         std::string unescape(const std::string& sin);

@@ -149,6 +149,41 @@ std::string pad_digits(int number, int width)
     return padding + str_number;
 }
 
+std::string pad_str_right(std::string s, int width)
+{
+    int s_width = static_cast<int>(s.size());
+    if (s_width >= width)
+    {
+        return s;
+    }
+    int delta_width = width - s_width;
+    std::string padding;
+    for (int i = 0; i < delta_width; i++)
+    {
+        padding.append(" ");
+    }
+    return s + padding;
+}
+
+std::string pad_str(std::string s, std::string delim, int width, bool left)
+{
+    int s_width = static_cast<int>(s.size());
+    if (s_width >= width)
+    {
+        return s;
+    }
+    int delta_width = width - s_width;
+    std::string padding;
+    for (int i = 0; i < delta_width; i++)
+    {
+        padding.append(delim);
+    }
+    if (left)
+    {
+        return padding + s;
+    }
+    return s + padding;
+}
 
 std::string format_string(std::string s, std::vector<std::string>& params)
 {
