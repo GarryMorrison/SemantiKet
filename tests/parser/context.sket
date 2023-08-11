@@ -11,3 +11,11 @@
 
 // Switch to #global context:
 #global
+
+// Access context member objects:
+#local1.op
+#local2.foo[p1, p2, p3]
+
+// And in a chain:
+result = op3 #local2.bar[q1, q2] #local1.op2 op1 sp1
+

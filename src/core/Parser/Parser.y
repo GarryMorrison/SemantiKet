@@ -138,6 +138,8 @@
 %type <treeval> comparison
 %type <treeval> context_assignment
 %type <treeval> context_rhs
+%type <treeval> context_mbr
+%type <treeval> context_mbr_rhs
 
 
 %{
@@ -198,7 +200,8 @@ expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | sequence;
 chain: ID 
  | ID chain { $$ = new Tree("chain", 1170, $1, $2); }
  | number | number chain { $$ = new Tree("chain", 1170, $1, $2); }
- | compound_fn | compound_fn chain { $$ = new Tree("chain", 1170, $1, $2); };
+ | compound_fn | compound_fn chain { $$ = new Tree("chain", 1170, $1, $2); }
+ | context_mbr | context_mbr chain{ $$ = new Tree("chain", 1170, $1, $2); };
 
 // chain: op | op chain { $$ = new Tree("chain", 1050, $1, $2); }; // why does this produce shift-reduce errors?
 
@@ -253,8 +256,12 @@ context_assignment: CONTEXT_ID EQUAL context_rhs { $$ = new Tree("context assign
 
 context_rhs: LITERAL_KET
 | LITERAL_KET STRING_OP context_rhs{ $$ = new Tree("context rhs", 1190, $1, $2, $3); }
-    | CONTEXT_ID
-    | CONTEXT_ID STRING_OP context_rhs{ $$ = new Tree("context rhs", 1190, $1, $2, $3); }
+| CONTEXT_ID
+| CONTEXT_ID STRING_OP context_rhs{ $$ = new Tree("context rhs", 1190, $1, $2, $3); };
+
+context_mbr: CONTEXT_ID DOT context_mbr_rhs{ $$ = new Tree("context member", 1200, $1, $3); };
+context_mbr_rhs: ID | compound_fn;
+
 
 
 %% /*** Additional Code ***/
