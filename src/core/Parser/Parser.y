@@ -126,7 +126,8 @@
 %type <treeval> fn_params
 %type <treeval> compound_fn
 %type <treeval> compound_fn_params
-%type <treeval> id_or_chain_ket
+// %type <treeval> id_or_chain_ket
+%type <treeval> chain_or_chain_ket
 %type <treeval> range
 // %type <treeval> op
 %type <treeval> bra_ket
@@ -159,6 +160,7 @@ start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
 statements: statement | statement statements { $$ = new Tree("statements", 1010, $1, $2); };
 
 statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON ;
+// statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def;
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); };
 
@@ -186,12 +188,14 @@ wildcard: DOT | STAR | DSTAR;
 
 infix_op1: PLUS | MINUS | DOT;
 
-expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | number | ID chain | sequence ;  // Later swap in "ID chain" with "op chain"
+// expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | number | ID chain | sequence ;  // Later swap in "ID chain" with "op chain"
+// expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | number | sequence;  // Later swap in "ID chain" with "op chain"
+expr: CONTEXT_KET | BOOL_KET | LITERAL_BRA | sequence;
 
 chain: ID 
- | ID chain { $$ = new Tree("chain", 1050, $1, $2); }
- | number | number chain { $$ = new Tree("chain", 1050, $1, $2); }
- | compound_fn | compound_fn chain { $$ = new Tree("chain", 1050, $1, $2); };
+ | ID chain { $$ = new Tree("chain", 1170, $1, $2); }
+ | number | number chain { $$ = new Tree("chain", 1170, $1, $2); }
+ | compound_fn | compound_fn chain { $$ = new Tree("chain", 1170, $1, $2); };
 
 // chain: op | op chain { $$ = new Tree("chain", 1050, $1, $2); }; // why does this produce shift-reduce errors?
 
@@ -202,26 +206,33 @@ bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2); }
 
 // op: ID | number | compound_fn;  // why does this produce shift-reduce errors?
 
-// string_ket: literal_or_self_ket | literal_or_self_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
-string_ket: id_or_chain_ket | id_or_chain_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
-// | ID STRING_OP id_or_chain_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
-// | ID STRING_OP ID { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+//// string_ket: literal_or_self_ket | literal_or_self_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+// string_ket: id_or_chain_ket | id_or_chain_ket STRING_OP string_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+//// | ID STRING_OP id_or_chain_ket { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+//// | ID STRING_OP ID { $$ = new Tree("string ket", 1060, $1, $2, $3); };
+string_ket: chain_or_chain_ket | chain_or_chain_ket STRING_OP string_ket{ $$ = new Tree("string ket", 1060, $1, $2, $3); };
 
 literal_or_self_ket: LITERAL_KET | SELF_KET | DSELF_KET;
 
 chain_ket: literal_or_self_ket | chain literal_or_self_ket { $$ = new Tree("chain ket", 1070, $1, $2); };
 
-id_or_chain_ket: ID | chain_ket;
+// id_or_chain_ket: ID | chain_ket;
+
+chain_or_chain_ket: chain | chain_ket;
 
 ket: string_ket ;
 
-range: id_or_chain_ket RANGE id_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3); }
-| id_or_chain_ket RANGE id_or_chain_ket RANGE id_or_chain_ket { $$ = new Tree("range", 1130, $1, $3, $5); };
+// range: id_or_chain_ket RANGE id_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3); }
+// | id_or_chain_ket RANGE id_or_chain_ket RANGE id_or_chain_ket { $$ = new Tree("range", 1130, $1, $3, $5); };
+range: chain_or_chain_ket RANGE chain_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3); }
+| chain_or_chain_ket RANGE chain_or_chain_ket RANGE chain_or_chain_ket{ $$ = new Tree("range", 1130, $1, $3, $5); };
+
 
 // equality: id_or_chain_ket EQUALITY id_or_chain_ket{ $$ = new Tree("equality", 1150, $1, $2, $3); };
 equality: ket_or_bracket_sequence EQUALITY ket_or_bracket_sequence { $$ = new Tree("equality", 1150, $1, $2, $3); };
 
-comparison: id_or_chain_ket COMPARISON id_or_chain_ket{ $$ = new Tree("comparison", 1160, $1, $2, $3); };
+// comparison: id_or_chain_ket COMPARISON id_or_chain_ket{ $$ = new Tree("comparison", 1160, $1, $2, $3); };
+comparison: chain_or_chain_ket COMPARISON chain_or_chain_ket{ $$ = new Tree("comparison", 1160, $1, $2, $3); };
 
 // function_def: ID LEFT_CURLY RIGHT_CURLY RULE id_or_sequence SEMICOLON{ $$ = new Tree("function def", 1090, $1, $4, $5); }
 // | ID LEFT_CURLY fn_params RIGHT_CURLY RULE id_or_sequence SEMICOLON { $$ = new Tree("function def", 1090, $1, $3, $5, $6); };
