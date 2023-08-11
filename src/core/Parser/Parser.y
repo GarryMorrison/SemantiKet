@@ -137,6 +137,7 @@
 %type <treeval> equality
 %type <treeval> comparison
 %type <treeval> context_assignment
+%type <treeval> context_rhs
 
 
 %{
@@ -161,7 +162,7 @@ start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
 
 statements: statement | statement statements { $$ = new Tree("statements", 1010, $1, $2); };
 
-statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment;
+statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID;
 // statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def;
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); };
@@ -247,7 +248,14 @@ compound_fn: ID LEFT_SQUARE compound_fn_params RIGHT_SQUARE { $$ = new Tree("com
 
 compound_fn_params: chain | chain COMMA compound_fn_params { $$ = new Tree("compound fn params", 1120, $1, $3); };
 
-context_assignment: CONTEXT_ID EQUAL LITERAL_KET { $$ = new Tree("context assignment", 1180, $1, $3); };
+// context_assignment: CONTEXT_ID EQUAL LITERAL_KET { $$ = new Tree("context assignment", 1180, $1, $3); };
+context_assignment: CONTEXT_ID EQUAL context_rhs { $$ = new Tree("context assignment", 1180, $1, $3); };
+
+context_rhs: LITERAL_KET
+| LITERAL_KET STRING_OP context_rhs{ $$ = new Tree("context rhs", 1190, $1, $2, $3); }
+    | CONTEXT_ID
+    | CONTEXT_ID STRING_OP context_rhs{ $$ = new Tree("context rhs", 1190, $1, $2, $3); }
+
 
 %% /*** Additional Code ***/
 
