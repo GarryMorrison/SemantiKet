@@ -122,6 +122,7 @@ typedef SKet::Parser::token_type token_type;
 "<=" { return scan(token::COMPARISON, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
+"#"[a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::CONTEXT_ID, yylval); }
 [a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::ID, yylval); }
 \"[^\"]*\"     { return scan(token::STRINGLIT, yylval); }
 "|"([^<|>]|"\\<"|"\\\|"|"\\>")*">" { return scan(token::LITERAL_KET, yylval); }
