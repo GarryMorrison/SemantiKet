@@ -185,6 +185,19 @@ std::string pad_str(std::string s, std::string delim, int width, bool left)
     return s + padding;
 }
 
+std::string float_to_str(double f, int digits)  // Not super happy with this implementation! What if the decimal points are all 0's?
+{
+    std::string s = std::to_string(f);
+    size_t dot_pos = s.find_first_of(".");
+    if (dot_pos == std::string::npos)  // Found an integer
+    {
+        return s;
+    }
+    std::string head = s.substr(0, dot_pos);
+    std::string tail = s.substr(dot_pos, digits + 1);
+    return head + tail;
+}
+
 std::string format_string(std::string s, std::vector<std::string>& params)
 {
     if (params.size() == 0)

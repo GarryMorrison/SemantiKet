@@ -28,6 +28,10 @@ int main(int argc, char* argv[])
 	std::string our_format_string = "Format string: alpha = {}, beta = {}, gamma = {}\n";
 	std::cout << format_string(our_format_string, "a1", "b1", "c1");
 
+	// Test float_to_str:
+	double f = 273.141592;
+	std::cout << "Float to string: " << float_to_str(f, 4) << "\n";
+
 	// Access command-line arguments
 	for (int i = 0; i < argc; ++i) 
 	{
