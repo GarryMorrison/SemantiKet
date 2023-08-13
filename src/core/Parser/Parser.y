@@ -107,6 +107,12 @@
 %token      LEFT_PAREN_COLON 292
 %token      RIGHT_PAREN_COLON 293
 %token <treeval> EQUAL_OP 294
+%token      FOR 295
+%token      IN 296
+%token      COLON 297
+%token      END_COLON 298
+%token <treeval> BREAK 299
+%token <treeval> CONTINUE 300
 
 
 %type <treeval> start
@@ -147,6 +153,9 @@
 %type <treeval> chain_mbrs
 %type <treeval> id_or_number
 %type <treeval> powered_op
+%type <treeval> for_statement
+%type <treeval> loop_block_statement
+%type <treeval> loop_block_statements
 
 
 
@@ -172,7 +181,7 @@ start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
 
 statements: statement | statement statements { $$ = new Tree("statements", 1010, $1, $2); };
 
-statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID;
+statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID | for_statement;
 // statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def;
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); }
@@ -284,6 +293,11 @@ context_rhs: LITERAL_KET
 context_mbr: CONTEXT_ID DOT context_mbr_rhs{ $$ = new Tree("context member", 1200, $1, $3); };
 context_mbr_rhs: ID | compound_fn;
 
+
+for_statement: FOR ID IN sequence COLON SEMICOLON loop_block_statements END_COLON{ $$ = new Tree("for statement", 1220, $2, $4, $7); };
+
+loop_block_statements: loop_block_statement | loop_block_statement loop_block_statements{ $$ = new Tree("loop block statements", 1230, $1, $2); }
+loop_block_statement: assignment | learn_rule | BREAK | CONTINUE;
 
 
 %% /*** Additional Code ***/

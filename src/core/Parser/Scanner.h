@@ -101,7 +101,13 @@ namespace SKet {
             {291, "POWER"},
             {292, "LEFT_PAREN_COLON"},
             {293, "RIGHT_PAREN_COLON"},
-            {294, "EQUAL_OP"}
+            {294, "EQUAL_OP"},
+            {295, "FOR"},
+            {296, "IN"},
+            {297, "COLON"},
+            {298, "END_COLON"},
+            {299, "BREAK"},
+            {300, "CONTINUE"}
         };
 
         std::string get_token_type(Parser::token_type token_code);
