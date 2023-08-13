@@ -98,7 +98,9 @@ namespace SKet {
             {288, "EQUALITY"},
             {289, "COMPARISON"},
             {290, "CONTEXT_ID"},
-            {291, "POWER"}
+            {291, "POWER"},
+            {292, "LEFT_PAREN_COLON"},
+            {293, "RIGHT_PAREN_COLON"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

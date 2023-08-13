@@ -114,6 +114,8 @@ typedef SKet::Parser::token_type token_type;
 ".." { return scan(token::RANGE, yylval); }
 "(" { return scan(token::LEFT_PAREN, yylval); }
 ")" { return scan(token::RIGHT_PAREN, yylval); }
+"(:" { return scan(token::LEFT_PAREN_COLON, yylval); }
+":)" { return scan(token::RIGHT_PAREN_COLON, yylval); }
 "==" { return scan(token::EQUALITY, yylval); }
 "!=" { return scan(token::EQUALITY, yylval); }
 ">" { return scan(token::COMPARISON, yylval); }

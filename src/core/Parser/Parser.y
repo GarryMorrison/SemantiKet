@@ -104,6 +104,9 @@
 %token <treeval> COMPARISON 289
 %token <treeval> CONTEXT_ID 290
 %token      POWER 291
+%token      LEFT_PAREN_COLON 292
+%token      RIGHT_PAREN_COLON 293
+
 
 
 %type <treeval> start
@@ -217,10 +220,11 @@ id_or_number: ID | number;
 
 chain_mbrs: ID | number | compound_fn | context_mbr;
 
-powered_op: chain_mbrs POWER id_or_number{ $$ = new Tree("powered operator", 1210, $1, $3); };
+powered_op: chain_mbrs POWER id_or_number{ $$ = new Tree("powered operator", 1210, $1, $3); }
  // | LEFT_PAREN chain RIGHT_PAREN POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); };  // a shift reduce conflict, bracket sequence presumably
  // | LEFT_CURLY chain RIGHT_CURLY POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); };  // a reduce reduce conflict!
  // | LEFT_SQUARE chain RIGHT_SQUARE POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); }; // also a shift reduce conflict.
+ | LEFT_PAREN_COLON chain RIGHT_PAREN_COLON POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); };
 
 
 bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2); }
