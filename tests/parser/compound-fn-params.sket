@@ -1,0 +1,7 @@
+// Test compound function parameter types
+// Added: 2023-8-13
+
+the |list> => split[", "] split[" and "] |alpha, beta, gamma and delta>
+
+table[name, how-many friends, *] rel-kets[age]
+

@@ -72,7 +72,8 @@
 %token <treeval> INT   257
 %token <treeval> FLOAT 258
 %token <treeval> ID 259
-%token <sval> STRINGLIT    260
+// %token <sval> STRINGLIT    260
+%token <treeval> STRINGLIT 260
 %token      SEMICOLON 261
 %token <treeval> CONTEXT_KET 262
 %token      OP_KET 263
@@ -137,6 +138,7 @@
 %type <treeval> fn_params
 %type <treeval> compound_fn
 %type <treeval> compound_fn_params
+%type <treeval> compound_fn_param
 // %type <treeval> id_or_chain_ket
 %type <treeval> chain_or_chain_ket
 %type <treeval> range
@@ -280,7 +282,9 @@ fn_params: ID | ID COMMA fn_params { $$ = new Tree("fn params", 1100, $1, $3); }
 
 compound_fn: ID LEFT_SQUARE compound_fn_params RIGHT_SQUARE { $$ = new Tree("compound fn", 1110, $1, $3); };
 
-compound_fn_params: chain | chain COMMA compound_fn_params { $$ = new Tree("compound fn params", 1120, $1, $3); };
+// compound_fn_params: chain | chain COMMA compound_fn_params { $$ = new Tree("compound fn params", 1120, $1, $3); };
+compound_fn_params: compound_fn_param | compound_fn_param COMMA compound_fn_params{ $$ = new Tree("compound fn params", 1120, $1, $3); };
+compound_fn_param: STAR | STRINGLIT | sequence;
 
 // context_assignment: CONTEXT_ID EQUAL LITERAL_KET { $$ = new Tree("context assignment", 1180, $1, $3); };
 context_assignment: CONTEXT_ID EQUAL context_rhs { $$ = new Tree("context assignment", 1180, $1, $3); };
