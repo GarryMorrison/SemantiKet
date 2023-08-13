@@ -8,11 +8,13 @@ load-constants * #=>
     sqrt |2> => |1.41421356>
     global e = 2.71828282845
     global pi = 3.14159265358
+    end:
 
 print-constants * #=>
     sprint["sqrt 2: "] sqrt |2>
     sprint["e: "] e
     sprint["pi: "] pi
+    end:
 
 // load them into memory:
 load-constants
