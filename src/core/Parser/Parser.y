@@ -114,6 +114,7 @@
 %token      END_COLON 298
 %token <treeval> BREAK 299
 %token <treeval> CONTINUE 300
+%token      GLOBAL 301
 
 
 %type <treeval> start
@@ -158,6 +159,10 @@
 %type <treeval> for_statement
 %type <treeval> loop_block_statement
 %type <treeval> loop_block_statements
+%type <treeval> global_assignment
+%type <treeval> multi_line_wildcard_learn_rule
+%type <treeval> block_statements
+%type <treeval> block_statement
 
 
 
@@ -183,12 +188,14 @@ start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
 
 statements: statement | statement statements { $$ = new Tree("statements", 1010, $1, $2); };
 
-statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID | for_statement;
+statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID | for_statement | multi_line_wildcard_learn_rule;
 // statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def;
 
 assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); }
 | ID EQUAL_OP expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $2, $3); };
 
+global_assignment: GLOBAL ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $2, $4); }
+| GLOBAL ID EQUAL_OP expr SEMICOLON{ $$ = new Tree("assignment", 1020, $2, $3, $4); };
 
 // learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3); };
@@ -211,6 +218,12 @@ id2_or_chain_ket: ID ID { $$ = new Tree("rule prefix", 1080, $1, $2); }
 wildcard_learn_rule: ID wildcard RULE sequence SEMICOLON{ $$ = new Tree("wildcard learn rule", 1050, $1, $2, $3, $4); };
 
 wildcard: DOT | STAR | DSTAR;
+
+multi_line_wildcard_learn_rule: ID wildcard RULE SEMICOLON block_statements SEMICOLON{ $$ = new Tree("multi line wildcard learn rule", 1250, $1, $2, $3, $5); };
+block_statements: block_statement | block_statement block_statements{ $$ = new Tree("block statements", 1260, $1, $2); };
+// block_statement: assignment | global_assignment | learn_rule | for_statement | sequence; // has conflicts!
+block_statement: assignment | global_assignment | learn_rule | for_statement;
+
 
 infix_op1: PLUS | MINUS | DOT;
 
@@ -302,6 +315,8 @@ for_statement: FOR ID IN sequence COLON SEMICOLON loop_block_statements END_COLO
 
 loop_block_statements: loop_block_statement | loop_block_statement loop_block_statements{ $$ = new Tree("loop block statements", 1230, $1, $2); }
 loop_block_statement: assignment | learn_rule | BREAK | CONTINUE;
+
+
 
 
 %% /*** Additional Code ***/

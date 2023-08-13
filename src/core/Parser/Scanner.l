@@ -133,6 +133,7 @@ typedef SKet::Parser::token_type token_type;
 "end:" { return scan(token::END_COLON, yylval); }
 "break" { return scan(token::BREAK, yylval); }
 "continue" { return scan(token::CONTINUE, yylval); }
+"global" { return scan(token::GLOBAL, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
 "#"[a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::CONTEXT_ID, yylval); }
@@ -194,6 +195,7 @@ namespace SKet {
         case Parser::token::RIGHT_SQUARE:
         case Parser::token::RIGHT_PAREN:
         case Parser::token::COLON:
+        case Parser::token::RULE:
             return true;
             break;
         default:
