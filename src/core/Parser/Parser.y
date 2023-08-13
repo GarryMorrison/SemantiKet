@@ -106,7 +106,7 @@
 %token      POWER 291
 %token      LEFT_PAREN_COLON 292
 %token      RIGHT_PAREN_COLON 293
-
+%token <treeval> EQUAL_OP 294
 
 
 %type <treeval> start
@@ -175,7 +175,9 @@ statements: statement | statement statements { $$ = new Tree("statements", 1010,
 statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def | chain SEMICOLON | context_assignment | CONTEXT_ID;
 // statement: SEMICOLON | assignment | learn_rule | wildcard_learn_rule | function_def;
 
-assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); };
+assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); }
+| ID EQUAL_OP expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $2, $3); };
+
 
 // learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3); };
