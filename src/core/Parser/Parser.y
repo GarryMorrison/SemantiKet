@@ -103,6 +103,7 @@
 %token <treeval> EQUALITY 288
 %token <treeval> COMPARISON 289
 %token <treeval> CONTEXT_ID 290
+%token      POWER 291
 
 
 %type <treeval> start
@@ -140,6 +141,10 @@
 %type <treeval> context_rhs
 %type <treeval> context_mbr
 %type <treeval> context_mbr_rhs
+%type <treeval> chain_mbrs
+%type <treeval> id_or_number
+%type <treeval> powered_op
+
 
 
 %{
@@ -201,11 +206,22 @@ chain: ID
  | ID chain { $$ = new Tree("chain", 1170, $1, $2); }
  | number | number chain { $$ = new Tree("chain", 1170, $1, $2); }
  | compound_fn | compound_fn chain { $$ = new Tree("chain", 1170, $1, $2); }
- | context_mbr | context_mbr chain{ $$ = new Tree("chain", 1170, $1, $2); };
+ | context_mbr | context_mbr chain{ $$ = new Tree("chain", 1170, $1, $2); }
+ | powered_op | powered_op chain{ $$ = new Tree("chain", 1170, $1, $2); };
 
 // chain: op | op chain { $$ = new Tree("chain", 1050, $1, $2); }; // why does this produce shift-reduce errors?
 
 number: INT | FLOAT | bra_ket;
+
+id_or_number: ID | number;
+
+chain_mbrs: ID | number | compound_fn | context_mbr;
+
+powered_op: chain_mbrs POWER id_or_number{ $$ = new Tree("powered operator", 1210, $1, $3); };
+ // | LEFT_PAREN chain RIGHT_PAREN POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); };  // a shift reduce conflict, bracket sequence presumably
+ // | LEFT_CURLY chain RIGHT_CURLY POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); };  // a reduce reduce conflict!
+ // | LEFT_SQUARE chain RIGHT_SQUARE POWER id_or_number{ $$ = new Tree("powered operator", 1210, $2, $5); }; // also a shift reduce conflict.
+
 
 bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2); }
  | LITERAL_BRA chain LITERAL_KET{ $$ = new Tree("bra ket", 1140, $1, $2, $3); };

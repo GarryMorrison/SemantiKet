@@ -1,0 +1,9 @@
+// Test powered operators
+// Added: 2023-8-13
+
+// powered operators in a chain:
+// a shift-reduce conflict currently:
+// result = op4 ( op3 op2 op1 ) ^ 7 5^v sp1
+
+// Maybe this instead??
+result = op4 : op3 op2 op1 : ^ 7 5^v sp1

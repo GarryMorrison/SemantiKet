@@ -1,0 +1,15 @@
+// test for loops:
+// Added: 2023-8-13
+
+// define a superposition:
+sp1 = |alpha> + |beta> + |gamma>
+
+// a standard for loop:
+idx = 0
+for k in sp1:
+    op k => k :_ Float2Ket idx
+    idx += 1
+end:
+
+// see what we now know:
+dump
