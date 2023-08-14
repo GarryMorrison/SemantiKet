@@ -197,8 +197,9 @@ assignment: ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $1, $3); 
 global_assignment: GLOBAL ID EQUAL expr SEMICOLON{ $$ = new Tree("assignment", 1020, $2, $4); }
 | GLOBAL ID EQUAL_OP expr SEMICOLON{ $$ = new Tree("assignment", 1020, $2, $3, $4); };
 
-// learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
+//// learn_rule: id2_or_chain_ket RULE id_or_sequence SEMICOLON { $$ = new Tree("learn rule", 1030, $1, $2, $3); };
 learn_rule: id2_or_chain_ket RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3); };
+// learn_rule: ID sequence RULE sequence SEMICOLON{ $$ = new Tree("learn rule", 1030, $1, $2, $3, $4); };
 
 // sequence: ket | ket infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
 sequence: ket_or_bracket_sequence | ket_or_bracket_sequence infix_op1 sequence { $$ = new Tree("sequence", 1040, $1, $2, $3); }
@@ -209,7 +210,8 @@ ket_or_bracket_sequence: ket | bracket_sequence;
 bracket_sequence: LEFT_PAREN sequence RIGHT_PAREN{ $$ = $2; };
 
 id2_or_chain_ket: ID ID { $$ = new Tree("rule prefix", 1080, $1, $2); }
- | ID ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2, $3); }
+ // | ID ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2, $3); }
+| ID LEFT_PAREN sequence RIGHT_PAREN { $$ = new Tree("rule prefix", 1080, $1, $3); }
 | ID LITERAL_KET { $$ = new Tree("rule prefix", 1080, $1, $2); };
 
 // id_or_sequence: ID | sequence;
@@ -271,7 +273,9 @@ string_ket: chain_or_chain_ket | chain_or_chain_ket STRING_OP string_ket{ $$ = n
 
 literal_or_self_ket: LITERAL_KET | SELF_KET | DSELF_KET;
 
-chain_ket: literal_or_self_ket | chain literal_or_self_ket { $$ = new Tree("chain ket", 1070, $1, $2); };
+// chain_ket: literal_or_self_ket | chain literal_or_self_ket { $$ = new Tree("chain ket", 1070, $1, $2); };
+chain_ket: literal_or_self_ket | chain literal_or_self_ket{ $$ = new Tree("chain ket", 1070, $1, $2); }
+ | chain bracket_sequence{ $$ = new Tree("chain ket", 1070, $1, $2); };
 
 // id_or_chain_ket: ID | chain_ket;
 
