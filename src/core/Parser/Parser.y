@@ -223,13 +223,14 @@ wildcard: DOT | STAR | DSTAR;
 
 multi_line_wildcard_learn_rule: ID wildcard RULE SEMICOLON block_statements END_COLON{ $$ = new Tree("multi line wildcard learn rule", 1250, $1, $2, $3, $5); };
 block_statements: block_statement | block_statement block_statements{ $$ = new Tree("block statements", 1260, $1, $2); };
-// block_statements: block_statement SEMICOLON | block_statement SEMICOLON block_statements{ $$ = new Tree("block statements", 1260, $1, $3); };
-// block_statement: assignment | global_assignment | learn_rule | for_statement | sequence SEMICOLON; // sequence conflicts with learn_rule!
-// block_statement: assignment | global_assignment | learn_rule | for_statement;
-// block_statement: assignment | sequence SEMICOLON;
-// block_statement: assignment | global_assignment | for_statement | sequence SEMICOLON;
+//// block_statements: block_statement SEMICOLON | block_statement SEMICOLON block_statements{ $$ = new Tree("block statements", 1260, $1, $3); };
+//// block_statement: assignment | global_assignment | learn_rule | for_statement | sequence SEMICOLON; // sequence conflicts with learn_rule!
+//// block_statement: assignment | global_assignment | learn_rule | for_statement;
+//// block_statement: assignment | sequence SEMICOLON;
+//// block_statement: assignment | global_assignment | for_statement | sequence SEMICOLON;
 block_statement: assignment | global_assignment | for_statement | learn_rule | chain SEMICOLON;
-// block_statement: assignment | global_assignment | learn_rule SEMICOLON | for_statement | sequence SEMICOLON; // sequence conflicts with learn_rule!
+//// block_statement: assignment | global_assignment | learn_rule SEMICOLON | for_statement | sequence SEMICOLON; // sequence conflicts with learn_rule!
+// block_statement: assignment | global_assignment | for_statement | learn_rule | chain_or_chain_ket SEMICOLON;
 
 
 infix_op1: PLUS | MINUS | DOT;
