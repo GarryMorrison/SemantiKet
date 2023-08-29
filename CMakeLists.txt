@@ -47,6 +47,10 @@ set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp"
 # Add source to this project's executable.
 add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${Core_SRC})
 
+# Add counterexample compile flag for bison:
+# Nope! It doesn't work!
+# set_target_properties(SemantiKet PROPERTIES COMPILE_FLAGS "-Wcounterexamples")
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SemantiKet PROPERTY CXX_STANDARD 20)
 endif()
