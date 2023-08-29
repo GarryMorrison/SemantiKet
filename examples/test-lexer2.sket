@@ -1,0 +1,50 @@
+// define some contexts
+// context assignment:
+#context = |global context>
+#context1 = #context :_ |sub context>
+
+// switch context:
+#context1
+
+// context operators:
+#context.op
+#context3.foo[bar]
+
+
+// a chain and compound operator example:
+table[name, age, how-many friends, *] reverse rel-kets[age]
+
+// explicit ket sequence:
+sprint["sqrt 2: "] sqrt |2>
+
+// chain/sequence, with powered operators:
+print op4 ( op3 op2 op1) ^ 7 5^ k sp1
+
+
+// types of rule prefix:
+// ID ID:
+not no => yes
+
+// ID KET:
+age |Fred> => |37>
+
+// ID ( sequence ):
+open ( list-of weekdays ) => |9am>
+
+
+// sigmoid wildcard multi line operator:
+clean . #=>
+    if __self > 0:
+        return 1
+    else:
+        return 0
+    end:
+
+
+// for loop:
+for k in sp1:
+    block-statements
+end:
+
+
+empty = 0 ( sp1 + sp2 )
