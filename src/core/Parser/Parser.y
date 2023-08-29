@@ -24,7 +24,7 @@
 
  /* start symbol is named "start" */
 %start start
-// %start snazzle
+
 
     /* write out a header file containing the token defines */
 %defines
@@ -63,6 +63,7 @@
 %define lr.type ielr
 
 /* enable verbose output report: */
+// Switch off for release version
 %verbose
 
 
@@ -158,14 +159,9 @@ statements: statement
 | statement statements { $$ = new Tree("statements", 1010, $1, $2); }
 ;
 
-// statement: /* empty */   // causes 2 shift-reduce and 1 reduce-reduce error!
-// | context_assignment /* define context label */
-// | CONTEXT_ID /* context switch */
-// ;
-
 statement: context_assignment /* define context label */
 | CONTEXT_ID /* context switch */
-| chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */  // 4 shift/reduce conflicts!
+| chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
