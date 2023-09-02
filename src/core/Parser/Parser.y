@@ -132,6 +132,8 @@
 %type <treeval> context_op
 %type <treeval> context_op_type
 %type <treeval> chain
+%type <treeval> param_op
+%type <treeval> rhs_params
 
 
 
@@ -177,6 +179,16 @@ context_op: CONTEXT_ID DOT context_op_type{ $$ = new Tree("context op", 1040, $1
 ;
 
 context_op_type: ID
+| param_op
+;
+
+param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Tree("param op", 1050, $1, $3); }
+;
+
+rhs_params: STAR
+| chain /* later swap in sequence */
+| STAR COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
+| chain COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
 
 chain: ID
