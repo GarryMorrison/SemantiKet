@@ -164,7 +164,8 @@ statements: statement
 | statement statements { $$ = new Tree("statements", 1010, $1, $2); }
 ;
 
-statement: context_assignment /* define context label */
+statement: SEMICOLON /* seems we need this */
+| context_assignment /* define context label */
 | CONTEXT_ID /* context switch */
 | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 ;
