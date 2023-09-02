@@ -1,0 +1,17 @@
+// test cases for context
+// Added: 2023-9-2
+
+// context assignment:
+#context = |global context>
+#context1 = #context :_ |sub context>
+
+// switch context:
+#context1
+#context1.#parent
+#context1.#parent[2]
+#context1.#parent[k]
+
+// context operators:
+#context.op
+#context.foo[bar]
+
