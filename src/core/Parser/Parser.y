@@ -134,6 +134,7 @@
 %type <treeval> chain
 %type <treeval> param_op
 %type <treeval> rhs_params
+%type <treeval> number
 
 
 
@@ -192,9 +193,15 @@ rhs_params: STAR
 ;
 
 chain: ID
+| number
 | context_op
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
+;
+
+number: INT
+| FLOAT
 ;
 
 
