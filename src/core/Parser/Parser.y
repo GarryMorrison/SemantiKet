@@ -187,8 +187,10 @@ param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Tree("param op", 1050
 ;
 
 rhs_params: STAR
+| STRINGLIT
 | chain /* later swap in sequence */
 | STAR COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
+| STRINGLIT COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 | chain COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
 
