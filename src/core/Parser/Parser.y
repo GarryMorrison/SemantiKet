@@ -135,6 +135,7 @@
 %type <treeval> param_op
 %type <treeval> rhs_params
 %type <treeval> number
+%type <treeval> qualified_context
 
 
 
@@ -171,7 +172,8 @@ context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignm
 ;
 
 context_rhs: LITERAL_KET /* |some context> */
-| CONTEXT_ID /* #some-context */
+// | CONTEXT_ID /* #some-context */
+| qualified_context
 | LITERAL_KET STRING_OP context_rhs{ $$ = new Tree("context rhs", 1030, $1, $2, $3); }
 | CONTEXT_ID STRING_OP context_rhs{ $$ = new Tree("context rhs", 1030, $1, $2, $3); }
 ;
@@ -181,6 +183,11 @@ context_op: CONTEXT_ID DOT context_op_type{ $$ = new Tree("context op", 1040, $1
 
 context_op_type: ID
 | param_op
+;
+
+qualified_context: CONTEXT_ID
+| CONTEXT_ID DOT CONTEXT_ID{ $$ = new Tree("qualified context", 1080, $1, $3); }
+| CONTEXT_ID DOT CONTEXT_ID LEFT_SQUARE chain RIGHT_SQUARE{ $$ = new Tree("qualified context", 1080, $1, $3, $5); }
 ;
 
 param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Tree("param op", 1050, $1, $3); }
