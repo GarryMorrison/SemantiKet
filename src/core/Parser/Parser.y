@@ -195,9 +195,11 @@ rhs_params: STAR
 chain: ID
 | number
 | context_op
+| param_op
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 ;
 
 number: INT
