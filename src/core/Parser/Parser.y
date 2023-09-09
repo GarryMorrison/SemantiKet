@@ -147,6 +147,7 @@
 %type <treeval> sp_seq
 %type <treeval> seq_seq
 %type <treeval> minus_string_seq
+%type <treeval> assignment
 
 
 
@@ -187,6 +188,7 @@ statement: SEMICOLON /* seems we need this */
 | qualified_context
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 | chain_seq SEMICOLON
+| assignment SEMICOLON
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -300,6 +302,10 @@ minus_string_seq: string_seq
 seq_seq: sp_seq
 | sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
 ;
+
+assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); }
+;
+
 
 %% /*** Additional Code ***/
 

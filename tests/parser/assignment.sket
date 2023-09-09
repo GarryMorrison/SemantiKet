@@ -1,0 +1,15 @@
+// test simple assignment
+// Added: 2023/9/9
+
+// define an int:
+int = 3715
+
+// define a float:
+pi = 3.14159265
+
+// define a literal ket:
+Fred = |Fred Smith>
+
+// define a chain:
+foo = op3 op2 7.2 op1
+
