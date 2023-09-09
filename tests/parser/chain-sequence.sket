@@ -18,3 +18,8 @@ sprint (start .. end)
 
 // chain bracket range kets sequence:
 sprint (|1> .. |10> .. |2>)
+
+// test minus as a chain member:
+- sp2
+- - - sp3
+- 37 k1

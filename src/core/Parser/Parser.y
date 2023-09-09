@@ -221,11 +221,13 @@ rhs_params: STAR
 
 chain: ID
 | number
+| MINUS
 | context_op
 | param_op
 | powered_op
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
