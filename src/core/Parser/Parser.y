@@ -146,7 +146,8 @@
 
 // %right RIGHT_PAREN POWER
 // %right POWER
-// %right chain
+// %right chain  // error!
+%right LEFT_PAREN
 
 
 
