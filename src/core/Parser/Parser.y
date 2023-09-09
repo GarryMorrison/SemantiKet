@@ -140,6 +140,8 @@
 %type <treeval> chain_seq
 %type <treeval> ket_or_seq
 %type <treeval> ket
+%type <treeval> seq
+%type <treeval> string_seq
 
 
 
@@ -202,7 +204,8 @@ param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Tree("param op", 1050
 
 rhs_params: STAR
 | STRINGLIT
-| chain /* later swap in sequence */
+// | chain /* later swap in sequence */
+| seq
 | STAR COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 | STRINGLIT COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 | chain COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
@@ -240,6 +243,16 @@ ket: LITERAL_KET /* |some ket> */
 | DSELF_KET /* __self */
 | BOOL_KET /*  |yes> | |no> */
 ;
+
+seq: string_seq /* |alpha> :_ |beta> __ |gamma> */
+;
+
+string_seq: ket_or_seq
+| chain_seq
+| ket_or_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
+| chain_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
+;
+
 
 
 
