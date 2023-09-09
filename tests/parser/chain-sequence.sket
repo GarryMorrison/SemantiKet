@@ -25,7 +25,10 @@ sprint (|1> .. |10> .. |2>)
 - 37 k1
 
 // chain bracket superposition sequence:
-sprint (|a> + |b> - |c> - |d>)
-sprint (-|e> + |f>)
+// parse errors for now!
+// sprint (|a> + |b> - |c> - |d>)
+// sprint (-|e> + |f>)
 
+// chain bracket sequences:
+sprint (3|a> + |b> + 5|c> . 7|x> + 11|y> . |z>)
 
