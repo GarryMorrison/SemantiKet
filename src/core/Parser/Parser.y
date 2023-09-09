@@ -137,6 +137,9 @@
 %type <treeval> number
 %type <treeval> qualified_context
 %type <treeval> powered_op
+%type <treeval> chain_seq
+%type <treeval> ket_or_seq
+%type <treeval> ket
 
 
 
@@ -168,7 +171,8 @@ statement: SEMICOLON /* seems we need this */
 | context_assignment /* define context label */
 // | CONTEXT_ID /* context switch */
 | qualified_context
-| chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
+// | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
+| chain_seq SEMICOLON
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -222,6 +226,21 @@ number: INT
 
 powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); }
 ;
+
+chain_seq: chain
+| chain ket_or_seq{ $$ = new Tree("chain seq", 1100, $1, $2); }
+;
+
+ket_or_seq: ket
+// | LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; }
+;
+
+ket: LITERAL_KET /* |some ket> */
+| SELF_KET /* _self */
+| DSELF_KET /* __self */
+| BOOL_KET /*  |yes> | |no> */
+;
+
 
 
 %% /*** Additional Code ***/
