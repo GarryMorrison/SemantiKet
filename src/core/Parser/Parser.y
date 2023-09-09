@@ -142,6 +142,11 @@
 %type <treeval> ket
 %type <treeval> seq
 %type <treeval> string_seq
+%type <treeval> bracket_seq
+
+// %right RIGHT_PAREN POWER
+// %right POWER
+// %right chain
 
 
 
@@ -227,7 +232,8 @@ number: INT
 | FLOAT
 ;
 
-powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); }
+// powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); }
+powered_op: bracket_seq POWER number{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 
 chain_seq: chain
@@ -235,7 +241,11 @@ chain_seq: chain
 ;
 
 ket_or_seq: ket
-// | LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; }
+// | LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // 6 shift/reduce conflicts!
+// | bracket_seq // 5 shift/reduce conflicts
+;
+
+bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; }
 ;
 
 ket: LITERAL_KET /* |some ket> */
@@ -244,7 +254,7 @@ ket: LITERAL_KET /* |some ket> */
 | BOOL_KET /*  |yes> | |no> */
 ;
 
-seq: string_seq /* |alpha> :_ |beta> __ |gamma> */
+seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
 ;
 
 string_seq: ket_or_seq
