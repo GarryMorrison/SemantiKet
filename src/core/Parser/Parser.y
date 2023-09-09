@@ -83,7 +83,7 @@
 %token <treeval> STRINGLIT 260
 %token      SEMICOLON 261
 %token <treeval> CONTEXT_KET 262
-%token      OP_KET 263
+%token <treeval> OP_KET 263
 %token      CHAIN_KET 264
 %token      TYPE_KET 265
 %token <treeval> BOOL_KET 266
@@ -254,6 +254,7 @@ ket: LITERAL_KET /* |some ket> */
 | SELF_KET /* _self */
 | DSELF_KET /* __self */
 | BOOL_KET /*  |yes> | |no> */
+| OP_KET /* |op: age> */
 ;
 
 seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */

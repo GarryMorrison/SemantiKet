@@ -1,0 +1,15 @@
+// test chain sequences
+// Added: 2023/9/9
+
+// chain seq:
+sprint["sqrt 2: "] sqrt |2>
+
+// chain with seq parameters:
+recall[|op: age>, |Fred>]
+
+// table chain:
+table[name, age, how-many friends, *] reverse rel-kets[age]
+
+// chain bracket string sequence:
+sprint ( |alpha> :_ |beta> __ |gamma> _ |s> )
+
