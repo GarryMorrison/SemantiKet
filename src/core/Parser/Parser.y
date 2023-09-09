@@ -224,13 +224,13 @@ rhs_params: STAR
 
 chain: ID
 | number
-| MINUS
+// | MINUS
 | context_op
 | param_op
 | powered_op
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
+// | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
@@ -282,7 +282,7 @@ range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3)
 
 sp_seq: string_seq
 | string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
-// | string_seq MINUS sp_seq{ $$ = new Tree("sp seq", 1130, $1, $2); } // 6 shift/reduce conflicts
+| string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 ;
 
 seq_seq: sp_seq

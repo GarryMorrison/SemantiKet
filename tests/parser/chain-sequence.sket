@@ -20,13 +20,16 @@ sprint (start .. end)
 sprint (|1> .. |10> .. |2>)
 
 // test minus as a chain member:
+// disabled for now!
+/*
 - sp2
 - - - sp3
 - 37 k1
+*/
 
 // chain bracket superposition sequence:
 // parse errors for now!
-// sprint (|a> + |b> - |c> - |d>)
+sprint (|a> + |b> - |c> - |d>)
 // sprint (-|e> + |f>)
 
 // chain bracket sequences:
