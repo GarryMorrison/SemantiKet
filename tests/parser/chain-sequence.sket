@@ -28,10 +28,9 @@ sprint (|1> .. |10> .. |2>)
 */
 
 // chain bracket superposition sequence:
-// parse errors for now!
 sprint (|a> + |b> - |c> - |d>)
-// sprint (-|e> + |f>)
+sprint (-|e> + |f>)
 
 // chain bracket sequences:
-sprint (3|a> + |b> + 5|c> . 7|x> + 11|y> . |z>)
+sprint (3|a> + |b> + 5|c> . 7|x> - 11|y> . |z>)
 

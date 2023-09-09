@@ -146,6 +146,7 @@
 %type <treeval> range_seq
 %type <treeval> sp_seq
 %type <treeval> seq_seq
+%type <treeval> minus_string_seq
 
 
 
@@ -280,9 +281,20 @@ range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3)
 | string_seq RANGE string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
 ;
 
+/*
 sp_seq: string_seq
 | string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+;
+*/
+
+sp_seq: minus_string_seq
+| minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+| minus_string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+;
+
+minus_string_seq: string_seq
+| MINUS string_seq{ $$ = new Tree("minus string seq", 1150, $1, $2); }
 ;
 
 seq_seq: sp_seq
