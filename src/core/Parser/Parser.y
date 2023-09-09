@@ -243,7 +243,7 @@ chain_seq: chain
 
 ket_or_seq: ket
 // | LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // 6 shift/reduce conflicts!
-// | bracket_seq // 5 shift/reduce conflicts
+| bracket_seq // 5 shift/reduce conflicts
 ;
 
 bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; }
