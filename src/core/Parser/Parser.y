@@ -214,7 +214,7 @@ rhs_params: STAR
 | seq
 | STAR COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 | STRINGLIT COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
-| chain COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
+| seq COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
 
 chain: ID
