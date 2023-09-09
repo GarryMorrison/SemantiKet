@@ -143,6 +143,8 @@
 %type <treeval> seq
 %type <treeval> string_seq
 %type <treeval> bracket_seq
+%type <treeval> range_seq
+
 
 // %right RIGHT_PAREN POWER
 // %right POWER
@@ -258,6 +260,7 @@ ket: LITERAL_KET /* |some ket> */
 ;
 
 seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
+| range_seq /* start .. end | start .. end .. step */
 ;
 
 string_seq: ket_or_seq
@@ -266,7 +269,9 @@ string_seq: ket_or_seq
 | chain_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
 ;
 
-
+range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3); }
+| string_seq RANGE string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
+;
 
 
 %% /*** Additional Code ***/

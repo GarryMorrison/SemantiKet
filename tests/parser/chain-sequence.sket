@@ -13,3 +13,8 @@ table[name, age, how-many friends, *] reverse rel-kets[age]
 // chain bracket string sequence:
 sprint ( |alpha> :_ |beta> __ |gamma> _ |s> )
 
+// chain bracket range sequence:
+sprint (start .. end)
+
+// chain bracket range kets sequence:
+sprint (|1> .. |10> .. |2>)
