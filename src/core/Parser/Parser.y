@@ -170,6 +170,11 @@
 // %nonassoc NO_RULE
 // %nonassoc RULE
 
+// This one works!
+%precedence ID
+%precedence LITERAL_KET
+%precedence LEFT_PAREN
+
 
 %{
 
@@ -320,8 +325,8 @@ learn_rule: rule_lhs RULE SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2); 
 
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 // | ID ket_or_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 6 S/R conflicts
-// | ID LITERAL_KET{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict
-// | ID bracket_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict
+| ID LITERAL_KET{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict // fixed!
+| ID bracket_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict // fixed!
 | ID wildcard{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 ;
 
