@@ -150,6 +150,7 @@
 %type <treeval> assignment
 %type <treeval> learn_rule
 %type <treeval> rule_lhs
+%type <treeval> wildcard
 
 
 
@@ -311,7 +312,7 @@ learn_rule: rule_lhs RULE SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2); 
 
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 // | ID ket_or_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 6 S/R conflicts
-| ID wildcard
+| ID wildcard{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 ;
 
 wildcard: DOT
