@@ -148,6 +148,8 @@
 %type <treeval> seq_seq
 %type <treeval> minus_string_seq
 %type <treeval> assignment
+%type <treeval> learn_rule
+%type <treeval> rule_lhs
 
 
 
@@ -192,6 +194,7 @@ statement: SEMICOLON /* seems we need this */
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 | chain_seq SEMICOLON
 | assignment SEMICOLON
+| learn_rule
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -286,12 +289,6 @@ range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3)
 | string_seq RANGE string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
 ;
 
-/*
-sp_seq: string_seq
-| string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
-| string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
-;
-*/
 
 sp_seq: minus_string_seq
 | minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
@@ -308,6 +305,21 @@ seq_seq: sp_seq
 
 assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); }
 ;
+
+learn_rule: rule_lhs RULE SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2); } // Add rule_rhs when you are ready.
+;
+
+rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
+// | ID ket_or_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 6 S/R conflicts
+| ID wildcard
+;
+
+wildcard: DOT
+| STAR
+| DSTAR
+;
+
+
 
 
 %% /*** Additional Code ***/
