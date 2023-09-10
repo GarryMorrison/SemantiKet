@@ -166,6 +166,10 @@
 // %precedence LITERAL_KET
 // %precedence RULE
 
+// Nope, doesn't work either!
+// %nonassoc NO_RULE
+// %nonassoc RULE
+
 
 %{
 
@@ -259,7 +263,8 @@ powered_op: LEFT_PAREN_COLON chain RIGHT_PAREN_COLON POWER number{ $$ = new Tree
 ;
 
 chain_seq: chain
-| chain ket_or_seq{ $$ = new Tree("chain seq", 1100, $1, $2); }
+// | chain ket_or_seq %prec NO_RULE{ $$ = new Tree("chain seq", 1100, $1, $2); } // Nope. Doesn't help.
+| chain ket_or_seq { $$ = new Tree("chain seq", 1100, $1, $2); }
 ;
 
 ket_or_seq: ket
