@@ -173,14 +173,17 @@
 
 
 // This one works!
-%precedence ID
+// %precedence ID
 %precedence NO_LEFT_PAREN
-%precedence LITERAL_KET
+// %precedence LITERAL_KET
 %precedence LEFT_PAREN
 
 // This one doesn't
-// %precedence RULE
+// %precedence POWER
 // %precedence SEMICOLON
+
+// %right POWER
+// %right SEMICOLON
 
 
 %{
@@ -251,7 +254,7 @@ rhs_params: STAR
 | seq COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
 
-chain: ID
+chain: ID %prec NO_LEFT_PAREN
 | number %prec NO_LEFT_PAREN
 // | MINUS
 | context_op %prec NO_LEFT_PAREN
@@ -330,10 +333,16 @@ assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); }
 learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
 ;
 
+/*
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 // | ID ket_or_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 6 S/R conflicts
 | ID LITERAL_KET{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict // fixed!
 | ID bracket_seq{ $$ = new Tree("rule lhs", 1180, $1, $2); } // 1 S/R conflict // fixed!
+| ID wildcard{ $$ = new Tree("rule lhs", 1180, $1, $2); }
+;
+*/
+
+rule_lhs: chain_seq
 | ID wildcard{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 ;
 
