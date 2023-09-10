@@ -162,6 +162,9 @@
 // %precedence RIGHT_PAREN
 // %precedence POWER
 
+// Nope, doesn't work either!
+// %precedence LITERAL_KET
+// %precedence RULE
 
 
 %{
