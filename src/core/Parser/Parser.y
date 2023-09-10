@@ -178,7 +178,9 @@
 %precedence LITERAL_KET
 %precedence LEFT_PAREN
 
-
+// This one doesn't
+// %precedence RULE
+// %precedence SEMICOLON
 
 
 %{
@@ -325,7 +327,7 @@ seq_seq: sp_seq
 assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); }
 ;
 
-learn_rule: rule_lhs RULE SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2); } // Add rule_rhs when you are ready.
+learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
 ;
 
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
