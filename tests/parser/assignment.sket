@@ -14,4 +14,4 @@ Fred = |Fred Smith>
 foo = op3 op2 7.2 op1
 
 // define another chain:
-bar = op5 (op4 5 op3)^7 op2 op1 sp1
+bar = op5 {op4 5 op3}^7 op2^k op1 sp1

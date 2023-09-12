@@ -151,6 +151,8 @@
 %type <treeval> learn_rule
 %type <treeval> rule_lhs
 %type <treeval> wildcard
+%type <treeval> number_or_id
+%type <treeval> chain_mbrs
 
 
 
@@ -173,10 +175,10 @@
 
 
 // This one works!
-// %precedence ID
-%precedence NO_LEFT_PAREN
-// %precedence LITERAL_KET
-%precedence LEFT_PAREN
+//// %precedence ID
+//%precedence NO_LEFT_PAREN
+//// %precedence LITERAL_KET
+//%precedence LEFT_PAREN
 
 // This one doesn't
 // %precedence POWER
@@ -254,12 +256,17 @@ rhs_params: STAR
 | seq COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
 
-chain: ID %prec NO_LEFT_PAREN
-| number %prec NO_LEFT_PAREN
-// | MINUS
-| context_op %prec NO_LEFT_PAREN
-| param_op %prec NO_LEFT_PAREN
-| powered_op %prec NO_LEFT_PAREN
+// chain: ID %prec NO_LEFT_PAREN
+// | number %prec NO_LEFT_PAREN
+//// | MINUS
+// | context_op %prec NO_LEFT_PAREN
+// | param_op %prec NO_LEFT_PAREN
+// | powered_op %prec NO_LEFT_PAREN
+chain: ID
+| number
+| context_op
+| param_op
+| powered_op
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
@@ -272,9 +279,21 @@ number: INT
 | FLOAT
 ;
 
+number_or_id: number
+| ID
+;
+
+chain_mbrs: ID
+| number
+| context_op
+| param_op
+;
+
 // powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // 7 S/R conflicts
-powered_op: bracket_seq POWER number{ $$ = new Tree("powered op", 1090, $1, $3); }  // 6 S/R conflicts
+// powered_op: bracket_seq POWER number{ $$ = new Tree("powered op", 1090, $1, $3); }  // 6 S/R conflicts
 // powered_op: LEFT_PAREN_COLON chain RIGHT_PAREN_COLON POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // PAREN_COLON solves the shift/reduce for now.
+powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powered op", 1090, $2, $5); }
+| chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 
 chain_seq: chain
