@@ -125,6 +125,8 @@
 %token      DEF 302
 %token      CFOR 303
 %token      SFOR 304
+%token      RETURN 305
+
 
 
 %type <treeval> start
@@ -396,6 +398,7 @@ rule_rhs: seq
 ;
 
 end_or_return: END_COLON
+| RETURN seq{ $$ = new Tree("return seq", 1290, $2); }
 ;
 
 

@@ -1,0 +1,16 @@
+// learn rule examples
+// Added: 2023/9/13
+
+// simple plural rule:
+plural * #=> _self _ |s>
+
+// multi-line learn rule:
+learn-constants * #=>
+    global pi = 3.14159
+    global e = 2.71828
+    sqrt |2> => |1.4142>
+    return |blah>
+
+// simple learn rule:
+friends |Fred> => |Jack> + |Tom> + |Emma> + |Liz> + |Bella>
+
