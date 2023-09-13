@@ -122,6 +122,7 @@
 %token <treeval> BREAK 299
 %token <treeval> CONTINUE 300
 %token      GLOBAL 301
+%token      DEF 302
 
 
 %type <treeval> start
@@ -153,6 +154,9 @@
 %type <treeval> wildcard
 %type <treeval> number_or_id
 %type <treeval> chain_mbrs
+%type <treeval> fn_def
+// %type <treeval> fn_params
+%type <treeval> param_list
 
 
 
@@ -220,6 +224,7 @@ statement: SEMICOLON /* seems we need this */
 | chain_seq SEMICOLON
 | assignment SEMICOLON
 | learn_rule
+| fn_def
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -255,6 +260,23 @@ rhs_params: STAR
 | STRINGLIT COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 | seq COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
 ;
+
+// fn_def: DEF ID fn_params RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4, $5); }
+// ;
+
+// fn_params: /* empty */ { $$ = NULL; }
+// | LEFT_SQUARE RIGHT_SQUARE{ $$ = NULL; }
+// | LEFT_SQUARE param_list RIGHT_SQUARE{ $$ = new Tree("fn params", 1200, $2); }
+// ;
+
+fn_def: DEF ID RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
+| DEF ID LEFT_SQUARE RIGHT_SQUARE RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $5, $6); }
+| DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $4, $6, $7); }
+
+param_list: ID
+| ID COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+;
+
 
 // chain: ID %prec NO_LEFT_PAREN
 // | number %prec NO_LEFT_PAREN

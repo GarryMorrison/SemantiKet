@@ -1,0 +1,15 @@
+// function definitions
+// Added: 2023/9/13
+
+// sequence operator definition:
+def op #=> seq
+
+// empty parameter fn defintion:
+def op [] #=> seq
+
+// one parameter fn defintion:
+def fn [k] #=> seq
+
+// three parameter fn definition:
+def fn3 [k1, sp1, seq1] #=> seq
+

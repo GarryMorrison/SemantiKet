@@ -108,7 +108,8 @@ namespace SKet {
             {298, "END_COLON"},
             {299, "BREAK"},
             {300, "CONTINUE"},
-            {301, "GLOBAL"}
+            {301, "GLOBAL"},
+            {302, "DEF"}
         };
 
         std::string get_token_type(Parser::token_type token_code);
