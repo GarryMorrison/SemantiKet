@@ -10,7 +10,8 @@ learn-constants * #=>
     global e = 2.71828
     sqrt |2> => |1.4142>
     return |blah>
+end:
 
-// simple learn rule:
+// simple sp learn rule:
 friends |Fred> => |Jack> + |Tom> + |Emma> + |Liz> + |Bella>
 

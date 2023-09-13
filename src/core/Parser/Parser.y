@@ -168,7 +168,8 @@
 %type <treeval> cfor_statement
 %type <treeval> sfor_statement
 %type <treeval> rule_rhs
-%type <treeval> end_or_return
+// %type <treeval> end_or_return
+%type <treeval> return_seq
 
 
 
@@ -394,11 +395,17 @@ learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Tree("learn rule", 1170, 
 ;
 
 rule_rhs: seq
-| SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
+// | SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
+| SEMICOLON block_statements END_COLON{ $$ = new Tree("rule rhs", 1280, $2, $3); }
 ;
 
+/*
 end_or_return: END_COLON
-| RETURN seq{ $$ = new Tree("return seq", 1290, $2); }
+| return_seq
+;
+*/
+
+return_seq: RETURN seq{ $$ = new Tree("return seq", 1290, $2); }
 ;
 
 
@@ -433,6 +440,8 @@ block_statement: chain_seq SEMICOLON
 | for_statement
 | cfor_statement
 | sfor_statement
+// | end_or_return SEMICOLON // 2 S/R conflicts
+| return_seq SEMICOLON  // 1 S/R conflict
 ;
 
 
