@@ -109,7 +109,9 @@ namespace SKet {
             {299, "BREAK"},
             {300, "CONTINUE"},
             {301, "GLOBAL"},
-            {302, "DEF"}
+            {302, "DEF"},
+            {303, "CFOR"},
+            {304, "SFOR"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

@@ -128,6 +128,8 @@ typedef SKet::Parser::token_type token_type;
 "<=" { return scan(token::COMPARISON, yylval); }
 "^" { return scan(token::POWER, yylval); }
 "for" { return scan(token::FOR, yylval); }
+"cfor" { return scan(token::CFOR, yylval); }
+"sfor" { return scan(token::SFOR, yylval); }
 "in" { return scan(token::IN, yylval); }
 ":" { return scan(token::COLON, yylval); }
 "end:" { return scan(token::END_COLON, yylval); }
@@ -197,6 +199,7 @@ namespace SKet {
         case Parser::token::RIGHT_PAREN:
         case Parser::token::COLON:
         case Parser::token::RULE:
+        case Parser::token::END_COLON:
             return true;
             break;
         default:

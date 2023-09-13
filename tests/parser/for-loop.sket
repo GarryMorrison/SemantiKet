@@ -1,0 +1,15 @@
+// the for loop construct
+// Added: 2023/9/13
+
+// simple for loop over a range:
+for k in 1 .. 10:
+    print k
+end:
+
+// double for loop over ranges:
+for i in 1..10 .. 2:
+    for j in 10 .. 20:
+        print ( i :_ j )
+    end:
+end:
+

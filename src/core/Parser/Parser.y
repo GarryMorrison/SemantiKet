@@ -123,6 +123,8 @@
 %token <treeval> CONTINUE 300
 %token      GLOBAL 301
 %token      DEF 302
+%token      CFOR 303
+%token      SFOR 304
 
 
 %type <treeval> start
@@ -157,6 +159,12 @@
 %type <treeval> fn_def
 // %type <treeval> fn_params
 %type <treeval> param_list
+%type <treeval> global_assignment
+%type <treeval> for_statement
+%type <treeval> block_statements
+%type <treeval> block_statement
+%type <treeval> cfor_statement
+%type <treeval> sfor_statement
 
 
 
@@ -222,9 +230,12 @@ statement: SEMICOLON /* seems we need this */
 | qualified_context
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 | chain_seq SEMICOLON
-| assignment SEMICOLON
+| assignment SEMICOLON /* shift SEMICOLON into the assignment rule instead? */
 | learn_rule
 | fn_def
+| for_statement
+| cfor_statement
+| sfor_statement
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -368,7 +379,10 @@ seq_seq: sp_seq
 | sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
 ;
 
-assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); }
+assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); } /* Add SEMICOLON here? */
+;
+
+global_assignment: GLOBAL ID EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
 ;
 
 learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
@@ -392,7 +406,27 @@ wildcard: DOT
 | DSTAR
 ;
 
+for_statement: FOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("for statement", 1230, $2, $4, $7); }
+;
 
+block_statements: block_statement
+| block_statement block_statements{ $$ = new Tree("block statements", 1240, $1, $2); }
+;
+
+block_statement: chain_seq SEMICOLON
+| global_assignment
+| learn_rule
+| for_statement
+| cfor_statement
+| sfor_statement
+;
+
+
+cfor_statement: CFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("cfor statement", 1250, $2, $4, $7); }
+;
+
+sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("sfor statement", 1260, $2, $4, $7); }
+;
 
 
 %% /*** Additional Code ***/
