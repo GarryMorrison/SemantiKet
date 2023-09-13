@@ -81,7 +81,7 @@
 %token <treeval> ID 259
 // %token <sval> STRINGLIT    260
 %token <treeval> STRINGLIT 260
-%token      SEMICOLON 261
+%token <treeval> SEMICOLON 261
 %token <treeval> CONTEXT_KET 262
 %token <treeval> OP_KET 263
 %token      CHAIN_KET 264
@@ -118,7 +118,7 @@
 %token      FOR 295
 %token      IN 296
 %token      COLON 297
-%token      END_COLON 298
+%token <treeval> END_COLON 298
 %token <treeval> BREAK 299
 %token <treeval> CONTINUE 300
 %token      GLOBAL 301
@@ -165,6 +165,8 @@
 %type <treeval> block_statement
 %type <treeval> cfor_statement
 %type <treeval> sfor_statement
+%type <treeval> rule_rhs
+%type <treeval> end_or_return
 
 
 
@@ -385,8 +387,17 @@ assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); } /* Add SE
 global_assignment: GLOBAL ID EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
 ;
 
-learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
+// learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
+learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); }
 ;
+
+rule_rhs: seq
+| SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
+;
+
+end_or_return: END_COLON
+;
+
 
 /*
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
