@@ -183,6 +183,8 @@
 %type <treeval> comparison_expr
 %type <treeval> if_statement
 %type <treeval> expr
+%type <treeval> op_assignment
+%type <treeval> global_op_assignment
 
 
 
@@ -252,7 +254,8 @@ statement: SEMICOLON /* seems we need this */
 | qualified_context
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 | chain_seq SEMICOLON
-| assignment SEMICOLON /* shift SEMICOLON into the assignment rule instead? */
+| assignment
+| op_assignment
 | learn_rule
 | fn_def
 | for_statement
@@ -452,10 +455,16 @@ seq_seq: sp_seq
 | sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
 ;
 
-assignment: ID EQUAL seq{ $$ = new Tree("assignment", 1160, $1, $3); } /* Add SEMICOLON here? */
+assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
 ;
 
 global_assignment: GLOBAL ID EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
+;
+
+op_assignment: ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("op assignment", 1340, $1, $2, $3); }
+;
+
+global_op_assignment: GLOBAL ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("global op assignment", 1350, $2, $3, $4); }
 ;
 
 // learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
@@ -504,7 +513,10 @@ block_statements: block_statement
 
 block_statement: SEMICOLON
 | chain_seq SEMICOLON
+| assignment
+| op_assignment
 | global_assignment
+| global_op_assignment
 | learn_rule
 | for_statement
 | cfor_statement
