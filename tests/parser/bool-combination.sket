@@ -1,0 +1,10 @@
+// boolean operators
+// Added: 2023/9/13
+
+// simple boolean combination:
+if (k1 != k2) or (s1 == s2):
+    print |first branch>
+else:
+    print |second branch>
+end:
+
