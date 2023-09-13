@@ -176,7 +176,7 @@
 // %type <treeval> end_or_return
 %type <treeval> return_seq
 %type <treeval> arith_expr
-%type <treeval> mul_div
+// %type <treeval> mul_div
 
 
 
@@ -211,7 +211,9 @@
 // %right POWER
 // %right SEMICOLON
 
-// %left DPLUS DMINUS
+%left DPLUS DMINUS
+%left DSTAR DDIV
+%right DPOW DMOD
 
 
 %{
@@ -386,13 +388,19 @@ range_seq: arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3)
 | arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
 ;
 
-/* // 5 R/R conflicts!
+
 arith_expr: arith_expr DPLUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
 | arith_expr DMINUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DSTAR arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DDIV arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DPOW arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DMOD arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+// | LEFT_PAREN arith_expr RIGHT_PAREN{ $$ = $2; } // 1 S/R conflict // I think our grammar already handles this case!
 | string_seq
 ;
-*/
 
+
+/*
 arith_expr: mul_div
 | mul_div DPLUS arith_expr{ $$ = new Tree("arith expr", 1300, $1, $2, $3); }
 | mul_div DMINUS arith_expr{ $$ = new Tree("arith expr", 1300, $1, $2, $3); }
@@ -402,6 +410,7 @@ mul_div: string_seq
 | string_seq DSTAR mul_div{ $$ = new Tree("mul div", 1310, $1, $2, $3); }
 | string_seq DDIV mul_div{ $$ = new Tree("mul div", 1310, $1, $2, $3); }
 ;
+*/
 
 sp_seq: minus_string_seq
 | minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }

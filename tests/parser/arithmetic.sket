@@ -5,8 +5,12 @@
 r = 3 ++ 5 ** 7
 
 // more complex arithmetic:
-// r2 = 3 ++ 5 ** 7 ^^ 2
+r2 = 3 ++ 5 ** 7 ^^ 2
+
+// testing brackets:
+r3 = ((3 ++ 5) ** 7) ^^ 2
 
 // range over arithmetic:
 range = 3 ++ 5 .. 7 ** 11
+
 
