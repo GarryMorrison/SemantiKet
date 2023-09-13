@@ -1,0 +1,20 @@
+// if statement
+// Added: 2023/9/13
+
+// simple if statement:
+if 5 < 9:
+    print |less than>
+else:
+    print |greater than>
+end:
+
+// a function:
+def max[k1, k2] #=>
+    if k1 < k2:
+        return k2
+    else:
+        return k1
+    end:
+end:
+
+

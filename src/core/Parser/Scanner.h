@@ -117,7 +117,10 @@ namespace SKet {
             {307, "DMINUS"},
             {308, "DDIV"},
             {309, "DPOW"},
-            {310, "DMOD"}
+            {310, "DMOD"},
+            {311, "IF"},
+            {312, "WHILE"},
+            {313, "ELSE"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

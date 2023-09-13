@@ -143,6 +143,9 @@ typedef SKet::Parser::token_type token_type;
 "global" { return scan(token::GLOBAL, yylval); }
 "def" { return scan(token::DEF, yylval); }
 "return" { return scan(token::RETURN, yylval); }
+"if" { return scan(token::IF, yylval); }
+"while" { return scan(token::WHILE, yylval); }
+"else:" { return scan(token::ELSE, yylval); }
 [0-9]+\.[0-9]+ { return scan(token::FLOAT, yylval);  }
 [0-9]+ { return scan(token::INT, yylval); }
 "#"[a-zA-Z_][a-zA-Z0-9\-_]* { return scan(token::CONTEXT_ID, yylval); }

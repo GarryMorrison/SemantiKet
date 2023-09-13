@@ -131,6 +131,9 @@
 %token <treeval> DDIV 308
 %token <treeval> DPOW 309
 %token <treeval> DMOD 310
+%token <treeval> IF 311
+%token <treeval> WHILE 312
+%token <treeval> ELSE 313
 
 
 
@@ -178,6 +181,8 @@
 %type <treeval> arith_expr
 // %type <treeval> mul_div
 %type <treeval> comparison_expr
+%type <treeval> if_statement
+%type <treeval> expr
 
 
 
@@ -253,6 +258,7 @@ statement: SEMICOLON /* seems we need this */
 | for_statement
 | cfor_statement
 | sfor_statement
+| if_statement
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -297,9 +303,17 @@ rhs_params: STAR
 // | LEFT_SQUARE param_list RIGHT_SQUARE{ $$ = new Tree("fn params", 1200, $2); }
 // ;
 
+/*
 fn_def: DEF ID RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
 | DEF ID LEFT_SQUARE RIGHT_SQUARE RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $5, $6); }
 | DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $4, $6, $7); }
+;
+*/
+
+fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
+| DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $5, $6); }
+| DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $4, $6, $7); }
+;
 
 param_list: ID
 | ID COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
@@ -488,14 +502,16 @@ block_statements: block_statement
 | block_statement block_statements{ $$ = new Tree("block statements", 1240, $1, $2); }
 ;
 
-block_statement: chain_seq SEMICOLON
+block_statement: SEMICOLON
+| chain_seq SEMICOLON
 | global_assignment
 | learn_rule
 | for_statement
 | cfor_statement
 | sfor_statement
 // | end_or_return SEMICOLON // 2 S/R conflicts
-| return_seq SEMICOLON  // 1 S/R conflict
+| return_seq SEMICOLON
+| if_statement
 ;
 
 
@@ -503,6 +519,13 @@ cfor_statement: CFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICO
 ;
 
 sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("sfor statement", 1260, $2, $4, $7); }
+;
+
+if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5); }
+| IF expr COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5, $7); }
+;
+
+expr: comparison_expr
 ;
 
 
