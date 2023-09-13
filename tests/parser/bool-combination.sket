@@ -8,3 +8,7 @@ else:
     print |second branch>
 end:
 
+
+// boolean result:
+result = (k1 != k2) or (s1 == s2)
+
