@@ -112,7 +112,12 @@ namespace SKet {
             {302, "DEF"},
             {303, "CFOR"},
             {304, "SFOR"},
-            {305, "RETURN"}
+            {305, "RETURN"},
+            {306, "DPLUS"},
+            {307, "DMINUS"},
+            {308, "DDIV"},
+            {309, "DPOW"},
+            {310, "DMOD"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

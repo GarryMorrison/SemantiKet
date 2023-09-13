@@ -1,0 +1,12 @@
+// arithmetic
+// Added: 2023/9/13
+
+// simple arithmetic:
+r = 3 ++ 5 ** 7
+
+// more complex arithmetic:
+// r2 = 3 ++ 5 ** 7 ^^ 2
+
+// range over arithmetic:
+range = 3 ++ 5 .. 7 ** 11
+

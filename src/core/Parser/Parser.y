@@ -126,6 +126,11 @@
 %token      CFOR 303
 %token      SFOR 304
 %token      RETURN 305
+%token <treeval> DPLUS 306
+%token <treeval> DMINUS 307
+%token <treeval> DDIV 308
+%token <treeval> DPOW 309
+%token <treeval> DMOD 310
 
 
 
@@ -170,6 +175,8 @@
 %type <treeval> rule_rhs
 // %type <treeval> end_or_return
 %type <treeval> return_seq
+%type <treeval> arith_expr
+%type <treeval> mul_div
 
 
 
@@ -203,6 +210,8 @@
 
 // %right POWER
 // %right SEMICOLON
+
+// %left DPLUS DMINUS
 
 
 %{
@@ -358,6 +367,7 @@ ket: LITERAL_KET /* |some ket> */
 // seq: sp_seq
 seq: seq_seq
 | range_seq /* start .. end | start .. end .. step */
+// | arith_expr /* 3 ++ 5 ** 7 ^^ 2 */
 ;
 
 string_seq: ket_or_seq
@@ -366,19 +376,48 @@ string_seq: ket_or_seq
 | chain_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
 ;
 
+/*
 range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3); }
 | string_seq RANGE string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
 ;
+*/
 
+range_seq: arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3); }
+| arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
+;
+
+/* // 5 R/R conflicts!
+arith_expr: arith_expr DPLUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DMINUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| string_seq
+;
+*/
+
+arith_expr: mul_div
+| mul_div DPLUS arith_expr{ $$ = new Tree("arith expr", 1300, $1, $2, $3); }
+| mul_div DMINUS arith_expr{ $$ = new Tree("arith expr", 1300, $1, $2, $3); }
+;
+
+mul_div: string_seq
+| string_seq DSTAR mul_div{ $$ = new Tree("mul div", 1310, $1, $2, $3); }
+| string_seq DDIV mul_div{ $$ = new Tree("mul div", 1310, $1, $2, $3); }
+;
 
 sp_seq: minus_string_seq
 | minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | minus_string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 ;
 
+/*
 minus_string_seq: string_seq
 | MINUS string_seq{ $$ = new Tree("minus string seq", 1150, $1, $2); }
 ;
+*/
+
+minus_string_seq: arith_expr
+| MINUS arith_expr{ $$ = new Tree("minus string seq", 1150, $1, $2); }
+;
+
 
 seq_seq: sp_seq
 | sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
