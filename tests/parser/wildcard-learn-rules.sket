@@ -1,0 +1,21 @@
+// wild card learn rules
+// Added: 2023/9/13
+
+// the clean operator:
+clean . #=>
+    if __self > 0:
+        return 1
+    else:
+        return 0
+    end:
+end:
+
+// the measure currency operator:
+measure-currency ** #=>
+    r = 0
+    cfor c in __self:
+        r += c
+    end:
+    return r
+end:
+
