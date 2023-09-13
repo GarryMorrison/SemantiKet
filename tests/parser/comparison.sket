@@ -1,0 +1,10 @@
+// comparison
+// Added: 2023/9/13
+
+// simple comparison:
+result = 3 < 5
+
+// sp comparison:
+// should set r2 = |yes> + |no>
+r2 = 5 < 9 + 9 < 4
+

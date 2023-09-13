@@ -177,6 +177,7 @@
 %type <treeval> return_seq
 %type <treeval> arith_expr
 // %type <treeval> mul_div
+%type <treeval> comparison_expr
 
 
 
@@ -388,6 +389,8 @@ range_seq: arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3)
 | arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
 ;
 
+comparison_expr: arith_expr COMPARISON arith_expr{ $$ = new Tree("comparison", 1320, $1, $2, $3); }
+;
 
 arith_expr: arith_expr DPLUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
 | arith_expr DMINUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
@@ -415,6 +418,9 @@ mul_div: string_seq
 sp_seq: minus_string_seq
 | minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | minus_string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+| comparison_expr
+| comparison_expr PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+| comparison_expr MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 ;
 
 /*
