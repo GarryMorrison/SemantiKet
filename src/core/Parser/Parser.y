@@ -185,6 +185,7 @@
 %type <treeval> expr
 %type <treeval> op_assignment
 %type <treeval> global_op_assignment
+%type <treeval> while_statement
 
 
 
@@ -262,6 +263,7 @@ statement: SEMICOLON /* seems we need this */
 | cfor_statement
 | sfor_statement
 | if_statement
+| while_statement
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -524,6 +526,7 @@ block_statement: SEMICOLON
 // | end_or_return SEMICOLON // 2 S/R conflicts
 | return_seq SEMICOLON
 | if_statement
+| while_statement
 ;
 
 
@@ -540,6 +543,8 @@ if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree(
 expr: comparison_expr
 ;
 
+while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
+;
 
 %% /*** Additional Code ***/
 
