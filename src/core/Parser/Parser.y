@@ -186,6 +186,7 @@
 %type <treeval> op_assignment
 %type <treeval> global_op_assignment
 %type <treeval> while_statement
+%type <treeval> equality_expr
 
 
 
@@ -224,6 +225,7 @@
 %left DSTAR DDIV
 %right DPOW DMOD
 
+%left EQUALITY
 
 %{
 
@@ -390,6 +392,7 @@ ket: LITERAL_KET /* |some ket> */
 seq: seq_seq
 | range_seq /* start .. end | start .. end .. step */
 // | arith_expr /* 3 ++ 5 ** 7 ^^ 2 */
+| equality_expr  // 1 S/R conflict
 ;
 
 string_seq: ket_or_seq
@@ -543,6 +546,10 @@ if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree(
 ;
 
 expr: comparison_expr
+| equality_expr
+;
+
+equality_expr: seq EQUALITY seq{ $$ = new Tree("equality expr", 1370, $1, $2, $3); }
 ;
 
 while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }

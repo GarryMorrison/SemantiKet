@@ -1,0 +1,22 @@
+// testing equality
+// Added: 2023/9/13
+
+// test equality in an if statement:
+if |a> + |b> == |x> + |y> + |z>:
+    print |That doesn't make sense!>
+else:
+    print |ahh... good.>
+end:
+
+// test sequence equality:
+r1 = |t> . |h> . |e> != |t> . |e> . |h>
+
+// with brackets:
+r2 = (|t> . |h> . |e>) != (|t> . |e> . |h>)
+
+// test range equality:
+r3 = 1 .. 7 != 2 .. 5
+
+// with brackets:
+r4 = (1 .. 7) != (2 .. 5)
+
