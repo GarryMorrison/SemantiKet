@@ -527,6 +527,8 @@ block_statement: SEMICOLON
 | return_seq SEMICOLON
 | if_statement
 | while_statement
+| BREAK /* loop specific statement? */
+| CONTINUE /* loop specific statement? */
 ;
 
 
