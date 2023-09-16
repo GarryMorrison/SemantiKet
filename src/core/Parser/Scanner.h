@@ -56,8 +56,8 @@ namespace SKet {
 
         Parser::token_type code;  // Make these variables private?
         std::string text;
-        int line = 1;
-        int col = 1;
+        int line = -1;
+        int col = -1;
         int ival = 0;
         double dval = 0;
         std::string sval;
