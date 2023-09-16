@@ -1,0 +1,9 @@
+// bra-kets
+// Added: 2023/9/16
+
+// a simple bra-ket expression:
+r1 = <phi| |psi>
+
+// a bra-chain-ket expression:
+r2 = <psi| op3 op2 op1 |psi>
+

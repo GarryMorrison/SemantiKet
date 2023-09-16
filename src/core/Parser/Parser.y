@@ -192,6 +192,7 @@
 %type <treeval> id_bra_ket
 %type <treeval> init
 %type <treeval> init_list
+%type <treeval> bra_ket
 
 
 
@@ -348,12 +349,14 @@ chain: ID
 | context_op
 | param_op
 | powered_op
+| bra_ket
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| bra_ket chain{ $$ = new Tree("chain", 1070, $1, $2); }
 ;
 
 number: INT
@@ -590,6 +593,9 @@ init_list: ID
 | ID COMMA init_list{ $$ = new Tree("init list", 1400, $1, $3); }
 ;
 
+bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2); }
+| LITERAL_BRA chain LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2, $3); }
+;
 
 %% /*** Additional Code ***/
 
