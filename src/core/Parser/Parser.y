@@ -189,6 +189,7 @@
 %type <treeval> while_statement
 %type <treeval> equality_expr
 // %type <treeval> bool_expr
+%type <treeval> id_bra_ket
 
 
 
@@ -466,7 +467,8 @@ seq_seq: sp_seq
 | sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
 ;
 
-assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
+// assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
+assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
 ;
 
 global_assignment: GLOBAL ID EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
@@ -476,6 +478,11 @@ op_assignment: ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("op assignment", 1340, $
 ;
 
 global_op_assignment: GLOBAL ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("global op assignment", 1350, $2, $3, $4); }
+;
+
+id_bra_ket: ID
+| LITERAL_KET
+| LITERAL_BRA
 ;
 
 // learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.

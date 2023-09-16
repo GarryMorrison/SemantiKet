@@ -15,3 +15,10 @@ foo = op3 op2 7.2 op1
 
 // define another chain:
 bar = op5 {op4 5 op3}^7 op2^k op1 sp1
+
+// define a ket:
+|psi> = 1 .. 10
+
+// define a bra:
+<phi| = transpose |phi>
+
