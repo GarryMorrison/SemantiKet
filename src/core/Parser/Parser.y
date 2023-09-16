@@ -232,6 +232,7 @@
 %left DSTAR DDIV
 %right DPOW DMOD
 
+%left NO_LOGICAL_OP
 %left LOGICAL_OP
 %left EQUALITY
 
@@ -570,10 +571,12 @@ if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree(
 expr: comparison_expr
 | equality_expr
 // | bool_expr
+| chain_seq //%prec NO_LOGICAL_OP
 ;
 
 equality_expr: seq EQUALITY seq{ $$ = new Tree("equality expr", 1370, $1, $2, $3); }
 | seq LOGICAL_OP seq{ $$ = new Tree("bool expr", 1380, $1, $2, $3); }
+// | seq %prec NO_LOGICAL_OP // many S/R and R/R conflicts!
 ;
 
 // bool_expr: LEFT_PAREN equality_expr RIGHT_PAREN LOGICAL_OP LEFT_PAREN equality_expr RIGHT_PAREN{ $$ = new Tree("bool expr", 1380, $2, $4, $6); }// 1 S/R
