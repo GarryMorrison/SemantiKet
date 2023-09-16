@@ -190,6 +190,8 @@
 %type <treeval> equality_expr
 // %type <treeval> bool_expr
 %type <treeval> id_bra_ket
+%type <treeval> init
+%type <treeval> init_list
 
 
 
@@ -271,6 +273,7 @@ statement: SEMICOLON /* seems we need this */
 | sfor_statement
 | if_statement
 | while_statement
+| init
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -545,6 +548,7 @@ block_statement: SEMICOLON
 | while_statement
 | BREAK /* loop specific statement? */
 | CONTINUE /* loop specific statement? */
+| init
 ;
 
 
@@ -578,6 +582,14 @@ bool_expr: equality_expr
 
 while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
 ;
+
+init: INIT init_list SEMICOLON{ $$ = new Tree("init", 1390, $2); }
+;
+
+init_list: ID
+| ID COMMA init_list{ $$ = new Tree("init list", 1400, $1, $3); }
+;
+
 
 %% /*** Additional Code ***/
 
