@@ -19,3 +19,22 @@ measure-currency ** #=>
     return r
 end:
 
+// the drop operator:
+drop * #=>
+    if ket2coeff __self > 0:
+        return __self
+    end:
+end:
+
+// the sdrop operator:
+def sdrop #=>
+    init seq
+    sfor sp in __self0:
+        sp1 = drop sp
+        if do-you-know sp1:
+            seq .= sp1
+        end:
+    end:
+    return seq
+end:
+
