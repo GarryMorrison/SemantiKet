@@ -13,3 +13,6 @@ r2 = <psi| op3 op2 op1 |psi>
 |n> = |1> .. |10>
 r3 = <phi| |n> <n| |psi>
 
+// a test of exponentiation:
+r4 = <psi| op7 3.5 op6 |psi> ^ 2
+

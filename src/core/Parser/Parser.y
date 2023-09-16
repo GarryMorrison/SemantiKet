@@ -373,6 +373,7 @@ chain_mbrs: ID
 | number
 | context_op
 | param_op
+| bra_ket
 ;
 
 // powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // 7 S/R conflicts
