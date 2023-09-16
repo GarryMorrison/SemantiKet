@@ -16,3 +16,6 @@ def fn3 [k1, sp1, seq1] #=> seq
 // star parameters fn defintion:
 def fn2 [*, *] #=> seq
 
+// Kanerva d metric:
+def d [p1, p2] #=> how-many XOR[clean p2] clean p1
+

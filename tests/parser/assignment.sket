@@ -22,3 +22,6 @@ bar = op5 {op4 5 op3}^7 op2^k op1 sp1
 // define a bra:
 <phi| = transpose |phi>
 
+// something more interesting:
+result = then read[1, 3] clean drop-below[0.85] similar-input[pattern] input
+
