@@ -1,0 +1,7 @@
+// test such-that example
+// Added: 2023/9/16
+
+// such-that logical example:
+result = such-that[__self0 > 3 and __self0 < 7] input
+
+
