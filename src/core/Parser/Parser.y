@@ -134,6 +134,7 @@
 %token <treeval> IF 311
 %token <treeval> WHILE 312
 %token <treeval> ELSE 313
+%token <treeval> INIT 314
 
 
 

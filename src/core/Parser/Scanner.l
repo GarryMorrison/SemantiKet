@@ -101,6 +101,7 @@ typedef SKet::Parser::token_type token_type;
 "-=" { return scan(token::EQUAL_OP, yylval); }
 "*=" { return scan(token::EQUAL_OP, yylval); }
 "/=" { return scan(token::EQUAL_OP, yylval); }
+".=" { return scan(token::EQUAL_OP, yylval); }
 "+" { return scan(token::PLUS, yylval); }
 "-" { return scan(token::MINUS, yylval); }
 "." { return scan(token::DOT, yylval); }
@@ -141,6 +142,7 @@ typedef SKet::Parser::token_type token_type;
 "break" { return scan(token::BREAK, yylval); }
 "continue" { return scan(token::CONTINUE, yylval); }
 "global" { return scan(token::GLOBAL, yylval); }
+"init" { return scan(token::INIT, yylval); }
 "def" { return scan(token::DEF, yylval); }
 "return" { return scan(token::RETURN, yylval); }
 "if" { return scan(token::IF, yylval); }
