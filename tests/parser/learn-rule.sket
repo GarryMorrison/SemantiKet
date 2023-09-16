@@ -15,3 +15,6 @@ end:
 // simple sp learn rule:
 friends |Fred> => |Jack> + |Tom> + |Emma> + |Liz> + |Bella>
 
+// another sp learn rule:
+friends |Sam> => split[" "] |Fred Emma Robert Julie>
+
