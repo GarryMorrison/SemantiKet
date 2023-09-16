@@ -328,6 +328,8 @@ fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4
 
 param_list: ID
 | ID COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+| STAR
+| STAR COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
 ;
 
 
