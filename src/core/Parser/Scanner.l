@@ -91,6 +91,7 @@ typedef SKet::Parser::token_type token_type;
 "xor" { return scan(token::LOGICAL_OP, yylval); }
 "_self" { return scan(token::SELF_KET, yylval); }
 "__self" { return scan(token::DSELF_KET, yylval); }
+"__self"[0-9]+ { return scan(token::DSELFK_KET, yylval); }
 "=>" { return scan(token::RULE, yylval); }
 "+=>" { return scan(token::RULE, yylval); }
 ".=>" { return scan(token::RULE, yylval); }

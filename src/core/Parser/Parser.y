@@ -135,6 +135,7 @@
 %token <treeval> WHILE 312
 %token <treeval> ELSE 313
 %token <treeval> INIT 314
+%token <treeval> DSELFK_KET 315
 
 
 
@@ -398,6 +399,7 @@ ket: LITERAL_KET /* |some ket> */
 | DSELF_KET /* __self */
 | BOOL_KET /*  |yes> | |no> */
 | OP_KET /* |op: age> */
+| DSELFK_KET /* __self0 | __self1 | ... */
 ;
 
 // seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
