@@ -12,3 +12,6 @@ end:
 // boolean result:
 result = (k1 != k2) or (s1 == s2)
 
+// testing that "not" works:
+r2 = not (s1 != s2) or (k1 > k2)
+
