@@ -471,13 +471,13 @@ seq_seq: sp_seq
 assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
 ;
 
-global_assignment: GLOBAL ID EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
+global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
 ;
 
-op_assignment: ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("op assignment", 1340, $1, $2, $3); }
+op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Tree("op assignment", 1340, $1, $2, $3); }
 ;
 
-global_op_assignment: GLOBAL ID EQUAL_OP seq SEMICOLON{ $$ = new Tree("global op assignment", 1350, $2, $3, $4); }
+global_op_assignment: GLOBAL id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Tree("global op assignment", 1350, $2, $3, $4); }
 ;
 
 id_bra_ket: ID
