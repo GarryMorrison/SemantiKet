@@ -257,7 +257,22 @@ namespace SKet {
 
     Parser::token_type Scanner::scan(Parser::token_type cat, Parser::semantic_type* yylval)
     {
-        yytoken = yyTOKEN(cat, yytext, yylineno, yycolno);
+        switch (cat)
+        {
+        case Parser::token::STRINGLIT:  // strip " from string literals
+        case Parser::token::LITERAL_KET: // strip | and > from kets
+        case Parser::token::LITERAL_BRA: // strip < and | from bras
+        {
+            std::string s1(yytext);
+            std::string s2 = s1.substr(1, s1.size() - 2);
+            yytoken = yyTOKEN(cat, s2, yylineno, yycolno);
+            break;
+        }
+        default:
+            yytoken = yyTOKEN(cat, yytext, yylineno, yycolno);
+        }
+
+        // yytoken = yyTOKEN(cat, yytext, yylineno, yycolno);
         if (cat == Parser::token::SEMICOLON)  // Is this the cleanest way to handle the semicolon injection case?
         {
             yytoken.text = ";";
