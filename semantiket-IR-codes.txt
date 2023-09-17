@@ -1,0 +1,167 @@
+// This document describes the IR (internal representation) for the SKet compiler/interpreter.
+// Note in the scheme of things, this is going to be a very high level IR
+// and will be tightly coupled to the SKet langauge (Ie, it is CISC not RISC). This goes against conventions, but I feel this approach is needed.
+// This is a draft document, and changes will be made as needed.
+//
+// Author: Garry Morrison
+// Created: 2023-8-8
+// Updated: 2023-9-17
+
+// SKet has seven data types: bool, float, string, sequence, operator, function and context.
+// Bool parameters will be represented using: B_i  // immediate value
+// Float parameters will be represented using F_i  // immediate value
+// String parameters will be represented using s_i  // by reference
+// Sequence parameters will be represented using S_i // by reference
+// Operators will be represented using O_i
+// Functions will be represented using Fn_i  // by reference, I think ....
+// Context parameters will be represented using C_i  // by reference
+// Labels are labeled using L_i
+
+
+// Note, we use "Sequence" to mean any of Ket/Superposition/full Sequence.
+
+// Here are our proposed "op-codes", along with a brief description of what they do:
+
+// Boolean operators:
+NOT B1 B2			: B2 = not B1
+AND B1 B2 B3			: B3 = B1 and B2
+OR B1 B2 B3			: B3 = B1 or B2
+XOR B1 B2 B3			: B3 = B1 xor B2
+
+// Relation operators:
+EQ S1 S2 B1			: B1 = S1 == S2 // check if "seq1 == seq2", "seq1 != seq2" is implemented using the NOT instruction.
+LT F1 F2 B1			: B1 = F1 < F2 // check if F1 < F2
+LE F1 F2 B1			: B1 = F1 <= F2 // check if F1 <= F2
+GT F1 F2 B1			: B1 = F1 > F2  // check if F1 > F2
+GE F1 F2 B1			: B1 = F1 >= F2 // check if F1 >= F2
+
+// Float operators:
+ASN F1 F2			: F2 = F1
+ADD F1 F2 F3			: F3 = F1 ++ F2
+SUB F1 F2 F3			: F3 = F1 -- F2
+MUL F1 F2 F3			: F3 = F1 ** F2
+DIV F1 F2 F3			: F3 = F1 // F2
+MOD F1 F2 F3			: F3 = F1 %% F2
+POW F1 F2 F3			: F3 = F1 ^^ F2
+MIN F1 F2 F3			: F3 = min(F1, F2)  // The plan is to use these for: intersection, union, and xor respectively.
+MAX F1 F2 F3			: F3 = max(F1, F2)
+ABS F1 F2			: F2 = abs(F1)
+
+// Learn rules:
+LEARN O1 S1 S2			: O1 S1 => S2  // standard learn rule
+PLUS_LEARN O1 S1 S2		: O1 S1 +=> S2 // add-learn rule
+SEQ_LEARN O1 S1 S2		: O1 S1 .=> S2 // seq-learn rule
+STORE_LEARN O1 S1 S2		: O1 S1 #=> S2 // stored-learn rule
+MEM_LEARN O1 S1 S2		: O1 S1 !=> S2 // memoize-learn rule
+RECALL O1 S1 S2			: S2 = recall(O1, S1) // recall a sequence
+SUP-OP S1 S2			: S2 = supported-ops S1 // return supported operators
+// REL-KET O1 S1		: S1 = rel-kets[O1] // return relevant kets // deprecated by nonterminal[O1]
+TERM O1 S1			: S1 = terminal[O1] // return terminal kets defined with respect to operator O1, or *
+NTERM O1 S1			: S1 = non-terminal[O1] // return non-terminal kets defined with respect to operator O1, or *
+
+// Sequence "inspection" operators:
+STR S1 s1 			: s1 = to_string(S1)
+STRF F1 s1			: s1 = to_string(F1)
+DYK S1 B1			: B1 = do-you-know S1
+HM S1 F1			: F1 = how-many S1
+MC S1 F1			: F1 = measure-currency S1
+SHM S1 F1			: F1 = show-many S1
+SMC S1 F1			: F1 = smeasure-currency S1
+
+// Cast operators:
+K2F S1 F1			: F1 = Ket2Float S1
+F2K F1 S1			: S1 = Float2Ket F1
+K2L S1 s1			: s1 = Ket2Label S1
+L2K s1 S1			: S1 = Label2Ket s1
+TRAN S1				: transpose S1 // eg, from ket-like to bra-like, or the reverse direction
+READ_COEFF S1 S2 F1		: F1 = read-coeff[S2] S1 // read the coeff of the ket S2 in the superposition S1 and store it in F1
+
+// SKet related operators:
+SMULT S1 F1			: S1 *= F1  // ie, multiply S1 by the scalar F1
+SADD S1 S2			: S1 += S2  // superposition add S2 to S1
+SAPP S1 S2			: S1 .= S2  // sequence append S2 to S1
+SCAT S1 S2 s1			: S1 _ s1 _ S2 // string concatenation, eg: |alpha> :_ |beta> is: |alpha> _ |: > _ |beta>
+
+// Common sequence "reshaping" operators:
+INIT S1				: Intialize an empty sequence // Not sure if we want this or not?
+CP S1 S2			: S2 = copy S1 // most of our sequence operators act on references, so need this to copy a sequence
+DEL S1				: delete S1 // delete a sequence from memory
+SCLEAN S1			: clean S1  // set all coeffs to either 0 or 1
+SP2SEQ S1			: sp2seq S1 // convert S1 from a superposition to a sequence
+SEQ2SP S1			: seq2sp S1 // convert S1 from a sequence to a superposition
+DROP S1				: drop S1 // remove all kets with coeff <= 0 from the given superposition
+DROPA S1 F1			: drop-above[F1] S1 // remove all kets with coeff > F1 from the given superposition
+DROPB S1 F1			: drop-below[F1] S1 // remove all kets with coeff < F1 from the given superposition
+SDROP S1			: sdrop S1 // remove all empty superpositions from the given sequence
+PE S1				: pick-elt S1 // pick a random element from the given superposition
+WPE S1				: weighted-pick-elt S1 // weighted pick a random element from the given superposition
+PICK S1 F1			: pick[F1] S1 // pick F1 random elements from the given superposition
+REV S1				: reverse S1 // reverse the given superposition
+SREV S1				: sreverse S1 // reverse the given sequence
+SHUFFLE S1			: shuffle S1 // shuffle the given superposition
+SSHUFFLE S1			: sshuffle S1 // shuffle the given sequence
+CSORT S1			: coeff-sort S1 // sort the given superposition by coeff
+KSORT S1			: natural-sort S1 // natural-sort the given superposition by the ket labels
+NORM1 S1			: normalize1 S1 // normalize S1 so the currency == 1
+NORM2 S1			: normalize2 S1 // normalize S1 so that <S1, S1> == 1
+RESCALE S1			: rescale S1 // rescale S1 so the max coeff == 1
+RANGE S1 F1 F2			: S1 = F1 .. F2 // set sequence S1 to a range
+RANGE_STEP S1 F1 F2 F3		: S1 = F1 .. F2 .. F3 // set sequence S1 to a range
+
+// String related operators:
+SPLIT S1			: split S1 // split the ket S1 into a superposition of characters
+SPLIT s1 S1			: split[s1] S1 // split the ket S1 into a superposition using s1 as the split char
+SSPLIT S1			: ssplit S1 // split the ket S1 into a sequence of characters
+SSPLIT s1 S1			: ssplit[s1] S1 // split the ket S1 into a sequence using s1 as the split string
+SMERGE S1			: smerge S1 // merge S1 into a ket
+SMERGE s1 S1			: smerge[s1] S1 // merge S1 into a ket using s1 as the split string
+// PRINT S1			: print S1 // print S1 ket to STDOUT
+// SPRINT S1			: sprint S1 // sprint S1 sequence to a SKet representation of a sequence
+// SPRINT s1 S1			: sprint[s1] S1 // sprint S1 sequence to a SKet representation of a sequence, prefixed by s1
+PRINT s1			: print s1 // print s1 to SDTOUT // SPRINT combines this with the STR instruction
+EXTRACT F1 S1			: extract[F1] S1 // implements extract-value, extract-category, etc
+EXTRACT F1 F2 S1		: extract[F1, F2] S1 // implements extract-value, extract-category, etc
+
+
+// Read/write based operators for superpositions:
+READ1 F1 S1			: read[F1] S1  // collapse the superposition S1 down to the F1'th ket
+READ2 F1 F2 S1			: read[F1, F2] S1 // collapse the superposition S1 down to the kets in range F1 .. F2
+READS S2 S1			: read[S2] S1 // collpase the superposition S1 down to the kets in the range given by S2
+WRITE F1 S1 S2			: write[F1, S2] S1 // replace the F1'th ket with the superposition S2
+// WRITE F1 F2 S1 S2 		: write[F1, F2, S2] S1 // do we want this one? Also, it is not a TAC.
+WRITES S2 S3 S1			: write[S2, S3] S1 // replace the kets in the range given by S2 with the superposition S3
+
+// Read/Write based operators for sequences:
+SREAD1 F1 S1			: sread[F1] S1  // collapse the sequence S1 down to the F1'th superposition
+SREAD2 F1 F2 S1			: sread[F1, F2] S1 // collapse the sequence S1 down to the superpositions in range F1 .. F2
+SREADS S2 S1			: sread[S2] S1 // collpase the sequence S1 down to the sequences in the range given by S2
+SWRITE F1 S1 S2			: swrite[F1, S2] S1 // replace the F1'th superposition with the superposition/sequence S2
+// SWRITE F1 F2 S1 S2 		: swrite[F1, F2, S2] S1 // do we want this one? Also, it is not a TAC.
+SWRITES S2 S3 S1		: swrite[S2, S3] S1 // replace the superpositions in the range given by S2 with the superposition/sequence S3
+
+// higher order functions:
+CMAP Fn1 S1			: cmap[Fn1] S1 // apply Fn1 to each ket coeff in the sequence S1
+CMAP2 Fn1 S1 S2			: cmap[Fn1, S2] S1 // apply binary function Fn1 to each ket coeff in the sequences S1 and S2
+MAP Fn1 S1			: map[Fn1] S1 // apply Fn1 to each ket in the superposition S1
+MAP1 Fn1 S1 S2			: map[Fn1, S2] S1 // apply binary function Fn1 to each corresponding kets in superpositions S1 and S2
+SMAP Fn1 S1			: smap[Fn1] S1 // apply Fn1 to each superposition in the sequence S1
+SMAP1 Fn1 S1 S2			: smap[Fn1, S2] S1 // apply binary function Fn1 to each corresponding superpositions in sequences S1 and S2
+
+// SKet operators (do we want these high level functions to be in the IR?):
+FIND-INVERSE O1			: find-inverse[O1]
+SIM-INPUT S1 O1			: similar-input[O1] S1
+EQUAL-INPUT S1 O1		: equal-input[O1] S1
+DOT S1 S2 F1			: F1 = dot(S1, S2) // dot product of S1 and S2
+SIMM S1 S2 F1			: F1 = simm(S1, S2) // similarity of S1 and S2
+
+// Function related instructions:
+PUSH F1				: push a float reference to the call stack // All parameters to a function are by reference
+SPUSH S1			: push a sequence reference to the call stack // All parameters to a function are by reference
+CALL Fn1			: call a function
+RET				: return from a function
+GOTO L1				: unconditional jump to a location/label
+IF_NOT B1 L1 			: conditional jump to L1 if B1 is false or |no>
+
+// Context related instructions:
+DEF_CON s1 C1			: define context C1 with label s1
+SWITCH_CON C1			: switch to context C1 // impacts the results of the learn/recall instructions.
