@@ -1,0 +1,23 @@
+// params functions
+// Added: 2023/9/17
+
+// 
+def non-terminals [...] #=>
+    init kets
+    for op in _params:
+        kets += non-terminal[op]
+    end:
+    return kets
+end:
+
+
+//
+def dump [...] #=>
+    for k in non-terminals[_params]:
+        for op in supported-ops k:
+            sprint-triple[op] k
+        end:
+        println
+    end:
+end:
+

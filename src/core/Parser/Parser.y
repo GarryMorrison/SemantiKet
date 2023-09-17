@@ -136,6 +136,8 @@
 %token <treeval> ELSE 313
 %token <treeval> INIT 314
 %token <treeval> DSELFK_KET 315
+%token <treeval> PARAMS 316
+%token <treeval> THREE_DOTS 317
 
 
 
@@ -337,6 +339,8 @@ param_list: ID
 | ID COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
 | STAR
 | STAR COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+| THREE_DOTS
+| THREE_DOTS COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
 ;
 
 
@@ -402,6 +406,7 @@ ket: LITERAL_KET /* |some ket> */
 | BOOL_KET /*  |yes> | |no> */
 | OP_KET /* |op: age> */
 | DSELFK_KET /* __self0 | __self1 | ... */
+| PARAMS /* _params */
 ;
 
 // seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
