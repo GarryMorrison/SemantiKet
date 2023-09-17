@@ -138,6 +138,7 @@
 %token <treeval> DSELFK_KET 315
 %token <treeval> PARAMS 316
 %token <treeval> THREE_DOTS 317
+%token <treeval> LFOR 318
 
 
 
@@ -196,6 +197,7 @@
 %type <treeval> init
 %type <treeval> init_list
 %type <treeval> bra_ket
+%type <treeval> lfor_statement
 
 
 
@@ -276,6 +278,7 @@ statement: SEMICOLON /* seems we need this */
 | for_statement
 | cfor_statement
 | sfor_statement
+| lfor_statement
 | if_statement
 | while_statement
 | init
@@ -554,6 +557,7 @@ block_statement: SEMICOLON
 | for_statement
 | cfor_statement
 | sfor_statement
+| lfor_statement
 // | end_or_return SEMICOLON // 2 S/R conflicts
 | return_seq SEMICOLON
 | if_statement
@@ -566,6 +570,10 @@ block_statement: SEMICOLON
 
 cfor_statement: CFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("cfor statement", 1250, $2, $4, $7); }
 ;
+
+lfor_statement: LFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("lfor statement", 1420, $2, $4, $7); }
+;
+
 
 sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("sfor statement", 1260, $2, $4, $7); }
 ;

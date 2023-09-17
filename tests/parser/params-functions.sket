@@ -13,7 +13,7 @@ end:
 
 //
 def dump [...] #=>
-    for k in non-terminals[_params]:
+    lfor k in non-terminals[_params]:
         for op in supported-ops k:
             sprint-triple[op] k
         end:
