@@ -15,3 +15,6 @@
 #context.op
 #context.foo[bar]
 
+// using a context operator:
+apples = #words.plural |apple>
+
