@@ -198,6 +198,7 @@
 %type <treeval> init_list
 %type <treeval> bra_ket
 %type <treeval> lfor_statement
+%type <treeval> curly_seq
 
 
 
@@ -359,6 +360,7 @@ chain: ID
 | param_op
 | powered_op
 | bra_ket
+| curly_seq
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
@@ -366,6 +368,7 @@ chain: ID
 | param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | bra_ket chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| curly_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
 ;
 
 number: INT
@@ -381,13 +384,21 @@ chain_mbrs: ID
 | context_op
 | param_op
 | bra_ket
+| curly_seq
 ;
 
 // powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // 7 S/R conflicts
 // powered_op: bracket_seq POWER number{ $$ = new Tree("powered op", 1090, $1, $3); }  // 6 S/R conflicts
 // powered_op: LEFT_PAREN_COLON chain RIGHT_PAREN_COLON POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // PAREN_COLON solves the shift/reduce for now.
+/*
 powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powered op", 1090, $2, $5); }
 | chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+;
+*/
+powered_op: chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+;
+
+curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Tree("curly seq", 1430, $2); }
 ;
 
 chain_seq: chain
@@ -615,6 +626,7 @@ init_list: ID
 bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2); }
 | LITERAL_BRA chain LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2, $3); }
 ;
+
 
 %% /*** Additional Code ***/
 

@@ -1,0 +1,11 @@
+// test curly seq
+// Added: 2023/9/19
+
+// temperature conversion:
+to-K |K> #=> _self
+
+to-K |C> #=> { Ket2Coeff _self -- 273.15 } |K>
+
+// buggy for now:
+// to-K |F> #=> { Ket2Coeff _self ** 9 // 5 -- 459.67} |K>
+

@@ -215,6 +215,7 @@ namespace SKet {
         case Parser::token::COLON:
         case Parser::token::RULE:
         case Parser::token::END_COLON:
+        case Parser::token::SELF_KET:
         case Parser::token::DSELF_KET:
         case Parser::token::DSELFK_KET:
         case Parser::token::PARAMS:
