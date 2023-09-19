@@ -171,7 +171,7 @@
 %type <treeval> learn_rule
 %type <treeval> rule_lhs
 %type <treeval> wildcard
-%type <treeval> number_or_id
+// %type <treeval> number_or_id
 %type <treeval> chain_mbrs
 %type <treeval> fn_def
 // %type <treeval> fn_params
@@ -201,6 +201,7 @@
 %type <treeval> bra_ket
 %type <treeval> lfor_statement
 %type <treeval> curly_seq
+%type <treeval> int_or_id
 
 
 
@@ -381,16 +382,20 @@ chain: ID
 | bracket_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
 ;
 
+
 number: INT
 | FLOAT
 ;
 
-
+/*
 number_or_id: number
 | ID
 ;
+*/
 
-
+int_or_id: INT
+| ID
+;
 
 chain_mbrs: ID
 | number
@@ -411,7 +416,8 @@ powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powe
 ;
 */
  // now redundant in grammar: // Nope! It isn't!
-powered_op: chain_mbrs DPOW number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+// powered_op: chain_mbrs DPOW number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+powered_op: chain_mbrs DPOW int_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 
 

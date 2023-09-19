@@ -1,32 +1,16 @@
 // powered operators:
-// Note: we probably mean ^^ here for powered op, not arithmetic exponentiation using ^.
 // Added: 2023/9/19
 
-/*
-// ID:
-r1 = a ^ 3.2
+// Note: we probably mean ^^ here for powered op, not arithmetic exponentiation using ^.
+// Indeed: 
+// Eg: op^^3 == op op op
+// They are only the same for numbers:
+// Eg: 5 ^^ 3 == 5 5 5
+// And: 5 ^ 3 == 5 * 5 * 5
 
-// number:
-r2 = 7 ^ k
-
-// context op:
-r3 = #context.foo ^ 5
-
-// param op:
-r4 = foo[p1, p2] ^ k2
-
-// bra-ket:
-r5 = <phi| |psi> ^ 2
-
-// curly seq:
-r6 = { a ++ b } ^ 3
-
-// bracket seq:
-r7 = ( c * d ) ^ 5
-*/
 
 // ID:
-r1 = a ^^ 3.2
+r1 = a ^^ 3
 
 // number:
 r2 = 7 ^^ k
@@ -37,6 +21,7 @@ r3 = #context.foo ^^ 5
 // param op:
 r4 = foo[p1, p2] ^^ k2
 
+// the next three are valid, they just don't make a lot of sense!
 // bra-ket:
 r5 = <phi| |psi> ^^ 2
 
