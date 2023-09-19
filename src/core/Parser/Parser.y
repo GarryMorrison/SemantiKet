@@ -156,7 +156,7 @@
 %type <treeval> rhs_params
 %type <treeval> number
 %type <treeval> qualified_context
-// %type <treeval> powered_op
+%type <treeval> powered_op
 %type <treeval> chain_seq
 %type <treeval> ket_or_seq
 %type <treeval> ket
@@ -171,8 +171,8 @@
 %type <treeval> learn_rule
 %type <treeval> rule_lhs
 %type <treeval> wildcard
-// %type <treeval> number_or_id
-// %type <treeval> chain_mbrs
+%type <treeval> number_or_id
+%type <treeval> chain_mbrs
 %type <treeval> fn_def
 // %type <treeval> fn_params
 %type <treeval> param_list
@@ -366,7 +366,7 @@ chain: ID
 | number
 | context_op
 | param_op
-// | powered_op
+| powered_op
 | bra_ket
 | curly_seq
 | bracket_seq
@@ -375,7 +375,7 @@ chain: ID
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
-// | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | bra_ket chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | curly_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | bracket_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
@@ -385,21 +385,22 @@ number: INT
 | FLOAT
 ;
 
-/*
+
 number_or_id: number
 | ID
 ;
-*/
 
-/*
+
+
 chain_mbrs: ID
 | number
 | context_op
 | param_op
 | bra_ket
 | curly_seq
+| bracket_seq
 ;
-*/
+
 
 // powered_op: LEFT_PAREN chain RIGHT_PAREN POWER number{ $$ = new Tree("powered op", 1090, $2, $5); } // 7 S/R conflicts
 // powered_op: bracket_seq POWER number{ $$ = new Tree("powered op", 1090, $1, $3); }  // 6 S/R conflicts
@@ -409,10 +410,10 @@ powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powe
 | chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 */
-/* // now redundant in grammar:
+ // now redundant in grammar: // Nope! It isn't!
 powered_op: chain_mbrs DPOW number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
-*/
+
 
 curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Tree("curly seq", 1430, $2); }
 ;
