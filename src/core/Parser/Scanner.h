@@ -125,7 +125,9 @@ namespace SKet {
             {315, "DSELFK_KET"},
             {316, "PARAMS"},
             {317, "THREE_DOTS"},
-            {318, "LFOR"}
+            {318, "LFOR"},
+            {319, "DIV"},
+            {320, "MOD"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

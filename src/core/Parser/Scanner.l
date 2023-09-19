@@ -112,9 +112,11 @@ typedef SKet::Parser::token_type token_type;
 "**" { return scan(token::DSTAR, yylval); }
 "++" { return scan(token::DPLUS, yylval); }
 "--" { return scan(token::DMINUS, yylval); }
-"/" { return scan(token::DDIV, yylval); }
+"//" { return scan(token::DDIV, yylval); }
 "^^" { return scan(token::DPOW, yylval); }
 "%%" { return scan(token::DMOD, yylval); }
+"/" { return scan(token::DIV, yylval); }
+"%" { return scan(token::MOD, yylval); }
 "_" { return scan(token::STRING_OP, yylval); }
 "__" { return scan(token::STRING_OP, yylval); }
 ":_" { return scan(token::STRING_OP, yylval); }

@@ -111,7 +111,7 @@
 %token <treeval> EQUALITY 288
 %token <treeval> COMPARISON 289
 %token <treeval> CONTEXT_ID 290
-%token      POWER 291
+%token <treeval> POWER 291
 %token      LEFT_PAREN_COLON 292
 %token      RIGHT_PAREN_COLON 293
 %token <treeval> EQUAL_OP 294
@@ -139,6 +139,8 @@
 %token <treeval> PARAMS 316
 %token <treeval> THREE_DOTS 317
 %token <treeval> LFOR 318
+%token <treeval> DIV 319
+%token <treeval> MOD 320
 
 
 
@@ -233,9 +235,15 @@
 // %right POWER
 // %right SEMICOLON
 
+/*
 %left DPLUS DMINUS
 %left DSTAR DDIV
 %right DPOW DMOD
+*/
+%left DPLUS DMINUS
+%left STAR DIV
+%right POWER MOD
+
 
 %left NO_LOGICAL_OP
 %left LOGICAL_OP
@@ -395,7 +403,7 @@ powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powe
 | chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 */
-powered_op: chain_mbrs POWER number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+powered_op: chain_mbrs DPOW number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
 ;
 
 curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Tree("curly seq", 1430, $2); }
@@ -452,10 +460,10 @@ comparison_expr: arith_expr COMPARISON arith_expr{ $$ = new Tree("comparison", 1
 
 arith_expr: arith_expr DPLUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
 | arith_expr DMINUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DSTAR arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DDIV arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DPOW arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DMOD arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr STAR arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DIV arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr POWER arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+| arith_expr MOD arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
 // | LEFT_PAREN arith_expr RIGHT_PAREN{ $$ = $2; } // 1 S/R conflict // I think our grammar already handles this case!
 | string_seq
 ;
