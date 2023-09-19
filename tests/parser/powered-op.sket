@@ -16,6 +16,9 @@ r4 = foo[p1, p2] ^ k2
 // bra-ket:
 r5 = <phi| |psi> ^ 2
 
-// curley seq:
+// curly seq:
 r6 = { a ++ b } ^ 3
+
+// bracket seq:
+r7 = ( c * d ) ^ 5
 
