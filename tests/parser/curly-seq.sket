@@ -2,11 +2,18 @@
 // Added: 2023/9/19
 
 // temperature conversion:
+// from Kelvin:
 to-K |K> #=> _self
+to-C |K> #=> { Ket2Coeff _self -- 273.15 } |C>
+to-F |K> #=> { Ket2Coeff _self * 9 / 5 -- 459.67} |F>
 
-to-K |C> #=> { Ket2Coeff _self -- 273.15 } |K>
+// from Celcius:
+to-K |C> #=> { Ket2Coeff _self ++ 273.15 } |K>
+to-C |C> #=> _self
+to-F |C> #=> { Ket2Coeff _self * 9 / 5 ++ 32 } |F>
 
-to-K |F> #=> { Ket2Coeff _self * 9 / 5 -- 459.67} |K>
-
-
+// from Fahrenheit:
+to-K |F> #=> { { Ket2Coeff _self ++ 459.67 } * 5 / 9 } |K> 
+to-C |F> #=> { { Ket2Coeff _self -- 32 } * 5 / 9 } |C>
+to-F |F> #=> _self
 
