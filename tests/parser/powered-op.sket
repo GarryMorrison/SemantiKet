@@ -1,0 +1,21 @@
+// powered operators:
+// Added: 2023/9/19
+
+// ID:
+r1 = a ^ 3.2
+
+// number:
+r2 = 7 ^ k
+
+// context op:
+r3 = #context.foo ^ 5
+
+// param op:
+r4 = foo[p1, p2] ^ k2
+
+// bra-ket:
+r5 = <phi| |psi> ^ 2
+
+// curley seq:
+r6 = { a ++ b } ^ 3
+
