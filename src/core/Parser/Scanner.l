@@ -265,6 +265,7 @@ namespace SKet {
         case Parser::token::STRINGLIT:  // strip " from string literals
         case Parser::token::LITERAL_KET: // strip | and > from kets
         case Parser::token::LITERAL_BRA: // strip < and | from bras
+        case Parser::token::OP_KET: // strip | and > from op kets
         {
             std::string s1(yytext);
             std::string s2 = s1.substr(1, s1.size() - 2);
