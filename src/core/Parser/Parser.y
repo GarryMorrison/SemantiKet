@@ -369,6 +369,7 @@ chain: ID
 // | powered_op
 | bra_ket
 | curly_seq
+| bracket_seq
 | ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | number chain{ $$ = new Tree("chain", 1070, $1, $2); }
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
@@ -377,6 +378,7 @@ chain: ID
 // | powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | bra_ket chain{ $$ = new Tree("chain", 1070, $1, $2); }
 | curly_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| bracket_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
 ;
 
 number: INT
@@ -417,16 +419,19 @@ curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Tree("curly seq", 1430, $2); }
 
 chain_seq: chain
 // | chain ket_or_seq %prec NO_RULE{ $$ = new Tree("chain seq", 1100, $1, $2); } // Nope. Doesn't help.
-| chain ket_or_seq { $$ = new Tree("chain seq", 1100, $1, $2); }
+// | chain ket_or_seq { $$ = new Tree("chain seq", 1100, $1, $2); }
+| chain ket{ $$ = new Tree("chain ket", 1100, $1, $2); }
 ;
+
 
 ket_or_seq: ket
-// | LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // 6 shift/reduce conflicts!
-| bracket_seq // 5 shift/reduce conflicts
+// | bracket_seq  // deprecated. Now in chain. // is this still needed anywhere?
 ;
 
-bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; }
+
+bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // Add Tree("bracket seq"...) ?
 ;
+
 
 ket: LITERAL_KET /* |some ket> */
 | SELF_KET /* _self */
