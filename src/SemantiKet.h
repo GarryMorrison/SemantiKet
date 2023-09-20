@@ -16,6 +16,7 @@
 #include "core/misc/misc.h"
 #include "core/UnitTest/UnitTest.h"
 #include "core/Diff/diff.h"
+#include "core/Sequence/Superposition.h"
 
 // TODO: Reference additional headers your program requires here.
 

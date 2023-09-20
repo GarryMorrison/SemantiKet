@@ -185,6 +185,23 @@ std::string pad_str(std::string s, std::string delim, int width, bool left)
     return s + padding;
 }
 
+// from here:
+// https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
+std::vector<std::string> split_str(const std::string& s1, const std::string& delimiter) {
+    std::vector<std::string> result;
+    size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+    std::string token;
+
+    while ((pos_end = s1.find(delimiter, pos_start)) != std::string::npos) {
+        token = s1.substr(pos_start, pos_end - pos_start);
+        pos_start = pos_end + delim_len;
+        result.push_back(token);
+    }
+    result.push_back(s1.substr(pos_start));
+    return result;
+}
+
+/*
 std::string float_to_str(double f, int digits)  // Not super happy with this implementation! What if the decimal points are all 0's?
 {
     std::string s = std::to_string(f);
@@ -196,6 +213,45 @@ std::string float_to_str(double f, int digits)  // Not super happy with this imp
     std::string head = s.substr(0, dot_pos);
     std::string tail = s.substr(dot_pos, digits + 1);
     return head + tail;
+}
+*/
+
+bool double_eq(double F1, double F2) {
+    if (fabs(F1 - F2) < EPSILON) {
+        return true;
+    }
+    return false;
+}
+
+int ipower(int a, int n)  // From here: https://stackoverflow.com/questions/1505675/power-of-an-integer-in-c
+{
+    int res = 1;  // Please test it is correct!
+    while (n) {
+        if (n & 1)
+            res *= a;
+        a *= a;
+        n >>= 1;
+    }
+    return res;
+}
+
+std::string float_to_str(double F1, unsigned int places) {
+    if (double_eq(F1, round(F1))) {
+        return std::to_string(static_cast<long long int>(round(F1)));
+    }
+    std::ostringstream buffer;
+    int tens = ipower(10, places);           // Need to test it works, but it should be correct.
+    buffer << round(F1 * tens) / tens;
+    return buffer.str();
+}
+
+std::string bool_to_str(bool B1)
+{
+    if (B1)
+    {
+        return "yes";
+    }
+    return "no";
 }
 
 std::string format_string(std::string s, std::vector<std::string>& params)

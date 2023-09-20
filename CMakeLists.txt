@@ -42,7 +42,8 @@ set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core
 # Core source files:
 set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 
 "src/core/UnitTest/UnitTest.h" "src/core/UnitTest/UnitTest.cpp"
-"src/core/Diff/diff_match_patch.h" "src/core/Diff/diff.h" "src/core/Diff/diff.cpp")
+"src/core/Diff/diff_match_patch.h" "src/core/Diff/diff.h" "src/core/Diff/diff.cpp"
+"src/core/Sequence/Superposition.h" "src/core/Sequence/Superposition.cpp")
 
 # Add source to this project's executable.
 add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${Core_SRC})
