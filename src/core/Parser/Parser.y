@@ -192,7 +192,7 @@
 // %type <treeval> mul_div
 %type <treeval> comparison_expr
 %type <treeval> if_statement
-%type <treeval> expr
+// %type <treeval> expr
 %type <treeval> op_assignment
 %type <treeval> global_op_assignment
 %type <treeval> while_statement
@@ -634,11 +634,13 @@ if_statement: IF seq COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("
 | IF seq COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5, $7); }
 ;
 
+/*
 expr: comparison_expr
 | equality_expr
 // | bool_expr
 | chain_seq //%prec NO_LOGICAL_OP
 ;
+*/
 
 equality_expr: seq EQUALITY seq{ $$ = new Tree("equality expr", 1370, $1, $2, $3); }
 | seq LOGICAL_OP seq{ $$ = new Tree("bool expr", 1380, $1, $2, $3); }
@@ -654,7 +656,8 @@ bool_expr: equality_expr
 */
 
 
-while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
+// while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
+while_statement: WHILE seq COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
 ;
 
 init: INIT init_list SEMICOLON{ $$ = new Tree("init", 1390, $2); }

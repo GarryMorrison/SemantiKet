@@ -271,6 +271,7 @@ namespace SKet {
         case Parser::token::LITERAL_KET: // strip | and > from kets
         case Parser::token::LITERAL_BRA: // strip < and | from bras
         case Parser::token::OP_KET: // strip | and > from op kets
+        case Parser::token::BOOL_KET: // strip | and > from bool kets
         {
             std::string s1(yytext);
             std::string s2 = s1.substr(1, s1.size() - 2);

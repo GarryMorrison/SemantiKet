@@ -1,0 +1,15 @@
+// while statement
+// Added: 2023/9/21
+
+while |yes>:
+    block-statements
+end:
+
+while 3 < 5:
+    do stuff
+    if condition:
+        break
+    end:
+    more stuff to do
+end:
+
