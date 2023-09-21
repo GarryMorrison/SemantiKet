@@ -93,6 +93,9 @@ typedef SKet::Parser::token_type token_type;
 "__self" { return scan(token::DSELF_KET, yylval); }
 "__self"[0-9]+ { return scan(token::DSELFK_KET, yylval); }
 "_params" { return scan(token::PARAMS, yylval); }
+"error" { return scan(token::ERROR, yylval); }
+"_is_error" { return scan(token::IS_ERROR, yylval); }
+"_error_message" { return scan(token::ERROR_MESSAGE, yylval); }
 "..." { return scan(token::THREE_DOTS, yylval); }
 "=>" { return scan(token::RULE, yylval); }
 "+=>" { return scan(token::RULE, yylval); }
@@ -221,6 +224,8 @@ namespace SKet {
         case Parser::token::DSELF_KET:
         case Parser::token::DSELFK_KET:
         case Parser::token::PARAMS:
+        case Parser::token::IS_ERROR:
+        case Parser::token::ERROR_MESSAGE:
             return true;
             break;
         default:

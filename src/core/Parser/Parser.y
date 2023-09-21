@@ -141,6 +141,9 @@
 %token <treeval> LFOR 318
 %token <treeval> DIV 319
 %token <treeval> MOD 320
+%token <treeval> ERROR 321
+%token <treeval> IS_ERROR 322
+%token <treeval> ERROR_MESSAGE 323
 
 
 
@@ -202,6 +205,7 @@
 %type <treeval> lfor_statement
 %type <treeval> curly_seq
 %type <treeval> int_or_id
+%type <treeval> error_seq
 
 
 
@@ -292,6 +296,7 @@ statement: SEMICOLON /* seems we need this */
 | if_statement
 | while_statement
 | init
+| error_seq
 ;
 
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
@@ -447,6 +452,8 @@ ket: LITERAL_KET /* |some ket> */
 | OP_KET /* |op: age> */
 | DSELFK_KET /* __self0 | __self1 | ... */
 | PARAMS /* _params */
+| IS_ERROR /* _is_error */
+| ERROR_MESSAGE /* _error_message */
 ;
 
 // seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
@@ -555,9 +562,10 @@ end_or_return: END_COLON
 ;
 */
 
-return_seq: RETURN seq{ $$ = new Tree("return seq", 1290, $2); }
+return_seq: RETURN seq{ $$ = new Tree("return seq", 1290, $2); } // move SEMICOLON to here?
 ;
 
+error_seq: ERROR seq SEMICOLON{ $$ = new Tree("error seq", 1450, $2); }
 
 /*
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
@@ -602,6 +610,7 @@ block_statement: SEMICOLON
 | BREAK /* loop specific statement? */
 | CONTINUE /* loop specific statement? */
 | init
+| error_seq
 ;
 
 

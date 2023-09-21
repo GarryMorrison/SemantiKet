@@ -127,7 +127,10 @@ namespace SKet {
             {317, "THREE_DOTS"},
             {318, "LFOR"},
             {319, "DIV"},
-            {320, "MOD"}
+            {320, "MOD"},
+            {321, "ERROR"},
+            {322, "IS_ERROR"},
+            {323, "ERROR_MESSAGE"}
         };
 
         std::string get_token_type(Parser::token_type token_code);

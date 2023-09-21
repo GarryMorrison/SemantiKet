@@ -1,0 +1,15 @@
+// proposal for error handling
+// Added: 2023/9/21
+
+def foo #=>
+    do-stuff
+    error seq
+    more-stuff
+end:
+
+def catch-error #=>
+    if _is_error:
+        sprint["Error message: "] _error_message
+    end:
+end:
+
