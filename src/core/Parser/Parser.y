@@ -624,8 +624,14 @@ lfor_statement: LFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICO
 sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("sfor statement", 1260, $2, $4, $7); }
 ;
 
+/*
 if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5); }
 | IF expr COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5, $7); }
+;
+*/
+
+if_statement: IF seq COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5); }
+| IF seq COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5, $7); }
 ;
 
 expr: comparison_expr
