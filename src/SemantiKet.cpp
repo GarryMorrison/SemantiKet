@@ -24,9 +24,18 @@ SKet::Driver driver(tree);
 // Seed our random number generator:
 std::mt19937 rng(time(nullptr));
 
+// Define our error map:
+ErrorMap error_map;
+
 
 int main(int argc, char* argv[])
 {
+	// populate our error and warning maps:
+	error_map.populate_error_maps();
+	error_map.populate_warning_maps();
+
+
+
 	std::cout << "SemantiKet says hello ... " << std::endl;
 
 	// Test format code:
@@ -293,6 +302,15 @@ int main(int argc, char* argv[])
 		std::cout << "sp19: " << sp19.to_string() << "\n";
 		sp19.erase(3);
 		std::cout << "erase[3] sp19: " << sp19.to_string() << "\n\n";
+
+
+		// Test error and warning maps:
+		std::cout << "error type: " << error_map.get_error_type(0) << "\n";
+		std::cout << "error message: " << error_map.get_error_message(0) << "\n";
+		std::cout << "error description: " << error_map.get_error_description(0) << "\n";
+		std::cout << "warning type: " << error_map.get_warning_type(0) << "\n";
+		std::cout << "warning message: " << error_map.get_warning_message(0) << "\n";
+		std::cout << "warning description: " << error_map.get_warning_description(0) << "\n";
 
 	}
 
