@@ -265,6 +265,16 @@ int main(int argc, char* argv[])
 		Superposition sp14 = sp10.range(10, 1, -3);
 		std::cout << "sp13 string: " << sp13.to_string() << "\n";
 		std::cout << "sp14 string: " << sp14.to_string() << "\n\n";
+
+		sp14.mult(3.2);
+		double F7 = sp14.cread(2);
+		Superposition sp15 = sp14.lread(2);
+		Superposition sp16 = sp14.read(2);
+		std::cout << "sp: " << sp14.to_string() << "\n";
+		std::cout << "cread[2] sp: " << std::to_string(F7) << "\n";
+		std::cout << "lread[2] sp: " << sp15.to_string() << "\n";
+		std::cout << "read[2] sp: " << sp16.to_string() << "\n";
+
 	}
 
 	return 0;

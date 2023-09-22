@@ -640,3 +640,62 @@ Superposition Superposition::range(double F1, double F2, double F3)
 	}
 	return sp2;
 }
+
+double Superposition::cread(double F1) // used in cfor loops // later handle -ve indices too? eg, -1 |=> sort_order.size().
+{
+	size_t i = static_cast<size_t>(F1);
+	if (i == 0)
+	{
+		// symtab.error("value", "cread", "index starts at 1 not 0"); // maybe make error messages global, not defined inside operators?
+		// symtab.error("cread", 12345);  // 12345 maps to: type of "value error", and message of "index starts at 1 not 0".
+		return 0;
+	}
+	if (i < 1 || i > sort_order.size())
+	{
+		// symtab.error("value", "cread", "index is out of range"); // later return valid range? ie, 1 .. sort_order.size()? Using our format string?
+		return 0;
+	}
+	size_t idx = sort_order[i - 1];
+	return coeffs[idx];
+}
+
+Superposition Superposition::lread(double F1) // used in lfor loops
+{
+	Superposition sp;
+	size_t i = static_cast<size_t>(F1);
+	if (i == 0)
+	{
+		// symtab.error("value", "lread", "index starts at 1 not 0");
+		return sp;
+	}
+	if (i < 1 || i > sort_order.size())
+	{
+		// symtab.error("value", "lread", "index is out of range");
+		return sp;
+	}
+	size_t idx = sort_order[i - 1];
+	std::string label = pos2str_label[idx];
+	sp.add(label);
+	return sp;
+}
+
+Superposition Superposition::read(double F1) // used in for loops
+{
+	Superposition sp;
+	size_t i = static_cast<size_t>(F1);
+	if (i == 0)
+	{
+		// symtab.error("value", "read", "index starts at 1 not 0");
+		return sp;
+	}
+	if (i < 1 || i > sort_order.size())
+	{
+		// symtab.error("value", "read", "index is out of range");
+		return sp;
+	}
+	size_t idx = sort_order[i - 1];
+	double coeff = coeffs[idx];
+	std::string label = pos2str_label[idx];
+	sp.add(label, coeff);
+	return sp;
+}
