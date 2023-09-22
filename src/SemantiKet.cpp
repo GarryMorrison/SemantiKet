@@ -273,7 +273,26 @@ int main(int argc, char* argv[])
 		std::cout << "sp: " << sp14.to_string() << "\n";
 		std::cout << "cread[2] sp: " << std::to_string(F7) << "\n";
 		std::cout << "lread[2] sp: " << sp15.to_string() << "\n";
-		std::cout << "read[2] sp: " << sp16.to_string() << "\n";
+		std::cout << "read[2] sp: " << sp16.to_string() << "\n\n";
+
+		std::cout << "sp: " << sp14.to_string() << "\n";
+		sp14.add(sp14);
+		std::cout << "sp + sp: " << sp14.to_string() << "\n\n";
+
+		Superposition sp17;
+		Superposition sp18;
+		sp17.add("a1", 2);
+		sp17.add("a2", 3);
+		sp18.add("b1", 5);
+		sp18.add("b2", 7);
+		Superposition sp19 = sp17.tensor_product(": ", sp18);
+		std::cout << "sp17: " << sp17.to_string() << "\n";
+		std::cout << "sp18: " << sp18.to_string() << "\n";
+		std::cout << "sp19: " << sp19.to_string() << "\n\n";
+
+		std::cout << "sp19: " << sp19.to_string() << "\n";
+		sp19.erase(3);
+		std::cout << "erase[3] sp19: " << sp19.to_string() << "\n\n";
 
 	}
 

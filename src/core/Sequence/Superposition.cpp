@@ -155,7 +155,7 @@ double Superposition::measure_currency()
 	return F;
 }
 
-double Superposition::read_coeff(std::string s1)
+double Superposition::read_coeff(const std::string& s1)
 {
 	if (str_label2pos.find(s1) == str_label2pos.end())
 	{
@@ -165,7 +165,7 @@ double Superposition::read_coeff(std::string s1)
 	return coeffs[idx];
 }
 
-void Superposition::add(std::string s1)  // still incomplete ....
+void Superposition::add(const std::string& s1)  // still incomplete ....
 {
 	if (str_label2pos.find(s1) != str_label2pos.end())
 	{
@@ -184,7 +184,7 @@ void Superposition::add(std::string s1)  // still incomplete ....
 	}
 }
 
-void Superposition::add(std::string s1, double F1)  // still incomplete ....
+void Superposition::add(const std::string& s1, double F1)  // still incomplete ....
 {
 	if (str_label2pos.find(s1) != str_label2pos.end())
 	{
@@ -201,6 +201,59 @@ void Superposition::add(std::string s1, double F1)  // still incomplete ....
 		str_label2pos[s1] = idx;
 		coeffs[idx] = F1;
 	}
+}
+
+void Superposition::add(Superposition& sp)
+{
+	for (size_t idx : sp.sort_order)
+	{
+		double coeff = sp.coeffs[idx];
+		std::string label = sp.pos2str_label[idx];
+		this->add(label, coeff);
+	}
+}
+
+Superposition Superposition::tensor_product(Superposition& sp)
+{
+	Superposition sp3;
+	for (size_t idx : sort_order)
+	{
+		double coeff = coeffs[idx];
+		std::string label = pos2str_label[idx];
+		for (size_t idx2 : sp.sort_order)
+		{
+			double coeff2 = sp.coeffs[idx2];
+			std::string label2 = sp.pos2str_label[idx2];
+
+			double coeff3 = coeff * coeff2;
+			std::string label3(label);
+			label3.append(label2);
+			sp3.add(label3, coeff3);
+		}
+	}
+	return sp3;
+}
+
+Superposition Superposition::tensor_product(const std::string& s1, Superposition& sp)
+{
+	Superposition sp3;
+	for (size_t idx : sort_order)
+	{
+		double coeff = coeffs[idx];
+		std::string label = pos2str_label[idx];
+		for (size_t idx2 : sp.sort_order)
+		{
+			double coeff2 = sp.coeffs[idx2];
+			std::string label2 = sp.pos2str_label[idx2];
+
+			double coeff3 = coeff * coeff2;
+			std::string label3(label);
+			label3.append(s1);
+			label3.append(label2);
+			sp3.add(label3, coeff3);
+		}
+	}
+	return sp3;
 }
 
 void Superposition::mult(double F1)
@@ -317,6 +370,7 @@ void Superposition::weighted_pick_elt()
 	if (sum == 0)
 	{
 		clear(); // create the empty ket
+		// symtab.warning("misc", "weighted-pick-elt", "sum is 0, can't return an element");
 		return;
 	}
 	std::uniform_real_distribution<double> distr(0, sum);
@@ -340,6 +394,7 @@ void Superposition::weighted_pick_elt()
 		upto += w;
 	}
 	clear(); // create the empty ket
+	// symtab.error("misc", "weighted-pick-elt", "invalid branch");
 	return;
 }
 
@@ -515,7 +570,7 @@ void Superposition::merge()
 	str_label2pos[label2] = 0;
 }
 
-void Superposition::merge(std::string s1)
+void Superposition::merge(const std::string& s1)
 {
 	double coeff2 = 1;
 	std::string label2;
@@ -698,4 +753,20 @@ Superposition Superposition::read(double F1) // used in for loops
 	std::string label = pos2str_label[idx];
 	sp.add(label, coeff);
 	return sp;
+}
+
+void Superposition::erase(double F1)
+{
+	size_t i = static_cast<size_t>(F1);
+	if (i < 1 || i > sort_order.size())
+	{
+		// symtab.warning("value", "erase", "index is out of range");
+		return;
+	}
+	size_t idx = sort_order[i - 1];
+	sort_order.erase(sort_order.begin() + i - 1);
+	coeffs.erase(idx);
+	std::string label = pos2str_label[idx];
+	pos2str_label.erase(idx);
+	str_label2pos.erase(label);
 }

@@ -32,15 +32,18 @@ public:
 	void clear();
 	void transpose();
 	std::string to_string();
-	std::string human_string();
+	std::string human_string();  // not currently implemented!
 	bool do_you_know();
 	bool is_ket();
 	bool is_sp();
 	size_t how_many();
 	double measure_currency();
-	double read_coeff(std::string s1);
-	void add(std::string s1);
-	void add(std::string s1, double coeff);
+	double read_coeff(const std::string& s1);
+	void add(const std::string& s1);
+	void add(const std::string& s1, double coeff);
+	void add(Superposition& sp);
+	Superposition tensor_product(Superposition& sp);
+	Superposition tensor_product(const std::string& s1, Superposition& sp);
 	void mult(double F1);
 	void clean();
 	void drop();
@@ -62,7 +65,7 @@ public:
 	void shuffle();
 
 	void merge();
-	void merge(std::string s1);
+	void merge(const std::string& s1);
 
 	Superposition split();
 	Superposition split(const std::string &s1);
@@ -73,4 +76,6 @@ public:
 	double cread(double F1); // used in cfor loops
 	Superposition lread(double F1); // used in lfor loops
 	Superposition read(double F1); // used in for loops
+
+	void erase(double F1);
 };
