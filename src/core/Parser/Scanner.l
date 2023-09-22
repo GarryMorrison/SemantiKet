@@ -103,10 +103,13 @@ typedef SKet::Parser::token_type token_type;
 "#=>" { return scan(token::RULE, yylval); }
 "!=>" { return scan(token::RULE, yylval); }
 "=" { return scan(token::EQUAL, yylval); }
-"+=" { return scan(token::EQUAL_OP, yylval); }
-"-=" { return scan(token::EQUAL_OP, yylval); }
+"++=" { return scan(token::EQUAL_OP, yylval); }
+"--=" { return scan(token::EQUAL_OP, yylval); }
 "*=" { return scan(token::EQUAL_OP, yylval); }
 "/=" { return scan(token::EQUAL_OP, yylval); }
+"%=" { return scan(token::EQUAL_OP, yylval); }
+"^=" { return scan(token::EQUAL_OP, yylval); }
+"+=" { return scan(token::EQUAL_OP, yylval); }
 ".=" { return scan(token::EQUAL_OP, yylval); }
 "+" { return scan(token::PLUS, yylval); }
 "-" { return scan(token::MINUS, yylval); }
