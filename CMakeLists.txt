@@ -37,7 +37,9 @@ FLEX_TARGET(Lexer src/core/Parser/Scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cp
 ADD_FLEX_BISON_DEPENDENCY(Lexer Parser)
 
 # Parser: set parser header and source files explicitly to avoid any generated bison/flex outputs
-set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core/Parser/Scanner.h" "src/core/Parser/Serial.h")
+set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core/Parser/Scanner.h" "src/core/Parser/Serial.h"
+"src/core/Parser/token.h" "src/core/Parser/token.cpp"
+"src/core/Parser/tree.h" "src/core/Parser/tree.cpp")
 
 # Core source files:
 set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 

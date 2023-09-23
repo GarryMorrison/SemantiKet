@@ -170,6 +170,9 @@ typedef SKet::Parser::token_type token_type;
 .  { lex_error(*yylloc, yytext); }
 %% /*** Additional Code ***/
 namespace SKet {
+
+    extern class yyTOKEN;
+
     Scanner::Scanner(std::istream* in, std::ostream* out)
         : SKetFlexLexer(in, out)
     {
@@ -331,7 +334,7 @@ namespace SKet {
         yycolno += yyleng;
     }
 
-
+    /*
     yyTOKEN::yyTOKEN(Parser::token_type token_code, const std::string& s, int lineno, int colno)
         : code(token_code), text(s), line(lineno), col(colno)
     {
@@ -378,11 +381,11 @@ namespace SKet {
 
     void yyTOKEN::print()
     {
-        /*
-        std::cout << "\nyytype: " << get_token_type(code) << "\n";
-        std::cout << "line: " << line << ", column: " << col << "\n";
-        std::cout << "scan: " << text << ", len: " << text.size() << "\n";
-        */
+        
+        // std::cout << "\nyytype: " << get_token_type(code) << "\n";
+        // std::cout << "line: " << line << ", column: " << col << "\n";
+        // std::cout << "scan: " << text << ", len: " << text.size() << "\n";
+        
         // std::cout << format_string(token_string, pad_digits(line, num_width), pad_digits(col, num_width), pad_str_right(get_token_type(code), str_width), text);
         std::cout << format_string(token_string, pad_str(std::to_string(line), " ", num_width), pad_str(std::to_string(col), " ", num_width), pad_str_right(get_token_type(code), str_width), text);
     }
@@ -434,7 +437,9 @@ namespace SKet {
         }
         return sout;
     }
+    */
 
+    /*
     void Tree::print(int level)
     {
         for (int i = 0; i < level; i++)
@@ -599,6 +604,8 @@ namespace SKet {
             nkids++;
         }
     }
+
+    */
 }
 
 /* This implementation of ExampleFlexLexer::yylex() is required to fill the

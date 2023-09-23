@@ -28,17 +28,24 @@
 #undef yyFlexLexer
 #endif
 
+#include "../../SemantiKet.h"
 // #include "parser.h"
 #include "parser.tab.h"
+// #include "token.h"
+// #include "../../SemantiKet.h"
 #include <map>
 #include <iostream>
 #include <fstream>
-#include "Serial.h"
+// #include "Serial.h"
 extern Serial serial;
+// extern class SKet::yyTOKEN;
+
 
 namespace SKet {
 
+    class yyTOKEN;
 
+    /*
     class yyTOKEN
     {
     public:
@@ -136,8 +143,9 @@ namespace SKet {
         std::string get_token_type(Parser::token_type token_code);
         std::string type_to_string() { return get_token_type(code); };
     };
+    */
 
-
+/*
     class Tree
     {
     public:
@@ -169,7 +177,7 @@ namespace SKet {
     private:
         
     };
-
+*/
 
     /** Scanner is a derived class to add some extra function to the scanner
      * class. Flex itself creates a class named yyFlexLexer, which is renamed using

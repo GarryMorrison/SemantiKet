@@ -11,6 +11,9 @@
 #include "src/SemantiKet.h"
 #include "src/core/Parser/Driver.h"
 
+// try this:
+// #include "token.h"
+
 %}
 
 /*** yacc/bison Declarations ***/

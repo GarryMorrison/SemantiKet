@@ -12,7 +12,13 @@
 #include <iostream>
 #include <filesystem>
 // #include <FlexLexer.h>
+#include "core/Parser/Serial.h"
+// #include "core/Parser/tree.h"
+#include "core/Parser/token.h"
+#include "core/Parser/tree.h"
 #include "core/Parser/Driver.h"
+// #include "core/Parser/token.h"
+// #include "core/Parser/tree.h"
 #include "core/misc/misc.h"
 #include "core/UnitTest/UnitTest.h"
 #include "core/Diff/diff.h"
