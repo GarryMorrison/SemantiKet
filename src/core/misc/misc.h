@@ -1,9 +1,11 @@
 #pragma once
 
-#include "../../SemantiKet.h"
+// #include "../../SemantiKet.h"
 #include <string>
+#include <vector>
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 const double EPSILON = 0.0001;
 
