@@ -305,12 +305,12 @@ int main(int argc, char* argv[])
 
 
 		// Test error and warning maps:
-		std::cout << "error type: " << error_map.get_error_type(0) << "\n";
-		std::cout << "error message: " << error_map.get_error_message(0) << "\n";
-		std::cout << "error description: " << error_map.get_error_description(0) << "\n";
-		std::cout << "warning type: " << error_map.get_warning_type(0) << "\n";
-		std::cout << "warning message: " << error_map.get_warning_message(0) << "\n";
-		std::cout << "warning description: " << error_map.get_warning_description(0) << "\n";
+		std::cout << "error type: " << error_map.get_error_type(ErrorType::E0) << "\n";
+		std::cout << "error message: " << error_map.get_error_message(ErrorType::E0) << "\n";
+		std::cout << "error description: " << error_map.get_error_description(ErrorType::E0) << "\n";
+		std::cout << "warning type: " << error_map.get_warning_type(WarningType::W0) << "\n";
+		std::cout << "warning message: " << error_map.get_warning_message(WarningType::W0) << "\n";
+		std::cout << "warning description: " << error_map.get_warning_description(WarningType::W0) << "\n";
 
 	}
 
