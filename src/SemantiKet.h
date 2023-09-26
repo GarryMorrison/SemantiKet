@@ -16,6 +16,7 @@
 // #include "core/Parser/tree.h"
 #include "core/Parser/token.h"
 #include "core/Parser/tree.h"
+#include "core/AST/NodeType.h"
 #include "core/Parser/Driver.h"
 // #include "core/Parser/token.h"
 // #include "core/Parser/tree.h"

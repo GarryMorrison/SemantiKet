@@ -27,6 +27,9 @@ std::mt19937 rng(time(nullptr));
 // Define our error map:
 ErrorMap error_map;
 
+// Define our NodeTypeMap:
+NodeTypeMap node_type_map;
+
 
 int main(int argc, char* argv[])
 {
@@ -310,7 +313,13 @@ int main(int argc, char* argv[])
 		std::cout << "error description: " << error_map.get_error_description(ErrorType::E0) << "\n";
 		std::cout << "warning type: " << error_map.get_warning_type(WarningType::W0) << "\n";
 		std::cout << "warning message: " << error_map.get_warning_message(WarningType::W0) << "\n";
-		std::cout << "warning description: " << error_map.get_warning_description(WarningType::W0) << "\n";
+		std::cout << "warning description: " << error_map.get_warning_description(WarningType::W0) << "\n\n";
+
+		// Test NodeType maps:
+		NodeType ntype1 = NodeType::standard;
+		NodeType ntype2 = NodeType::statements;
+		std::cout << "ntype1: " << node_type_map.Name(ntype1) << "\n";
+		std::cout << "ntype2: " << node_type_map.Name(ntype2) << "\n";
 
 	}
 

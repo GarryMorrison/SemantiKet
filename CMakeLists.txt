@@ -41,6 +41,9 @@ set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core
 "src/core/Parser/token.h" "src/core/Parser/token.cpp"
 "src/core/Parser/tree.h" "src/core/Parser/tree.cpp")
 
+# AST source files:
+set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp")
+
 # Core source files:
 set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 
 "src/core/UnitTest/UnitTest.h" "src/core/UnitTest/UnitTest.cpp"
@@ -49,7 +52,7 @@ set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp"
 "src/core/Error/ErrorMap.h" "src/core/Error/ErrorMap.cpp")
 
 # Add source to this project's executable.
-add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${Core_SRC})
+add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${AST_SRC} ${Core_SRC})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SemantiKet PROPERTY CXX_STANDARD 20)
