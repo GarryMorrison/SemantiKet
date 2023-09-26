@@ -319,8 +319,16 @@ int main(int argc, char* argv[])
 		NodeType ntype1 = NodeType::standard;
 		NodeType ntype2 = NodeType::statements;
 		std::cout << "ntype1: " << node_type_map.Name(ntype1) << "\n";
-		std::cout << "ntype2: " << node_type_map.Name(ntype2) << "\n";
+		std::cout << "ntype2: " << node_type_map.Name(ntype2) << "\n\n";
 
+		// Test AST code:
+		// SKet::yyTOKEN token(Parser::token_type::ID, "var", 3, 7); // Parser token type not visible from here!
+		SKet::yyTOKEN token;
+		token.print();
+		SKet::AST* a = new SKet::AST(token);
+		a->print();
+		SKet::AST* b = new SKet::ASTStatements(a);
+		b->print();
 	}
 
 	return 0;

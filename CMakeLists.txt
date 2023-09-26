@@ -42,7 +42,10 @@ set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core
 "src/core/Parser/tree.h" "src/core/Parser/tree.cpp")
 
 # AST source files:
-set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp")
+set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
+"src/core/AST/AST.h" "src/core/AST/AST.cpp"
+"src/core/AST/ASTStatements.h" "src/core/AST/ASTStatements.cpp")
+
 
 # Core source files:
 set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 
