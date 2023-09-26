@@ -171,7 +171,7 @@ typedef SKet::Parser::token_type token_type;
 %% /*** Additional Code ***/
 namespace SKet {
 
-    extern class yyTOKEN;
+    class yyTOKEN;
 
     Scanner::Scanner(std::istream* in, std::ostream* out)
         : SKetFlexLexer(in, out)

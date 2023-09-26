@@ -212,42 +212,7 @@
 
 
 
-// %right RIGHT_PAREN POWER
-// %right POWER
-// %right chain  // error!
-// %right LEFT_PAREN
-// Nope, doesn't help our S/R issues!
-// %precedence RIGHT_PAREN
-// %precedence POWER
 
-// Nope, doesn't work either!
-// %precedence LITERAL_KET
-// %precedence RULE
-
-// Nope, doesn't work either!
-// %nonassoc NO_RULE
-// %nonassoc RULE
-
-
-
-// This one works!
-//// %precedence ID
-//%precedence NO_LEFT_PAREN
-//// %precedence LITERAL_KET
-//%precedence LEFT_PAREN
-
-// This one doesn't
-// %precedence POWER
-// %precedence SEMICOLON
-
-// %right POWER
-// %right SEMICOLON
-
-/*
-%left DPLUS DMINUS
-%left DSTAR DDIV
-%right DPOW DMOD
-*/
 %left DPLUS DMINUS
 %left STAR DIV
 %right POWER MOD
@@ -556,7 +521,7 @@ learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Tree("learn rule", 1170, 
 
 rule_rhs: seq
 // | SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
-| SEMICOLON block_statements END_COLON{ $$ = new Tree("rule rhs", 1280, $2, $3); }
+| SEMICOLON block_statements END_COLON{ $$ = new Tree("rule rhs", 1280, $2); }
 ;
 
 /*
