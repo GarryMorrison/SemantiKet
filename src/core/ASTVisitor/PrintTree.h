@@ -40,15 +40,7 @@ namespace SKet {
 
 		virtual void visit(Root& Node) override {
 			// std::cout << "PrintTree inside Root\n";
-			std::cout << indent(2 * level) << Node.id << "  Node Type: " << node_type.Name(Node.ntype) << ": children: " << Node.nkids << "\n";
-			level++;
-			for (AST* tree : Node.kids)
-			{
-				if (tree)
-				{
-					tree->accept(*this);
-				}
-			}
+			visit(static_cast<Internal&>(Node)); // static or dynamic cast? Static seems to work.
 		}
 
 	};

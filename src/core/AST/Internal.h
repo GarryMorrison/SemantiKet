@@ -28,7 +28,12 @@ namespace SKet {
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
-		Internal() {}
+		// Internal() {}
+		Internal(NodeType type, AST* t1);
+		Internal(NodeType type, AST* t1, AST* t2);
+		Internal(NodeType type, AST* t1, AST* t2, AST* t3);
+		Internal(NodeType type, AST* t1, AST* t2, AST* t3, AST* t4);
+
 		Internal(AST* t1);
 		Internal(AST* t1, AST* t2);
 		Internal(AST* t1, AST* t2, AST* t3);

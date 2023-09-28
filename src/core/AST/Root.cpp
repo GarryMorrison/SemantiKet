@@ -7,13 +7,7 @@
 namespace SKet {
 
 	Root::Root(AST* t1)
-	{
-		id = serial.get_id();
-		ntype = NodeType::Root;
-		if (t1)
-		{
-			kids.push_back(t1);
-			nkids++;
-		}
-	}
+		: Internal(NodeType::Root, t1)
+	{}
 };
+
