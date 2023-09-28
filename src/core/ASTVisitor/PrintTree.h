@@ -8,19 +8,26 @@
 #include "../AST/Leaf.h"
 #include "../AST/Internal.h"
 #include "ASTVisitor.h"
+#include "../misc/misc.h"
+
+extern NodeTypeMap node_type;
 
 namespace SKet {
 
 	class PrintTree : public ASTVisitor {
 	public:
+		int level = 0;
 		PrintTree() {}
 
 		virtual void visit(Leaf& Node) override {
-			std::cout << "PrintTree inside Leaf\n";
+			// std::cout << "PrintTree inside Leaf\n";
+			std::cout << indent(2 * level) << Node.id << "  " << Node.tok.text << " (" << Node.tok.type_to_string() << "): line " << Node.tok.line << ", column " << Node.tok.col << "\n";
 		}
 
 		virtual void visit(Internal& Node) override {
-			std::cout << "PrintTree inside Internal\n";
+			// std::cout << "PrintTree inside Internal\n";
+			std::cout << indent(2 * level) << Node.id << "  Node Type: " << node_type.Name(Node.ntype) << ": children: " << Node.nkids << "\n";
+			level++;
 			for (AST* tree : Node.kids)
 			{
 				if (tree)

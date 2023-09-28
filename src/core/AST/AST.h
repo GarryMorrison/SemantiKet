@@ -35,7 +35,7 @@ namespace SKet {
 		*/
 
 		virtual ~AST() {}
-		virtual void accept(ASTVisitor& V) = 0;  // Enable later
+		virtual void accept(ASTVisitor& V) = 0;
 
 	};
 

@@ -29,8 +29,9 @@ namespace SKet {
 		std::vector<AST*> kids;
 
 		Internal(AST* t1);
+		Internal(AST* t1, AST* t2);
 
-		// Enable a bit later.
+
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);
 		}

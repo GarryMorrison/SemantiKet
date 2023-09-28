@@ -15,9 +15,26 @@ namespace SKet {
 			kids.push_back(t1);
 			nkids++;
 		}
+		/*
 		std::cout << "AST Internal constructor:\n";
 		std::cout << "id: " << id << "\n";
 		std::cout << "nkids: " << nkids << "\n";
+		*/
 	}
 
+	Internal::Internal(AST* t1, AST* t2)
+	{
+		id = serial.get_id();
+		ntype = NodeType::Internal;
+		if (t1)
+		{
+			kids.push_back(t1);
+			nkids++;
+		}
+		if (t2)
+		{
+			kids.push_back(t2);
+			nkids++;
+		}
+	}
 };

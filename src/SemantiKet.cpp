@@ -325,10 +325,10 @@ int main(int argc, char* argv[])
 		SKet::yyTOKEN token;
 		token.print();
 		SKet::AST* a = new SKet::Leaf(token);
-		SKet::AST* b = new SKet::Internal(a);
+		SKet::AST* b = new SKet::Internal(a, a);
 
 		SKet::PrintTree Print;
-		a->accept(Print);
+		// a->accept(Print);
 		b->accept(Print);
 
 	}
