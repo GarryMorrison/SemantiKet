@@ -1,9 +1,10 @@
 #include "AST.h"
 
 // Author: Garry Morrison
-// Added: 2023-9-26
-// Updated: 2023-9-26
+// Added: 2023-9-28
+// Updated: 2023-9-28
 
+/* // Delete later!
 namespace SKet {
 
 	void AST::print(int level)
@@ -23,3 +24,4 @@ namespace SKet {
 	}
 
 };
+*/

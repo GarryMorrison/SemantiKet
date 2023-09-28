@@ -8,8 +8,10 @@
 
 NodeTypeMap::NodeTypeMap()
 {
-	node_map[NodeType::standard] = "standard";
-	node_map[NodeType::statements] = "statements";
+	node_map[NodeType::Leaf] = "Leaf";
+	node_map[NodeType::Internal] = "Internal";
+	node_map[NodeType::Root] = "Root";
+	node_map[NodeType::Statements] = "Statements";
 };
 
 std::string NodeTypeMap::Name(NodeType ntype)

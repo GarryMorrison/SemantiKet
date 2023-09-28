@@ -28,7 +28,7 @@ std::mt19937 rng(time(nullptr));
 ErrorMap error_map;
 
 // Define our NodeTypeMap:
-NodeTypeMap node_type_map;
+NodeTypeMap node_type;
 
 
 int main(int argc, char* argv[])
@@ -316,19 +316,17 @@ int main(int argc, char* argv[])
 		std::cout << "warning description: " << error_map.get_warning_description(WarningType::W0) << "\n\n";
 
 		// Test NodeType maps:
-		NodeType ntype1 = NodeType::standard;
-		NodeType ntype2 = NodeType::statements;
-		std::cout << "ntype1: " << node_type_map.Name(ntype1) << "\n";
-		std::cout << "ntype2: " << node_type_map.Name(ntype2) << "\n\n";
+		NodeType ntype1 = NodeType::Leaf;
+		NodeType ntype2 = NodeType::Internal;
+		std::cout << "ntype1: " << node_type.Name(ntype1) << "\n";
+		std::cout << "ntype2: " << node_type.Name(ntype2) << "\n\n";
 
 		// Test AST code:
-		// SKet::yyTOKEN token(Parser::token_type::ID, "var", 3, 7); // Parser token type not visible from here!
 		SKet::yyTOKEN token;
 		token.print();
-		SKet::AST* a = new SKet::AST(token);
-		a->print();
-		SKet::AST* b = new SKet::ASTStatements(a);
-		b->print();
+		SKet::AST* a = new SKet::Leaf(token);
+		SKet::AST* b = new SKet::Internal(a);
+
 	}
 
 	return 0;

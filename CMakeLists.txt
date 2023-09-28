@@ -44,7 +44,8 @@ set(Parser_SRC "src/core/Parser/Driver.h" "src/core/Parser/Driver.cpp" "src/core
 # AST source files:
 set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 "src/core/AST/AST.h" "src/core/AST/AST.cpp"
-"src/core/AST/ASTStatements.h" "src/core/AST/ASTStatements.cpp")
+"src/core/AST/Leaf.h" "src/core/AST/Leaf.cpp"
+"src/core/AST/Internal.h" "src/core/AST/Internal.cpp")
 
 
 # Core source files:

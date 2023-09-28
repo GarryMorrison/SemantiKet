@@ -9,7 +9,7 @@
 
 // namespace SKet?
 
-enum class NodeType { standard, statements };
+enum class NodeType { Leaf, Internal, Root, Statements };
 
 class NodeTypeMap {
 private:

@@ -5,31 +5,36 @@
 // Updated: 2023-9-26
 
 #include <vector>
+#include <iostream>
 // #include "../../SemantiKet.h"
 #include "AST.h"
-#include "../Parser/token.h"
+// #include "../Parser/token.h"
 #include "../Parser/Serial.h"
 // #include "AST.h"
+#include "NodeType.h"
 
 extern Serial serial;
 
 namespace SKet {
 
-	class yyTOKEN;
+	// class yyTOKEN;
 
-	class ASTStatements : public AST
+	class Internal : public AST
 	{
 	public:
 		int id = -1;
 		NodeType ntype;
+		// yyTOKEN tok;
 		size_t nkids = 0;
-		yyTOKEN tok;
 		std::vector<AST*> kids;
 
-		ASTStatements(AST* t1);
+		Internal(AST* t1);
 
-		void print(int level);
-		void print() { print(0); }
+		/* // Enable a bit later.
+		virtual void accept(ASTVisitor& V) override {
+			V.visit(*this);
+		}
+		*/
 	};
 
 };
