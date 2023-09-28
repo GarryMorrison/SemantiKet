@@ -7,6 +7,7 @@
 #include <iostream>
 #include "../AST/Leaf.h"
 #include "../AST/Internal.h"
+#include "../AST/Root.h"
 #include "ASTVisitor.h"
 #include "../misc/misc.h"
 
@@ -36,6 +37,20 @@ namespace SKet {
 				}
 			}
 		}
+
+		virtual void visit(Root& Node) override {
+			// std::cout << "PrintTree inside Root\n";
+			std::cout << indent(2 * level) << Node.id << "  Node Type: " << node_type.Name(Node.ntype) << ": children: " << Node.nkids << "\n";
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+		}
+
 	};
 
 };

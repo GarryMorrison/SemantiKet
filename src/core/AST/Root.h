@@ -1,8 +1,8 @@
 #pragma once
 
 // Author: Garry Morrison
-// Added: 2023-9-26
-// Updated: 2023-9-26
+// Added: 2023-9-28
+// Updated: 2023-9-28
 
 #include <vector>
 #include <iostream>
@@ -10,8 +10,8 @@
 #include "AST.h"
 // #include "../Parser/token.h"
 #include "../Parser/Serial.h"
-// #include "AST.h"
 #include "NodeType.h"
+#include "Internal.h"
 
 extern Serial serial;
 
@@ -19,7 +19,7 @@ namespace SKet {
 
 	// class yyTOKEN;
 
-	class Internal : public AST
+	class Root : public Internal
 	{
 	public:
 		int id = -1;
@@ -28,17 +28,12 @@ namespace SKet {
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
-		Internal() {}
-		Internal(AST* t1);
-		Internal(AST* t1, AST* t2);
-		Internal(AST* t1, AST* t2, AST* t3);
-		Internal(AST* t1, AST* t2, AST* t3, AST* t4);
-
+		Root(AST* t1);
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);
 		}
-		
+
 	};
 
 };

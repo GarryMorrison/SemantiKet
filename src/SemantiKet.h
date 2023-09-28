@@ -20,6 +20,7 @@
 #include "core/AST/AST.h"
 #include "core/AST/Leaf.h"
 #include "core/AST/Internal.h"
+#include "core/AST/Root.h"
 #include "core/ASTVisitor/ASTVisitor.h"
 #include "core/ASTVisitor/PrintTree.h"
 #include "core/Parser/Driver.h"

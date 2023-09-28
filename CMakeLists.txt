@@ -46,6 +46,7 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 "src/core/AST/AST.h" "src/core/AST/AST.cpp"
 "src/core/AST/Leaf.h" "src/core/AST/Leaf.cpp"
 "src/core/AST/Internal.h" "src/core/AST/Internal.cpp"
+"src/core/AST/Root.h" "src/core/AST/Root.cpp"
 "src/core/ASTVisitor/ASTVisitor.h"
 "src/core/ASTVisitor/PrintTree.h")
 

@@ -11,12 +11,14 @@ namespace SKet {
 	class AST;
 	class Leaf;
 	class Internal;
+	class Root;
 
 	class ASTVisitor {
 	public:
 		virtual void visit(AST&) {};
 		virtual void visit(Leaf& Node) = 0;
 		virtual void visit(Internal& Node) = 0;
+		virtual void visit(Root& Node) = 0;
 	};
 
 };
