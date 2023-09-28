@@ -26,11 +26,11 @@ namespace SKet {
 
 		Leaf(yyTOKEN token);
 
-		/* // Enable a bit later.
+		// Enable a bit later.
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);
 		}
-		*/
+		
 	};
 
 };

@@ -9,8 +9,10 @@
 // #include "../Parser/token.h"
 // #include "../Parser/Serial.h"
 // #include "NodeType.h"
-
 // extern Serial serial;
+
+#include "../ASTVisitor/ASTVisitor.h"
+
 
 namespace SKet {
 
@@ -33,7 +35,7 @@ namespace SKet {
 		*/
 
 		virtual ~AST() {}
-		// virtual void accept(ASTVisitor& V) = 0;  // Enable later
+		virtual void accept(ASTVisitor& V) = 0;  // Enable later
 
 	};
 
