@@ -6,18 +6,11 @@
 
 namespace SKet {
 
-	Leaf::Leaf(yyTOKEN token)
+	Leaf::Leaf(yyTOKEN token) // Move to header file?
 		: tok(token)
 	{
 		id = serial.get_id();
 		ntype = NodeType::Leaf;
-
-		/*
-		std::cout << "AST Leaf constructor:\n";
-		std::cout << "id: " << id << "\n";
-		std::cout << "token:\n";
-		tok.print();
-		*/
 	}
 
 };

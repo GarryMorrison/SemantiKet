@@ -326,12 +326,11 @@ int main(int argc, char* argv[])
 		token.print();
 		SKet::AST* a = new SKet::Leaf(token);
 		SKet::AST* b = new SKet::Internal(a, a, a, a);
-		SKet::AST* c = new SKet::Root(b);
+		SKet::AST* c = new SKet::Internal("Statements", 1010, b);
+		SKet::AST* d = new SKet::Root(c);
 
 		SKet::PrintTree Print;
-		// a->accept(Print);
-		// b->accept(Print);
-		c->accept(Print);
+		d->accept(Print);
 
 	}
 

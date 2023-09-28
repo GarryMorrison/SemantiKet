@@ -22,6 +22,8 @@ namespace SKet {
 	class Internal : public AST
 	{
 	public:
+		std::string sym;
+		int rule_id = -1;
 		int id = -1;
 		NodeType ntype;
 		// yyTOKEN tok;
@@ -29,16 +31,20 @@ namespace SKet {
 		std::vector<AST*> kids;
 
 		// Internal() {}
-		Internal(NodeType type, AST* t1);
-		Internal(NodeType type, AST* t1, AST* t2);
-		Internal(NodeType type, AST* t1, AST* t2, AST* t3);
-		Internal(NodeType type, AST* t1, AST* t2, AST* t3, AST* t4);
-
 		Internal(AST* t1);
 		Internal(AST* t1, AST* t2);
 		Internal(AST* t1, AST* t2, AST* t3);
 		Internal(AST* t1, AST* t2, AST* t3, AST* t4);
 
+		Internal(NodeType type, AST* t1) : Internal(t1) { ntype = type; }
+		Internal(NodeType type, AST* t1, AST* t2) : Internal(t1, t2) { ntype = type; }
+		Internal(NodeType type, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { ntype = type; }
+		Internal(NodeType type, AST* t1, AST* t2, AST* t3, AST* t4) : Internal(t1, t2, t3, t4) { ntype = type; }
+
+		Internal(const std::string& s, int id, AST* t1) : Internal(t1) { sym = s; rule_id = id; }
+		Internal(const std::string& s, int id, AST* t1, AST* t2) : Internal(t1, t2) { sym = s; rule_id = id; }
+		Internal(const std::string& s, int id, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { sym = s; rule_id = id; }
+		Internal(const std::string& s, int id, AST* t1, AST* t2, AST* t3, AST* t4) : Internal(t1, t2, t3, t4) { sym = s; rule_id = id; }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

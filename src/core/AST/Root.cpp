@@ -6,8 +6,10 @@
 
 namespace SKet {
 
+	/*
 	Root::Root(AST* t1)
 		: Internal(NodeType::Root, t1)
 	{}
+	*/
 };
 
