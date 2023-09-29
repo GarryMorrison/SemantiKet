@@ -23,10 +23,14 @@ namespace SKet {
         : trace_scanning(false), trace_parsing(false)
     {}
     */
+    /*
     Driver::Driver(class Tree& _tree)
         : trace_scanning(false), trace_parsing(false), tree(_tree)
     {}
-
+    */
+    Driver::Driver(class AST& _ast)
+        : trace_scanning(false), trace_parsing(false), ast(_ast)
+    {}
 
     bool Driver::parse_stream(std::istream& in, const std::string& sname)
     {

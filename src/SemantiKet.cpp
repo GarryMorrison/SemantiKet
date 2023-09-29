@@ -16,10 +16,14 @@
 Serial serial;
  
 // Define our parse tree:
-SKet::Tree tree("the root");
+SKet::Tree tree("the root"); // Delete a little later
+
+// Define our new parse tree:
+SKet::AST *ast;
 
 // Define our parsing driver:
-SKet::Driver driver(tree);
+// SKet::Driver driver(tree);
+SKet::Driver driver(*ast);
 
 // Seed our random number generator:
 std::mt19937 rng(time(nullptr));
@@ -62,9 +66,11 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "----------------------------------";
 		driver.parse_file(argv[1]);
-		driver.tree.print();
-		driver.tree.save_graph("syntax-tree.dot");
-		std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
+		// driver.tree.print();
+		// driver.tree.save_graph("syntax-tree.dot");
+		SKet::PrintTree Print;
+		driver.ast.accept(Print);
+		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 	}
 	
 	if (argc > 2)
