@@ -111,4 +111,13 @@ namespace SKet {
         return sout;
     }
 
+    std::string yyTOKEN::type_to_string()
+    {
+        if (parser_token_string_map.find(code) == parser_token_string_map.end())
+        {
+            return "UNKNOWN";
+        }
+        return parser_token_string_map[code];
+    }
+
 };
