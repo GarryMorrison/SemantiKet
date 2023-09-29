@@ -38,7 +38,8 @@ namespace SKet {
 			}
 			*/
 
-			std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
+			// std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
+			std::cout << indent(2 * level) << Node.id << "  " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
 
 			level++;
 			for (AST* tree : Node.kids)
