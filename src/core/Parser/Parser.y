@@ -212,6 +212,7 @@
 %type <treeval> error_seq
 
 
+%left STRING_OP
 %left PLUS MINUS
 
 %left DPLUS DMINUS
@@ -434,11 +435,18 @@ seq: seq_seq
 | equality_expr  // 1 S/R conflict
 ;
 
+/*
 string_seq: ket_or_seq
 | chain_seq
 | ket_or_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
 | chain_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
 ;
+*/
+string_seq: ket_or_seq
+| chain_seq
+| string_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
+;
+
 
 /*
 range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3); }
