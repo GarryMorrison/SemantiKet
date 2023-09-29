@@ -211,7 +211,7 @@
 %type <treeval> error_seq
 
 
-
+%left PLUS MINUS
 
 %left DPLUS DMINUS
 %left STAR DIV
@@ -474,12 +474,19 @@ mul_div: string_seq
 ;
 */
 
+/*
 sp_seq: minus_string_seq
 | minus_string_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | minus_string_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | comparison_expr
 | comparison_expr PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 | comparison_expr MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+;
+*/
+sp_seq: minus_string_seq
+| comparison_expr
+| sp_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+| sp_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
 ;
 
 /*
