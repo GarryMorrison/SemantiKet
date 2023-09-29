@@ -2,40 +2,17 @@
 
 // Author: Garry Morrison
 // Added: 2023-9-28
-// Updated: 2023-9-28
+// Updated: 2023-9-29
 
-// #include "../../SemantiKet.h"
-
-// #include "../Parser/token.h"
-// #include "../Parser/Serial.h"
-// #include "NodeType.h"
-// extern Serial serial;
 
 #include "../ASTVisitor/ASTVisitor.h"
 
 
 namespace SKet {
 
-	// class yyTOKEN;
-
 	class AST
 	{
 	public:
-		/*  // first attempt, delete later!
-		int id = -1;
-		NodeType ntype;
-		size_t nkids = 0;
-		yyTOKEN tok;
-		std::vector<AST*> kids;
-
-		AST() { ntype = NodeType::standard; };
-		AST(yyTOKEN t) { id = serial.get_id(), ntype = NodeType::standard; }
-		void print(int level);
-		void print() { print(0); }
-		*/
-
-		int id = -1; // Not sure we want this
-		AST(int node_id) : id(node_id) {} // Or this
 		AST() {}
 		virtual ~AST() {}
 		virtual void accept(ASTVisitor& V) = 0;
