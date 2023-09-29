@@ -69,8 +69,10 @@ namespace SKet {
 
         /** Enable debug output (via arg_yyout) if compiled into the scanner. */
         void set_debug(bool b);
+        void set_verbose_lex(bool verbose) { verbose_lex = verbose; }
 
         // My tweaks:
+        bool verbose_lex = true;  // later make the default false.
         int yylineno, yycolno;
         yyTOKEN yytoken, last_token;
         // Tree* yytree;  // where is yytree used?

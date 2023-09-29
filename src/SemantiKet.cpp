@@ -65,7 +65,8 @@ int main(int argc, char* argv[])
 	if (argc == 2)
 	{
 		std::cout << "----------------------------------";
-		driver.parse_file(argv[1]);
+		bool verbose_lex = true;  // tweak as desired!
+		driver.parse_file(argv[1], verbose_lex);
 		// driver.tree.print();
 		// driver.tree.save_graph("syntax-tree.dot");
 		SKet::PrintTree Print;

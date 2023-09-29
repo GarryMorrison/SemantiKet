@@ -32,7 +32,7 @@ namespace SKet {
         : trace_scanning(false), trace_parsing(false), ast(_ast)
     {}
 
-    bool Driver::parse_stream(std::istream& in, const std::string& sname)
+    bool Driver::parse_stream(std::istream& in, const std::string& sname, bool verbose_lex)
     {
         // initialize our error objects:
         parse_error = false;
@@ -42,6 +42,7 @@ namespace SKet {
 
         Scanner scanner(&in);
         scanner.set_debug(trace_scanning);  // Switch this off too?
+        scanner.set_verbose_lex(verbose_lex);
         this->lexer = &scanner;
 
         Parser parser(*this);
@@ -60,7 +61,7 @@ namespace SKet {
         return (result == 0);
     }
 
-    bool Driver::parse_file(const std::string& filename)
+    bool Driver::parse_file(const std::string& filename, bool verbose_lex)
     {
         std::ifstream in(filename.c_str());
         // if (!in.good()) return false;
@@ -68,13 +69,13 @@ namespace SKet {
             std::cerr << "File error. Failed to open file: " << filename << std::endl; // Maybe a better error message here later.
             return false;
         }
-        return parse_stream(in, filename);
+        return parse_stream(in, filename, verbose_lex);
     }
 
-    bool Driver::parse_string(const std::string& input, const std::string& sname)
+    bool Driver::parse_string(const std::string& input, const std::string& sname, bool verbose_lex)
     {
         std::istringstream iss(input);
-        return parse_stream(iss, sname);
+        return parse_stream(iss, sname, verbose_lex);
     }
 
     void Driver::error(const class location& l, const std::string& m)

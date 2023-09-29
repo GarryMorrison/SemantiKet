@@ -189,7 +189,11 @@ namespace SKet {
 
     void Scanner::comment()
     {
-        std::cout << "\nComment: " << yytext << "\n";
+        if (verbose_lex)
+        {
+            std::cout << "\nComment: " << yytext << "\n";
+        }
+        
         for (int i = 0; i < yyleng; i++)
         {
             if (yytext[i] == '\n')
@@ -262,7 +266,7 @@ namespace SKet {
             last_token = yytoken;
             yycolno += yyleng;
         }
-        yytoken.print();
+        yytoken.print();  // do we need an if (verbose_lex) statement here?
         token_count++;
         // yytree = new Tree("token", 0, yytoken);
         // yylval->treeval = new Tree("token", 0, yytoken);
@@ -301,7 +305,11 @@ namespace SKet {
             last_token = yytoken;
             yycolno += yyleng;
         }
-        yytoken.print();  // eventually add a wrapper so we can switch this on and off.
+        // yytoken.print();  // eventually add a wrapper so we can switch this on and off.
+        if (verbose_lex)
+        {
+            yytoken.print();
+        }
         token_count++;
         // yylval->treeval = new Tree("token", 0, yytoken);
         yylval->treeval = new Leaf(yytoken);
