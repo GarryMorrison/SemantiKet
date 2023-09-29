@@ -23,7 +23,7 @@ SKet::AST *ast;
 
 // Define our parsing driver:
 // SKet::Driver driver(tree);
-SKet::Driver driver(*ast);
+SKet::Driver driver(ast);
 
 // Seed our random number generator:
 std::mt19937 rng(time(nullptr));
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 		// driver.tree.print();
 		// driver.tree.save_graph("syntax-tree.dot");
 		SKet::PrintTree Print;
-		driver.ast.accept(Print);
+		driver.ast->accept(Print);
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 	}
 	

@@ -22,7 +22,7 @@ namespace SKet {
         // Driver(class ContextList& context, class Sequence& result);
         // Driver();
         // Driver(class Tree& tree);
-        Driver(class AST& ast);
+        Driver(class AST *ast);
 
         /// enable debug output in the flex scanner
         bool trace_scanning;
@@ -77,7 +77,7 @@ namespace SKet {
         // class Tree& tree;  // Delete or comment out a little later.
 
         // Our new parse tree:
-        class AST& ast;
+        class AST *ast;
 
         // Our error objects:
         bool parse_error = false;

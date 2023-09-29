@@ -99,7 +99,7 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 					driver.parse_file(source_file);
 					// driver.tree.print();
 					SKet::PrintTree Print;
-					driver.ast.accept(Print);
+					driver.ast->accept(Print);
 
 					
 					if (driver.parse_error)
@@ -122,7 +122,7 @@ bool UnitTest::ParseDirectory(const std::string& source, const std::string& dest
 
 					// driver.tree.save_graph(destination + dot_file);
 					SKet::GraphTree Graph;
-					driver.ast.accept(Graph);
+					driver.ast->accept(Graph);
 					Graph.save(destination + dot_file);
 
 					if (with_png)

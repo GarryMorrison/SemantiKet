@@ -28,7 +28,7 @@ namespace SKet {
         : trace_scanning(false), trace_parsing(false), tree(_tree)
     {}
     */
-    Driver::Driver(class AST& _ast)
+    Driver::Driver(class AST* _ast)
         : trace_scanning(false), trace_parsing(false), ast(_ast)
     {}
 
