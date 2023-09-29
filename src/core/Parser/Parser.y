@@ -74,7 +74,8 @@
     int ival;
     float fval;
     char* sval;
-    class Tree* treeval;
+    // class Tree* treeval;
+    class AST* treeval;
 }
 
 %token			END	     0	"end of file"
@@ -241,10 +242,10 @@
 
 
 %%
-start: statements{ $$ = new Tree("root", 1000, $1); driver.tree = *$$; } ;
+start: statements{ $$ = new Internal("root", 1000, $1); /* driver.tree = *$$; */ };
 
 statements: statement 
-| statement statements { $$ = new Tree("statements", 1010, $1, $2); }
+| statement statements { $$ = new Internal("statements", 1010, $1, $2); }
 ;
 
 statement: SEMICOLON /* seems we need this */
@@ -267,17 +268,17 @@ statement: SEMICOLON /* seems we need this */
 | error_seq
 ;
 
-context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Tree("context assignment", 1020, $1, $3); }
+context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Internal("context assignment", 1020, $1, $3); }
 ;
 
 context_rhs: LITERAL_KET /* |some context> */
 // | CONTEXT_ID /* #some-context */
 | qualified_context
-| LITERAL_KET STRING_OP context_rhs{ $$ = new Tree("context rhs", 1030, $1, $2, $3); }
-| CONTEXT_ID STRING_OP context_rhs{ $$ = new Tree("context rhs", 1030, $1, $2, $3); }
+| LITERAL_KET STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
+| CONTEXT_ID STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
 ;
 
-context_op: CONTEXT_ID DOT context_op_type{ $$ = new Tree("context op", 1040, $1, $3); }
+context_op: CONTEXT_ID DOT context_op_type{ $$ = new Internal("context op", 1040, $1, $3); }
 ;
 
 context_op_type: ID
@@ -285,20 +286,20 @@ context_op_type: ID
 ;
 
 qualified_context: CONTEXT_ID
-| CONTEXT_ID DOT CONTEXT_ID{ $$ = new Tree("qualified context", 1080, $1, $3); }
-| CONTEXT_ID DOT CONTEXT_ID LEFT_SQUARE chain RIGHT_SQUARE{ $$ = new Tree("qualified context", 1080, $1, $3, $5); }
+| CONTEXT_ID DOT CONTEXT_ID{ $$ = new Internal("qualified context", 1080, $1, $3); }
+| CONTEXT_ID DOT CONTEXT_ID LEFT_SQUARE chain RIGHT_SQUARE{ $$ = new Internal("qualified context", 1080, $1, $3, $5); }
 ;
 
-param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Tree("param op", 1050, $1, $3); }
+param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Internal("param op", 1050, $1, $3); }
 ;
 
 rhs_params: STAR
 | STRINGLIT
 // | chain /* later swap in sequence */
 | seq
-| STAR COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
-| STRINGLIT COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
-| seq COMMA rhs_params{ $$ = new Tree("rhs params", 1060, $1, $3); }
+| STAR COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
+| STRINGLIT COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
+| seq COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
 ;
 
 // fn_def: DEF ID fn_params RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4, $5); }
@@ -316,17 +317,17 @@ fn_def: DEF ID RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
 ;
 */
 
-fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
-| DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $5, $6); }
-| DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $4, $6, $7); }
+fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $3, $4); }
+| DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $5, $6); }
+| DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $4, $6, $7); }
 ;
 
 param_list: ID
-| ID COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+| ID COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 | STAR
-| STAR COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+| STAR COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 | THREE_DOTS
-| THREE_DOTS COMMA param_list{ $$ = new Tree("param list", 1210, $1, $3); }
+| THREE_DOTS COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 ;
 
 
@@ -344,15 +345,15 @@ chain: ID
 | bra_ket
 | curly_seq
 | bracket_seq
-| ID chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| number chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| ID chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| number chain{ $$ = new Internal("chain", 1070, $1, $2); }
 // | MINUS chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| context_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| param_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| powered_op chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| bra_ket chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| curly_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
-| bracket_seq chain{ $$ = new Tree("chain", 1070, $1, $2); }
+| context_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| param_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| powered_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| bra_ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| curly_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| bracket_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 ;
 
 
@@ -390,17 +391,17 @@ powered_op: LEFT_CURLY chain RIGHT_CURLY POWER number_or_id{ $$ = new Tree("powe
 */
  // now redundant in grammar: // Nope! It isn't!
 // powered_op: chain_mbrs DPOW number_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
-powered_op: chain_mbrs DPOW int_or_id{ $$ = new Tree("powered op", 1090, $1, $3); }
+powered_op: chain_mbrs DPOW int_or_id{ $$ = new Internal("powered op", 1090, $1, $3); }
 ;
 
 
-curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Tree("curly seq", 1430, $2); }
+curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Internal("curly seq", 1430, $2); }
 ;
 
 chain_seq: chain
 // | chain ket_or_seq %prec NO_RULE{ $$ = new Tree("chain seq", 1100, $1, $2); } // Nope. Doesn't help.
 // | chain ket_or_seq { $$ = new Tree("chain seq", 1100, $1, $2); }
-| chain ket{ $$ = new Tree("chain ket", 1100, $1, $2); }
+| chain ket{ $$ = new Internal("chain ket", 1100, $1, $2); }
 ;
 
 
@@ -409,7 +410,7 @@ ket_or_seq: ket
 ;
 
 
-bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // Add Tree("bracket seq"...) ?
+bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // Add Internal("bracket seq"...) ?
 ;
 
 
@@ -434,8 +435,8 @@ seq: seq_seq
 
 string_seq: ket_or_seq
 | chain_seq
-| ket_or_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
-| chain_seq STRING_OP string_seq{ $$ = new Tree("string seq", 1110, $1, $2, $3); }
+| ket_or_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
+| chain_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
 ;
 
 /*
@@ -444,19 +445,19 @@ range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3)
 ;
 */
 
-range_seq: arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3); }
-| arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Tree("range seq", 1120, $1, $3, $5); }
+range_seq: arith_expr RANGE arith_expr{ $$ = new Internal("range seq", 1120, $1, $3); }
+| arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Internal("range seq", 1120, $1, $3, $5); }
 ;
 
-comparison_expr: arith_expr COMPARISON arith_expr{ $$ = new Tree("comparison", 1320, $1, $2, $3); }
+comparison_expr: arith_expr COMPARISON arith_expr{ $$ = new Internal("comparison", 1320, $1, $2, $3); }
 ;
 
-arith_expr: arith_expr DPLUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DMINUS arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr STAR arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr DIV arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr POWER arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
-| arith_expr MOD arith_expr{ $$ = new Tree("arithmetic", 1300, $1, $2, $3); }
+arith_expr: arith_expr DPLUS arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DMINUS arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
+| arith_expr STAR arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
+| arith_expr DIV arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
+| arith_expr POWER arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
+| arith_expr MOD arith_expr{ $$ = new Internal("arithmetic", 1300, $1, $2, $3); }
 // | LEFT_PAREN arith_expr RIGHT_PAREN{ $$ = $2; } // 1 S/R conflict // I think our grammar already handles this case!
 | string_seq
 ;
@@ -485,8 +486,8 @@ sp_seq: minus_string_seq
 */
 sp_seq: minus_string_seq
 | comparison_expr
-| sp_seq PLUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
-| sp_seq MINUS sp_seq{ $$ = new Tree("superposition seq", 1130, $1, $2, $3); }
+| sp_seq PLUS sp_seq{ $$ = new Internal("superposition seq", 1130, $1, $2, $3); }
+| sp_seq MINUS sp_seq{ $$ = new Internal("superposition seq", 1130, $1, $2, $3); }
 ;
 
 /*
@@ -496,25 +497,25 @@ minus_string_seq: string_seq
 */
 
 minus_string_seq: arith_expr
-| MINUS arith_expr{ $$ = new Tree("minus string seq", 1150, $1, $2); }
+| MINUS arith_expr{ $$ = new Internal("minus string seq", 1150, $1, $2); }
 ;
 
 
 seq_seq: sp_seq
-| sp_seq DOT seq_seq{ $$ = new Tree("sequence seq", 1140, $1, $3); }
+| sp_seq DOT seq_seq{ $$ = new Internal("sequence seq", 1140, $1, $3); }
 ;
 
 // assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
-assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
+assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("assignment", 1160, $1, $3); }
 ;
 
-global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Tree("global assignment", 1220, $2, $4); }
+global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
 ;
 
-op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Tree("op assignment", 1340, $1, $2, $3); }
+op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("op assignment", 1340, $1, $2, $3); }
 ;
 
-global_op_assignment: GLOBAL id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Tree("global op assignment", 1350, $2, $3, $4); }
+global_op_assignment: GLOBAL id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("global op assignment", 1350, $2, $3, $4); }
 ;
 
 id_bra_ket: ID
@@ -523,12 +524,12 @@ id_bra_ket: ID
 ;
 
 // learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
-learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); }
+learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Internal("learn rule", 1170, $1, $2, $3); }
 ;
 
 rule_rhs: seq
 // | SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
-| SEMICOLON block_statements END_COLON{ $$ = new Tree("rule rhs", 1280, $2); }
+| SEMICOLON block_statements END_COLON{ $$ = new Internal("rule rhs", 1280, $2); }
 ;
 
 /*
@@ -537,10 +538,10 @@ end_or_return: END_COLON
 ;
 */
 
-return_seq: RETURN seq{ $$ = new Tree("return seq", 1290, $2); } // move SEMICOLON to here?
+return_seq: RETURN seq{ $$ = new Internal("return seq", 1290, $2); } // move SEMICOLON to here? Probably!
 ;
 
-error_seq: ERROR seq SEMICOLON{ $$ = new Tree("error seq", 1450, $2); }
+error_seq: ERROR seq SEMICOLON{ $$ = new Internal("error seq", 1450, $2); }
 
 /*
 rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
@@ -552,7 +553,7 @@ rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 */
 
 rule_lhs: chain_seq
-| ID wildcard{ $$ = new Tree("rule lhs", 1180, $1, $2); }
+| ID wildcard{ $$ = new Internal("rule lhs", 1180, $1, $2); }
 ;
 
 wildcard: DOT
@@ -560,11 +561,11 @@ wildcard: DOT
 | DSTAR
 ;
 
-for_statement: FOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("for statement", 1230, $2, $4, $7); }
+for_statement: FOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("for statement", 1230, $2, $4, $7); }
 ;
 
 block_statements: block_statement
-| block_statement block_statements{ $$ = new Tree("block statements", 1240, $1, $2); }
+| block_statement block_statements{ $$ = new Internal("block statements", 1240, $1, $2); }
 ;
 
 block_statement: SEMICOLON
@@ -589,14 +590,14 @@ block_statement: SEMICOLON
 ;
 
 
-cfor_statement: CFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("cfor statement", 1250, $2, $4, $7); }
+cfor_statement: CFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("cfor statement", 1250, $2, $4, $7); }
 ;
 
-lfor_statement: LFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("lfor statement", 1420, $2, $4, $7); }
+lfor_statement: LFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("lfor statement", 1420, $2, $4, $7); }
 ;
 
 
-sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Tree("sfor statement", 1260, $2, $4, $7); }
+sfor_statement: SFOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("sfor statement", 1260, $2, $4, $7); }
 ;
 
 /*
@@ -605,8 +606,8 @@ if_statement: IF expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree(
 ;
 */
 
-if_statement: IF seq COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5); }
-| IF seq COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Tree("if statement", 1330, $2, $5, $7); }
+if_statement: IF seq COLON SEMICOLON block_statements END_COLON{ $$ = new Internal("if statement", 1330, $2, $5); }
+| IF seq COLON SEMICOLON block_statements ELSE block_statements END_COLON{ $$ = new Internal("if statement", 1330, $2, $5, $7); }
 ;
 
 /*
@@ -617,8 +618,8 @@ expr: comparison_expr
 ;
 */
 
-equality_expr: seq EQUALITY seq{ $$ = new Tree("equality expr", 1370, $1, $2, $3); }
-| seq LOGICAL_OP seq{ $$ = new Tree("bool expr", 1380, $1, $2, $3); }
+equality_expr: seq EQUALITY seq{ $$ = new Internal("equality expr", 1370, $1, $2, $3); }
+| seq LOGICAL_OP seq{ $$ = new Internal("bool expr", 1380, $1, $2, $3); }
 // | seq %prec NO_LOGICAL_OP // many S/R and R/R conflicts!
 ;
 
@@ -632,18 +633,18 @@ bool_expr: equality_expr
 
 
 // while_statement: WHILE expr COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
-while_statement: WHILE seq COLON SEMICOLON block_statements END_COLON{ $$ = new Tree("while statement", 1360, $2, $5); }
+while_statement: WHILE seq COLON SEMICOLON block_statements END_COLON{ $$ = new Internal("while statement", 1360, $2, $5); }
 ;
 
-init: INIT init_list SEMICOLON{ $$ = new Tree("init", 1390, $2); }
+init: INIT init_list SEMICOLON{ $$ = new Internal("init", 1390, $2); }
 ;
 
 init_list: ID
-| ID COMMA init_list{ $$ = new Tree("init list", 1400, $1, $3); }
+| ID COMMA init_list{ $$ = new Internal("init list", 1400, $1, $3); }
 ;
 
-bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2); }
-| LITERAL_BRA chain LITERAL_KET{ $$ = new Tree("bra ket", 1410, $1, $2, $3); }
+bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Internal("bra ket", 1410, $1, $2); }
+| LITERAL_BRA chain LITERAL_KET{ $$ = new Internal("bra ket", 1410, $1, $2, $3); }
 ;
 
 
@@ -658,7 +659,7 @@ void SKet::Parser::error(const Parser::location_type& l, const std::string& m)
     std::cout << " column " << driver.lexer->last_token.col << "\n";
     */
     driver.parse_error_message = m;
-    driver.parse_error_message += "Error on token: " + driver.lexer->last_token.text;
+    driver.parse_error_message += "\nError on token: " + driver.lexer->last_token.text;
     driver.parse_error_message += ", line " + std::to_string(driver.lexer->last_token.line);
     driver.parse_error_message += " column " + std::to_string(driver.lexer->last_token.col) + "\n";
     std::cout << driver.parse_error_message;

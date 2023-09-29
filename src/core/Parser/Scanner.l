@@ -301,9 +301,10 @@ namespace SKet {
             last_token = yytoken;
             yycolno += yyleng;
         }
-        yytoken.print();
+        yytoken.print();  // eventually add a wrapper so we can switch this on and off.
         token_count++;
-        yylval->treeval = new Tree("token", 0, yytoken);
+        // yylval->treeval = new Tree("token", 0, yytoken);
+        yylval->treeval = new Leaf(yytoken);
         return cat;
     }
 

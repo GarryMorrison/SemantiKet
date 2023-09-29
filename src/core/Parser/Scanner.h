@@ -73,7 +73,8 @@ namespace SKet {
         // My tweaks:
         int yylineno, yycolno;
         yyTOKEN yytoken, last_token;
-        Tree* yytree;
+        // Tree* yytree;  // where is yytree used?
+        AST* yyAST;  // will this be used anywhere?
         int token_count = 0;
         void comment();
         void whitespace();
