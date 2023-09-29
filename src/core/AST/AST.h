@@ -34,6 +34,9 @@ namespace SKet {
 		void print() { print(0); }
 		*/
 
+		int id = -1; // Not sure we want this
+		AST(int node_id) : id(node_id) {} // Or this
+		AST() {}
 		virtual ~AST() {}
 		virtual void accept(ASTVisitor& V) = 0;
 

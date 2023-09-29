@@ -324,13 +324,20 @@ int main(int argc, char* argv[])
 		// Test AST code:
 		SKet::yyTOKEN token;
 		token.print();
-		SKet::AST* a = new SKet::Leaf(token);
-		SKet::AST* b = new SKet::Internal(a, a, a, a);
+		SKet::AST* a1 = new SKet::Leaf(token);
+		SKet::AST* a2 = new SKet::Leaf(token);
+		SKet::AST* a3 = new SKet::Leaf(token);
+		SKet::AST* a4 = new SKet::Leaf(token);
+		SKet::AST* b = new SKet::Internal(a1, a2, a3, a4);
 		SKet::AST* c = new SKet::Internal("Statements", 1010, b);
 		SKet::AST* d = new SKet::Root(c);
 
 		SKet::PrintTree Print;
 		d->accept(Print);
+		SKet::GraphTree Graph;
+		d->accept(Graph);
+		Graph.save("syntax-tree.dot");
+		std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 
 	}
 

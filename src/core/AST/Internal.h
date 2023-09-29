@@ -13,6 +13,7 @@
 // #include "AST.h"
 #include "NodeType.h"
 
+
 extern Serial serial;
 
 namespace SKet {
@@ -45,6 +46,8 @@ namespace SKet {
 		Internal(const std::string& s, int id, AST* t1, AST* t2) : Internal(t1, t2) { sym = s; rule_id = id; }
 		Internal(const std::string& s, int id, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { sym = s; rule_id = id; }
 		Internal(const std::string& s, int id, AST* t1, AST* t2, AST* t3, AST* t4) : Internal(t1, t2, t3, t4) { sym = s; rule_id = id; }
+
+		std::string type_to_string();  // Put this here or in AST class?
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

@@ -27,6 +27,7 @@ namespace SKet {
 
 		virtual void visit(Internal& Node) override {
 			// std::cout << "PrintTree inside Internal\n";
+			/*
 			if (Node.sym.empty())
 			{
 				std::cout << indent(2 * level) << Node.id << "  Node Type: " << node_type.Name(Node.ntype) << ": children: " << Node.nkids << "\n";
@@ -35,6 +36,9 @@ namespace SKet {
 			{
 				std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.sym << " (" << Node.rule_id << "): children: " << Node.nkids << "\n";
 			}
+			*/
+
+			std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
 
 			level++;
 			for (AST* tree : Node.kids)
@@ -46,9 +50,7 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(Root& Node) override {
-			visit(static_cast<Internal&>(Node)); // static or dynamic cast? Static seems to work.
-		}
+		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
 
 	};
 

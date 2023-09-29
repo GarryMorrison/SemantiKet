@@ -23,6 +23,7 @@
 #include "core/AST/Root.h"
 #include "core/ASTVisitor/ASTVisitor.h"
 #include "core/ASTVisitor/PrintTree.h"
+#include "core/ASTVisitor/GraphTree.h"
 #include "core/Parser/Driver.h"
 // #include "core/Parser/token.h"
 // #include "core/Parser/tree.h"
