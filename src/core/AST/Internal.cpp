@@ -2,14 +2,13 @@
 
 // Author: Garry Morrison
 // Added: 2023-9-28
-// Updated: 2023-9-28
+// Updated: 2023-9-29
 
 extern NodeTypeMap node_type;
 
 namespace SKet {
 
 	Internal::Internal(AST* t1) 
-		// : AST(serial.get_id())
 	{
 		id = serial.get_id();
 		ntype = NodeType::Internal;
@@ -21,7 +20,6 @@ namespace SKet {
 	}
 
 	Internal::Internal(AST* t1, AST* t2)
-		// : AST(serial.get_id())
 	{
 		id = serial.get_id();
 		ntype = NodeType::Internal;
@@ -38,7 +36,6 @@ namespace SKet {
 	}
 
 	Internal::Internal(AST* t1, AST* t2, AST* t3)
-		// : AST(serial.get_id())
 	{
 		id = serial.get_id();
 		ntype = NodeType::Internal;
@@ -59,7 +56,6 @@ namespace SKet {
 		}
 	}
 	Internal::Internal(AST* t1, AST* t2, AST* t3, AST* t4)
-		// : AST(serial.get_id())
 	{
 		id = serial.get_id();
 		ntype = NodeType::Internal;
