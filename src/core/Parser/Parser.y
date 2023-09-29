@@ -242,7 +242,8 @@
 
 
 %%
-start: statements{ $$ = new Internal("root", 1000, $1); /* driver.tree = *$$; */ driver.ast = $$; };
+// start: statements{ $$ = new Internal("root", 1000, $1); /* driver.tree = *$$; */ driver.ast = $$; };
+start: statements{ $$ = new Root($1); driver.ast = $$; };
 
 statements: statement 
 | statement statements { $$ = new Internal("statements", 1010, $1, $2); }
