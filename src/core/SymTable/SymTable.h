@@ -26,7 +26,7 @@ public:
 class SymbolTable : public Scope { // move the below code to SymTable.cpp
 public:
 	std::string name;
-	Scope* parent_scope;
+	Scope* parent_scope = nullptr;
 	std::map<std::string, Symbol*> symbols;
 	SymbolTable() { initTypeSystem(); }
 	SymbolTable(Scope* scope) : SymbolTable("local", scope) {}; // only empty constructor initiates the type system

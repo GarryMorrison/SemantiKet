@@ -22,7 +22,7 @@ std::string SymbolTable::getScopeName() {
 }
 
 void SymbolTable::define(Symbol* sym) {
-	if (sym)
+	if (sym != nullptr)
 	{
 		if (!sym->name.empty())
 		{
@@ -35,7 +35,7 @@ Symbol* SymbolTable::resolve(const std::string& name)
 	if (symbols.find(name) == symbols.end())  
 	{
 		Scope* parent = getEnclosingScope(); // look in parent scope too! More complex implementation later
-		if (parent)
+		if (parent != nullptr)
 		{
 			return parent->resolve(name);
 		}
@@ -55,13 +55,13 @@ std::string SymbolTable::to_string(int level) {
 	s = indent(2 * level) + getScopeName() + ":\n";
 	for (const auto& elt : symbols)
 	{
-		if (elt.second)
+		if (elt.second != nullptr)
 		{
 			s += indent(2 * level + 2) + elt.second->to_string() + "\n";
 		}
 	}
 	Scope* parent = getEnclosingScope();
-	if (parent)
+	if (parent != nullptr)
 	{
 		s += parent->to_string(level + 1);
 	}
