@@ -10,6 +10,7 @@
 #include <string>
 #include <map>
 #include "Symbol.h"
+#include "../misc/misc.h"
 
 
 class Scope {
@@ -18,12 +19,18 @@ public:
 	virtual Scope* getEnclosingScope() = 0;
 	virtual void define(Symbol *sym) = 0;
 	virtual Symbol* resolve(const std::string& name) = 0;
+	virtual std::string to_string() = 0;
+	virtual std::string to_string(int level) = 0;
 };
 
-class SymbolTable : public Scope { // single scope symtab
+class SymbolTable : public Scope { // move the below code to SymTable.cpp
 public:
+	std::string name;
+	Scope* parent_scope;
 	std::map<std::string, Symbol*> symbols;
 	SymbolTable() { initTypeSystem(); }
+	SymbolTable(const std::string& name) { this->name = name; }
+	SymbolTable(const std::string& name, Scope* scope) { this->name = name; this->parent_scope = scope; }
 	void initTypeSystem() {
 		define(new BuiltInType("ket"));
 		define(new BuiltInType("sp"));
@@ -31,8 +38,17 @@ public:
 	}
 
 	// satisfy scope interface:
-	std::string getScopeName() { return "global"; }
-	Scope* getEnclosingScope() { return nullptr; }
+	std::string getScopeName() { 
+		if (name.empty())
+		{
+			return "global"; // default scope name is "global"
+		}
+		else
+		{
+			return name;
+		}
+	}
+	Scope* getEnclosingScope() { return parent_scope; }
 	void define(Symbol *sym) { 
 		if (sym)
 		{
@@ -44,7 +60,7 @@ public:
 	}
 	Symbol* resolve(const std::string& name)
 	{
-		if (symbols.find(name) == symbols.end())
+		if (symbols.find(name) == symbols.end())  // look in parent scope too!
 		{
 			return nullptr;
 		}
@@ -54,18 +70,23 @@ public:
 		}
 	}
 
-	std::string to_string() {
+	std::string to_string() { return this->to_string(1); }
+
+	std::string to_string(int level) {
 		std::string s;
-		s = "  " + getScopeName() + ":\n";
-		
+		s = indent(2 * level) + getScopeName() + ":\n";
 		for (const auto& elt : symbols)
 		{
 			if (elt.second)
 			{
-				s += "    " + elt.second->to_string() + "\n";
+				s += indent(2 * level + 2) + elt.second->to_string() + "\n";
 			}
 		}
-		
+		Scope *parent = getEnclosingScope();
+		if (parent)
+		{
+			s += parent->to_string(level + 1);
+		}
 		return s;
 	}
 };

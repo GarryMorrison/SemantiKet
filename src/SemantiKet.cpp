@@ -351,10 +351,17 @@ int main(int argc, char* argv[])
 		Type* ket = new BuiltInType("ket");
 		Symbol* our_symbol = new VariableSymbol("Fred", ket);
 		std::cout << "our symbol: " + our_symbol->to_string() << "\n";
-		SymbolTable global_st;
-		global_st.define(our_symbol);
+		SymbolTable *global_st = new SymbolTable();
+		global_st->define(our_symbol);
 		std::cout << "symbol table:\n";
-		std::cout << global_st.to_string();
+		std::cout << global_st->to_string();
+		// SymbolTable local_st("local");
+		SymbolTable *local_st = new SymbolTable("local", global_st);
+		Symbol* Sam = new VariableSymbol("Sam", ket);
+		Symbol* Liz = new VariableSymbol("Liz", ket);
+		local_st->define(Sam);
+		local_st->define(Liz);
+		std::cout << local_st->to_string();
 
 	}
 
