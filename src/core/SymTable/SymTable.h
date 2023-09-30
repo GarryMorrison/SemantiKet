@@ -29,7 +29,8 @@ public:
 	Scope* parent_scope;
 	std::map<std::string, Symbol*> symbols;
 	SymbolTable() { initTypeSystem(); }
-	SymbolTable(const std::string& name) { this->name = name; }  // only empty constructor initiates the type system
+	SymbolTable(Scope* scope) : SymbolTable("local", scope) {}; // only empty constructor initiates the type system
+	SymbolTable(const std::string& name) { this->name = name; } // ditto
 	SymbolTable(const std::string& name, Scope* scope) { this->name = name; this->parent_scope = scope; } // ditto
 	void initTypeSystem();
 

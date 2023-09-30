@@ -356,7 +356,8 @@ int main(int argc, char* argv[])
 		std::cout << "symbol table:\n";
 		std::cout << global_st->to_string();
 		// SymbolTable local_st("local");
-		SymbolTable *local_st = new SymbolTable("local", global_st);
+		// SymbolTable *local_st = new SymbolTable("local", global_st);
+		SymbolTable* local_st = new SymbolTable(global_st);
 		Symbol* Sam = new VariableSymbol("Sam", ket);
 		Symbol* Liz = new VariableSymbol("Liz", ket);
 		local_st->define(Sam);
