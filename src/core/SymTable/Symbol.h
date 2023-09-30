@@ -12,7 +12,7 @@ class Type;
 class Symbol {
 public:
 	std::string name;
-	Type *type; // change to pointer?
+	Type *type;
 
 	Symbol() {};
 	Symbol(const std::string &name) { this->name = name; }

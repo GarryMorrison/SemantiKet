@@ -346,11 +346,15 @@ int main(int argc, char* argv[])
 		Graph.save("syntax-tree.dot");
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 
-		// Test symbols:
+		// Test symbols and symbol table:
 		std::cout << "---------------------------------------\n";
 		Type* ket = new BuiltInType("ket");
 		Symbol* our_symbol = new VariableSymbol("Fred", ket);
 		std::cout << "our symbol: " + our_symbol->to_string() << "\n";
+		SymbolTable global_st;
+		global_st.define(our_symbol);
+		std::cout << "symbol table:\n";
+		std::cout << global_st.to_string();
 
 	}
 

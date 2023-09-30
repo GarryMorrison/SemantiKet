@@ -6,6 +6,6 @@
 
 
 std::string Symbol::to_string() {
-	if (!type->getName().empty()) { return "<" + getName() + ":" + type->getName() + ">"; }
+	if (type) { return "<" + getName() + ":" + type->getName() + ">"; }
 	return getName();
 }
