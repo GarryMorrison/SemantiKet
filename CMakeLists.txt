@@ -49,7 +49,8 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 "src/core/AST/Root.h" "src/core/AST/Root.cpp"
 "src/core/ASTVisitor/ASTVisitor.h"
 "src/core/ASTVisitor/PrintTree.h"
-"src/core/ASTVisitor/GraphTree.h")
+"src/core/ASTVisitor/GraphTree.h"
+"src/core/SymTable/Symbol.h" "src/core/SymTable/Symbol.cpp")
 
 
 # Core source files:

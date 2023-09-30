@@ -344,7 +344,13 @@ int main(int argc, char* argv[])
 		SKet::GraphTree Graph;
 		d->accept(Graph);
 		Graph.save("syntax-tree.dot");
-		std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
+		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
+
+		// Test symbols:
+		std::cout << "---------------------------------------\n";
+		Type* ket = new BuiltInType("ket");
+		Symbol* our_symbol = new VariableSymbol("Fred", ket);
+		std::cout << "our symbol: " + our_symbol->to_string() << "\n";
 
 	}
 
