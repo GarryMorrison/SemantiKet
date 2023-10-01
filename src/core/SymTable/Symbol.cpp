@@ -5,6 +5,8 @@
 #include "Symbol.h"
 #include "../misc/misc.h"
 
+SKet::yyTOKEN sample_token; // we need a cleaner way to access token names!
+
 /*
 Symbol::Symbol(const std::string& name, Type* type, bool is_const, int line) 
 { 
@@ -41,7 +43,11 @@ std::string Symbol::to_string() {
 std::string VariableSymbol::to_string()
 {
 	std::string s;
-	if (type != nullptr)
+	if (ttype != SKet::Parser::token_type::UNKNOWN)
+	{
+		s = "<" + getName() + ":" + sample_token.get_token_type(ttype) + ">"; // we need a cleaner way to map to token names!!
+	}
+	else if (type != nullptr)
 	{
 		s = "<" + getName() + ":" + type->getName() + ">";
 	}

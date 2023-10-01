@@ -42,6 +42,7 @@ namespace SKet {
         }
     }
 
+    /*
     std::string yyTOKEN::get_token_type(Parser::token_type token_code)
     {
         int code = static_cast<int>(token_code);
@@ -50,6 +51,15 @@ namespace SKet {
             return "UNKNOWN";
         }
         return token_string_map[code];
+    }
+    */
+    std::string yyTOKEN::get_token_type(Parser::token_type token_code)
+    {
+        if (parser_token_string_map.find(token_code) == parser_token_string_map.end())
+        {
+            return "UNKNOWN";
+        }
+        return parser_token_string_map[token_code];
     }
 
     void yyTOKEN::print()
