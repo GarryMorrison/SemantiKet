@@ -14,16 +14,16 @@ class Symbol {
 public:
 	std::string name;
 	Type *type = nullptr;
-	bool is_const = false;
-	std::vector<int> line_numbers;
+	// bool is_const = false;
+	// std::vector<int> line_numbers;
 
 	Symbol() {};
 	Symbol(const std::string &name) { this->name = name; }
 	Symbol(const std::string& name, Type* type) { this->name = name; this->type = type; }
-	Symbol(const std::string& name, Type* type, bool is_const) { this->name = name; this->type = type; this->is_const = is_const; }
-	Symbol(const std::string& name, Type* type, bool is_const, int line);
+	// Symbol(const std::string& name, Type* type, bool is_const) { this->name = name; this->type = type; this->is_const = is_const; }
+	// Symbol(const std::string& name, Type* type, bool is_const, int line);
 	std::string getName() { return name; }
-	std::string to_string();
+	virtual std::string to_string();
 };
 
 class Type : public Symbol {
@@ -39,8 +39,12 @@ public:
 
 class VariableSymbol : public Symbol {
 public:
+	bool is_const = false;
+	std::vector<int> line_numbers;
+
 	VariableSymbol(const std::string& name) : Symbol(name) {};
 	VariableSymbol(const std::string& name, Type *type) : Symbol(name, type) {};
-	VariableSymbol(const std::string& name, Type* type, bool is_const) : Symbol(name, type, is_const) {};
-	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : Symbol(name, type, is_const, line) {};
+	VariableSymbol(const std::string& name, Type* type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
+	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.push_back(line); };
+	std::string to_string() override;
 };
