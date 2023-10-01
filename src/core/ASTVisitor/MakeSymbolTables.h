@@ -22,10 +22,9 @@ namespace SKet {
 		Scope* sc = nullptr;
 		MakeSymbolTables(Scope* scope) { sc = scope; }
 		virtual void visit(Leaf& Node) override {
-
-			if (this->sc)
+			if (sc)
 			{
-				this->sc->define(new VariableSymbol(Node.tok));
+				sc->define(new VariableSymbol(Node.tok));
 			}
 		}
 		virtual void visit(Internal& Node) override {
