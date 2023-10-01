@@ -7,6 +7,7 @@
 // namespace SKet or not?
 #include <string>
 #include <vector>
+#include <set>
 // #include "../Parser/token.h"
 #include "parser.tab.h"
 #include "../Parser/token.h"
@@ -30,6 +31,7 @@ public:
 	// Symbol(const std::string& name, Type* type, bool is_const, int line);
 	std::string getName() { return name; }
 	virtual std::string to_string();
+	virtual void appendLine(int line) {};  // Looks like we need this here in Symbol
 };
 
 class Type : public Symbol {
@@ -46,22 +48,24 @@ public:
 class VariableSymbol : public Symbol {
 public:
 	bool is_const = false;
-	std::vector<int> line_numbers;
+	std::set<int> line_numbers;
 
 	VariableSymbol(const std::string& name) : Symbol(name) {};
 
 	// version 1 types:
 	VariableSymbol(const std::string& name, Type *type) : Symbol(name, type) {};
 	VariableSymbol(const std::string& name, Type* type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
-	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.push_back(line); };
+	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
 
 	// version 2 types:
 	VariableSymbol(const std::string& name, SKet::Parser::token_type type) : Symbol(name, type) {};
 	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
-	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.push_back(line); };
+	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
 
 	// token version:
-	VariableSymbol(SKet::yyTOKEN tok) : Symbol(tok.text, tok.code) { line_numbers.push_back(tok.line); }
+	VariableSymbol(SKet::yyTOKEN tok) : Symbol(tok.text, tok.code) { line_numbers.insert(tok.line); }
+
+	void appendLine(int line) { line_numbers.insert(line); }  // do we need this method in Symbol too?
 
 	std::string to_string() override;
 };

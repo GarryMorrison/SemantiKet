@@ -367,6 +367,8 @@ int main(int argc, char* argv[])
 		token.text = "some token";
 		token.line = 137;
 		Symbol* vs = new VariableSymbol(token);
+		vs->appendLine(259);
+		vs->appendLine(3571);
 		local_st->define(vs);
 		std::cout << local_st->to_string();
 		std::cout << global_st->to_string();

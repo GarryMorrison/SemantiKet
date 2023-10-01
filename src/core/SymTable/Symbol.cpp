@@ -62,7 +62,7 @@ std::string VariableSymbol::to_string()
 	}
 	for (int line : line_numbers)
 	{
-		s += pad_str(std::to_string(line), " ", 4);
+		s += pad_str(std::to_string(line), " ", 6);
 	}
 	
 	return s;
