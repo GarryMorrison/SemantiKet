@@ -79,10 +79,10 @@ std::string VariableSymbol::to_string()
 	{
 		s += " (const) ";
 	}
+	std::string s2 = pad_str(s, " ", 50, false); // 50 should do for now
 	for (int line : line_numbers)
 	{
-		s += pad_str(std::to_string(line), " ", 6);
+		s2 += pad_str(std::to_string(line), " ", 6, false);
 	}
-	
-	return s;
+	return s2;
 }
