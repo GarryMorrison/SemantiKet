@@ -50,6 +50,7 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 "src/core/ASTVisitor/ASTVisitor.h"
 "src/core/ASTVisitor/PrintTree.h"
 "src/core/ASTVisitor/GraphTree.h"
+"src/core/ASTVisitor/MakeSymbolTables.h"
 "src/core/SymTable/Symbol.h" "src/core/SymTable/Symbol.cpp"
 "src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp")
 

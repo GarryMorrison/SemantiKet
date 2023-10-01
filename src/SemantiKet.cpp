@@ -72,6 +72,12 @@ int main(int argc, char* argv[])
 		SKet::PrintTree Print;
 		driver.ast->accept(Print);
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
+
+		// towards a symbol table:
+		SymbolTable* global_st = new SymbolTable();
+		SKet::MakeSymbolTables Tables(global_st);
+		driver.ast->accept(Tables);
+		std::cout << global_st->to_string();
 	}
 	
 	if (argc > 2)

@@ -1,0 +1,27 @@
+// test simple assignment
+// Added: 2023/9/9
+
+// define an int:
+int = 3715
+
+// define a float:
+pi = 3.14159265
+
+// define a literal ket:
+Fred = |Fred Smith>
+
+// define a chain:
+foo = op3 op2 7.2 op1
+
+// define another chain:
+bar = op5 {op4 5 op3}^^7 op2^^k op1 sp1
+
+// define a ket:
+|psi> = 1 .. 10
+
+// define a bra:
+<phi| = transpose |phi>
+
+// something more interesting:
+result = then read[1, 3] clean drop-below[0.85] similar-input[pattern] input
+

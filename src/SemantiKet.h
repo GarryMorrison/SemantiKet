@@ -27,6 +27,7 @@
 #include "core/Parser/Driver.h"
 #include "core/SymTable/Symbol.h"
 #include "core/SymTable/SymTable.h"
+#include "core/ASTVisitor/MakeSymbolTables.h"
 // #include "core/Parser/token.h"
 // #include "core/Parser/tree.h"
 #include "core/misc/misc.h"
