@@ -78,6 +78,8 @@
     class AST* treeval;
 }
 
+%token          EMPTY
+%token          UNKNOWN
 %token			END	     0	"end of file"
 %token			EOL		"end of line"
 %token <treeval> INT   257

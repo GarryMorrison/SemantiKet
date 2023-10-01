@@ -31,7 +31,7 @@ namespace SKet {
 
         std::string unescape(const std::string& sin);
 
-        Parser::token_type code;  // Make these variables private?
+        Parser::token_type code = Parser::token_type::EMPTY;  // Make these variables private?
         std::string text;
         int line = -1;
         int col = -1;
@@ -111,6 +111,8 @@ namespace SKet {
         };
 
         std::map<Parser::token_type, std::string> parser_token_string_map = {  // Map parser tokens to their string name
+            {Parser::token_type::EMPTY, "EMPTY"},
+            {Parser::token_type::UNKNOWN, "UNKNOWN"},
             {Parser::token_type::END, "END"},
             {Parser::token_type::INT, "INT"},
             {Parser::token_type::FLOAT, "FLOAT"},
