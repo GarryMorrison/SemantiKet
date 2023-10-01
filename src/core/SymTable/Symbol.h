@@ -60,5 +60,8 @@ public:
 	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
 	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.push_back(line); };
 
+	// token version:
+	VariableSymbol(SKet::yyTOKEN tok) : Symbol(tok.text, tok.code) { line_numbers.push_back(tok.line); }
+
 	std::string to_string() override;
 };

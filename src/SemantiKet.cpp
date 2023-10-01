@@ -364,6 +364,10 @@ int main(int argc, char* argv[])
 		// Symbol* Liz = new VariableSymbol("Liz", ket);
 		local_st->define(Sam);
 		local_st->define(Liz);
+		token.text = "some token";
+		token.line = 137;
+		Symbol* vs = new VariableSymbol(token);
+		local_st->define(vs);
 		std::cout << local_st->to_string();
 		std::cout << global_st->to_string();
 
