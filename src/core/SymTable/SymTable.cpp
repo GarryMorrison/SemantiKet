@@ -4,6 +4,16 @@
 
 #include "SymTable.h"
 
+SymbolTable::SymbolTable(const std::string& name, Scope* scope)
+{
+	this->name = name; 
+	this->parent_scope = scope; 
+	if (this->parent_scope)
+	{
+		this->parent_scope->addChild(this);  // does this work?
+	}
+}
+
 void SymbolTable::initTypeSystem() {  // Add more types here later!
 	define(new BuiltInType("ket"));
 	define(new BuiltInType("sp"));
@@ -18,6 +28,15 @@ std::string SymbolTable::getScopeName() {
 	else
 	{
 		return name;
+	}
+}
+
+void SymbolTable::addChild(Scope* sc)
+{
+	if (sc)
+	{
+		kids.push_back(sc);
+		nkids++;
 	}
 }
 
@@ -60,10 +79,19 @@ std::string SymbolTable::to_string(int level) {
 			s += indent(2 * level + 2) + elt.second->to_string() + "\n";
 		}
 	}
+	/*
 	Scope* parent = getEnclosingScope();
 	if (parent != nullptr)
 	{
 		s += parent->to_string(level + 1);
+	}
+	*/
+	for (Scope* child : kids)
+	{
+		if (child)
+		{
+			s += child->to_string(level + 1);
+		}
 	}
 	return s;
 }

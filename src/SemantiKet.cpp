@@ -365,6 +365,7 @@ int main(int argc, char* argv[])
 		local_st->define(Sam);
 		local_st->define(Liz);
 		std::cout << local_st->to_string();
+		std::cout << global_st->to_string();
 
 	}
 
