@@ -40,6 +40,25 @@ std::string Symbol::to_string() {
 	return s;
 }
 
+
+VariableSymbol::VariableSymbol(SKet::yyTOKEN tok)
+	: Symbol(tok.text, tok.code)
+{
+	line_numbers.insert(tok.line);
+
+	switch (ttype)
+	{
+	case SKet::Parser::token_type::INT:  // add more literal types here later
+	case SKet::Parser::token_type::FLOAT:
+	case SKet::Parser::token_type::LITERAL_KET:
+	case SKet::Parser::token_type::LITERAL_BRA:
+		is_const = true;
+		break;
+	default:
+		is_const = false;
+	}
+}
+
 std::string VariableSymbol::to_string()
 {
 	std::string s;
