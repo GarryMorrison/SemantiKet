@@ -32,6 +32,7 @@ public:
 	std::string getName() { return name; }
 	virtual std::string to_string();
 	virtual void appendLine(int line) {};  // Looks like we need this here in Symbol
+	virtual std::set<int> getLines() { std::set<int> empty_set; return empty_set; } // This too
 };
 
 class Type : public Symbol {
@@ -66,6 +67,7 @@ public:
 	VariableSymbol(SKet::yyTOKEN tok) : Symbol(tok.text, tok.code) { line_numbers.insert(tok.line); }
 
 	void appendLine(int line) { line_numbers.insert(line); }  // do we need this method in Symbol too?
+	std::set<int> getLines() { return line_numbers; }
 
 	std::string to_string() override;
 };
