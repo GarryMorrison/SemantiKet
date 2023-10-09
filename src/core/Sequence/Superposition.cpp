@@ -646,7 +646,8 @@ Superposition Superposition::range(double F1, double F2)
 		size_t idx2 = sp2.max_index;
 		sp2.max_index++;
 		sp2.sort_order.push_back(idx2);
-		sp2.coeffs[idx2] = 1;
+		// sp2.coeffs[idx2] = 1;
+		sp2.coeffs[idx2] = i;
 		sp2.pos2str_label[idx2] = label;
 		sp2.str_label2pos[label] = idx2;
 	}
@@ -675,7 +676,8 @@ Superposition Superposition::range(double F1, double F2, double F3)
 			size_t idx2 = sp2.max_index;
 			sp2.max_index++;
 			sp2.sort_order.push_back(idx2);
-			sp2.coeffs[idx2] = 1;
+			// sp2.coeffs[idx2] = 1;
+			sp2.coeffs[idx2] = i;
 			sp2.pos2str_label[idx2] = label;
 			sp2.str_label2pos[label] = idx2;
 		}
@@ -688,7 +690,8 @@ Superposition Superposition::range(double F1, double F2, double F3)
 			size_t idx2 = sp2.max_index;
 			sp2.max_index++;
 			sp2.sort_order.push_back(idx2);
-			sp2.coeffs[idx2] = 1;
+			// sp2.coeffs[idx2] = 1;
+			sp2.coeffs[idx2] = i;
 			sp2.pos2str_label[idx2] = label;
 			sp2.str_label2pos[label] = idx2;
 		}
