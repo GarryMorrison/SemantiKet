@@ -325,6 +325,10 @@ int main(int argc, char* argv[])
 		sp19.erase(3);
 		std::cout << "erase[3] sp19: " << sp19.to_string() << "\n\n";
 
+		// quick test of min and max coeff:
+		std::cout << "min of sp19: " << std::to_string(sp19.min_coeff()) << "\n";
+		std::cout << "max of sp19: " << std::to_string(sp19.max_coeff()) << "\n\n";
+
 
 		// Test error and warning maps:
 		// version 1:

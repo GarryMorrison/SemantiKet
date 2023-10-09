@@ -39,6 +39,8 @@ public:
 	size_t how_many();
 	double measure_currency();
 	double read_coeff(const std::string& s1);
+	double max_coeff();
+	double min_coeff();
 	void add(const std::string& s1);
 	void add(const std::string& s1, double coeff);
 	void add(Superposition& sp);

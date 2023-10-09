@@ -9,7 +9,7 @@
 
 class Node {
 public:
-	static enum class NType { AST, Leaf, Internal, Root };
+	enum class NType { AST, Leaf, Internal, Root };
 
 	static const std::map<NType, std::string> NTypeStringMap;
 	static std::string to_string(NType ntype);

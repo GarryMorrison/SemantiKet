@@ -165,6 +165,36 @@ double Superposition::read_coeff(const std::string& s1)
 	return coeffs[idx];
 }
 
+double Superposition::max_coeff()
+{
+	if (sort_order.empty())
+	{
+		return 0;
+	}
+	size_t idx = sort_order[0];
+	double v = coeffs[idx];
+	for (const auto& coeff : coeffs)
+	{
+		v = std::max(v, coeff.second);
+	}
+	return v;
+}
+
+double Superposition::min_coeff()
+{
+	if (sort_order.empty())
+	{
+		return 0;
+	}
+	size_t idx = sort_order[0];
+	double v = coeffs[idx];
+	for (const auto& coeff : coeffs)
+	{
+		v = std::min(v, coeff.second);
+	}
+	return v;
+}
+
 void Superposition::add(const std::string& s1)  // still incomplete ....
 {
 	if (str_label2pos.find(s1) != str_label2pos.end())
