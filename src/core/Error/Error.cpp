@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Error.h"
+#include "../misc/misc.h"
 
 void Error::AppendError(EType etype, const std::string& where)
 {
@@ -18,7 +19,26 @@ size_t Error::GetErrorCount()
 
 void Error::PrintErrors()
 {
-	std::cout << "Errors:\n";  // Fill out later!
+	std::string s;
+	size_t error_count = GetErrorCount();
+	s = "Found " + std::to_string(error_count) + " error(s):\n";
+	std::string line = pad_str("", "-", static_cast<int>(s.size()) - 1);
+	s += line + "\n";
+	for (size_t i = 0; i < error_count; i++)
+	{
+		EType etype = error_types[i];
+		if (i > 0)
+		{
+			s += "\n";
+		}
+		s += pad_str(std::to_string(i+1) + ")", " ", 5, false) + "Location:    " + error_locations[i] + "\n";
+		s += pad_str("", " ", 5, false) + "Type:        " + etype.Type + "\n";
+		s += pad_str("", " ", 5, false) + "Name:        " + etype.Name + "\n";
+		s += pad_str("", " ", 5, false) + "Message:     " + etype.Message + "\n";
+		s += pad_str("", " ", 5, false) + "Description: " + etype.Description + "\n";
+	}
+	s += line;
+	std::cout << s << "\n\n";
 }
 
 

@@ -31,6 +31,12 @@ std::mt19937 rng(time(nullptr));
 // Define our error map:
 ErrorMap error_map;
 
+// Define our error tracker:
+Error errors;
+
+// Define our warning tracker:
+Warning warnings;
+
 // Define our NodeTypeMap:
 NodeTypeMap node_type;
 
@@ -334,6 +340,14 @@ int main(int argc, char* argv[])
 		std::cout << "Error message: " << Error::FoundSpExpectingKet.Message << "\n";
 		std::cout << "Error name: " << Error::FoundSeqExpectingSp.Name << "\n";
 		std::cout << "Error message: " << Error::FoundSeqExpectingSp.Message << "\n\n";
+
+		// now let's report an error!
+		errors.AppendError(Error::FoundSpExpectingKet, "inside SemantiKet.cpp");
+		errors.AppendError(Error::FoundSeqExpectingSp, "also inside SKet.cpp");
+		// now let's see what we have:
+		errors.PrintErrors();
+		// and see what warnings we have:
+		warnings.PrintWarnings();
 
 
 		// Test NodeType maps:
