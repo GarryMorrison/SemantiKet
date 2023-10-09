@@ -458,6 +458,8 @@ range_seq: string_seq RANGE string_seq{ $$ = new Tree("range seq", 1120, $1, $3)
 
 range_seq: arith_expr RANGE arith_expr{ $$ = new Internal("range seq", 1120, $1, $3); }
 | arith_expr RANGE arith_expr RANGE arith_expr{ $$ = new Internal("range seq", 1120, $1, $3, $5); }
+| arith_expr THREE_DOTS arith_expr{ $$ = new Internal("srange seq", 1125, $1, $3); }
+| arith_expr THREE_DOTS arith_expr THREE_DOTS arith_expr{ $$ = new Internal("srange seq", 1125, $1, $3, $5); }
 ;
 
 comparison_expr: arith_expr COMPARISON arith_expr{ $$ = new Internal("comparison", 1320, $1, $2, $3); }
