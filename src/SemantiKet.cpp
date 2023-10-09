@@ -351,10 +351,18 @@ int main(int argc, char* argv[])
 
 
 		// Test NodeType maps:
+		// version 1:
 		NodeType ntype1 = NodeType::Leaf;
 		NodeType ntype2 = NodeType::Internal;
 		std::cout << "ntype1: " << node_type.Name(ntype1) << "\n";
 		std::cout << "ntype2: " << node_type.Name(ntype2) << "\n\n";
+
+		// version 2:
+		Node::NType ntype3 = Node::NType::AST;
+		std::cout << "ntype 3: " << Node::to_string(ntype3) << "\n";
+		ntype3 = Node::NType::Leaf;
+		std::cout << "ntype 3: " << Node::to_string(ntype3) << "\n\n";
+
 
 		// Test AST code:
 		SKet::yyTOKEN token;
