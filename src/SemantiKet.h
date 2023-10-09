@@ -35,6 +35,7 @@
 #include "core/Diff/diff.h"
 #include "core/Sequence/Superposition.h"
 #include "core/Error/ErrorMap.h"
+#include "core/Error/Error.h"
 
 // TODO: Reference additional headers your program requires here.
 

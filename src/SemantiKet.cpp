@@ -321,12 +321,20 @@ int main(int argc, char* argv[])
 
 
 		// Test error and warning maps:
+		// version 1:
 		std::cout << "error type: " << error_map.get_error_type(ErrorType::E0) << "\n";
 		std::cout << "error message: " << error_map.get_error_message(ErrorType::E0) << "\n";
 		std::cout << "error description: " << error_map.get_error_description(ErrorType::E0) << "\n";
 		std::cout << "warning type: " << error_map.get_warning_type(WarningType::W0) << "\n";
 		std::cout << "warning message: " << error_map.get_warning_message(WarningType::W0) << "\n";
 		std::cout << "warning description: " << error_map.get_warning_description(WarningType::W0) << "\n\n";
+
+		// version 2:
+		std::cout << "Error name: " << Error::FoundSpExpectingKet.Name << "\n";
+		std::cout << "Error message: " << Error::FoundSpExpectingKet.Message << "\n";
+		std::cout << "Error name: " << Error::FoundSeqExpectingSp.Name << "\n";
+		std::cout << "Error message: " << Error::FoundSeqExpectingSp.Message << "\n\n";
+
 
 		// Test NodeType maps:
 		NodeType ntype1 = NodeType::Leaf;
