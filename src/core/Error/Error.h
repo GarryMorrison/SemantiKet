@@ -14,6 +14,7 @@ struct EType {
 	std::string Description;
 };
 
+
 class Error {
 public:
 	std::vector<EType> error_types;
@@ -27,3 +28,5 @@ public:
 	static const EType FoundSeqExpectingSp;
 
 };
+
+

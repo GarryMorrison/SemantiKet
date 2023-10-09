@@ -36,6 +36,7 @@
 #include "core/Sequence/Superposition.h"
 #include "core/Error/ErrorMap.h"
 #include "core/Error/Error.h"
+#include "core/Error/Warning.h"
 
 // TODO: Reference additional headers your program requires here.
 
