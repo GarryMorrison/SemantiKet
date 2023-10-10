@@ -9,6 +9,11 @@
 
 extern std::mt19937 rng;
 
+// our error and warning tables:
+extern Error errors;
+extern Warning warnings;
+
+
 /*
 	bool is_transpose = false;
 	size_t max_index = 0;
@@ -427,6 +432,7 @@ void Superposition::weighted_pick_elt()
 	{
 		clear(); // create the empty ket
 		// symtab.warning("misc", "weighted-pick-elt", "sum is 0, can't return an element");
+		warnings.AppendWarning(Warning::SumIsZero, "weighted-pick-elt");
 		return;
 	}
 	std::uniform_real_distribution<double> distr(0, sum);
@@ -451,6 +457,7 @@ void Superposition::weighted_pick_elt()
 	}
 	clear(); // create the empty ket
 	// symtab.error("misc", "weighted-pick-elt", "invalid branch");
+	errors.AppendError(Error::InvalidBranch, "weighted-pick-elt");
 	return;
 }
 
@@ -484,6 +491,7 @@ void Superposition::normalize1()
 	}
 	if (sum == 0)  // is this the best thing to do if sum == 0?
 	{
+		warnings.AppendWarning(Warning::SumIsZero, "normalize1");
 		return;
 	}
 	for (size_t idx : sort_order)
@@ -501,6 +509,7 @@ void Superposition::normalize1(double t)
 	}
 	if (sum == 0)  // is this the best thing to do if sum == 0?
 	{
+		warnings.AppendWarning(Warning::SumIsZero, "normalize1");
 		return;
 	}
 	for (size_t idx : sort_order)
@@ -520,6 +529,7 @@ void Superposition::normalize2()
 	}
 	if (sum == 0)  // is this the best thing to do if sum == 0?
 	{
+		warnings.AppendWarning(Warning::SumIsZero, "normalize2");
 		return;
 	}
 	for (size_t idx : sort_order)
@@ -537,6 +547,7 @@ void Superposition::rescale()
 	}
 	if (max == 0)
 	{
+		warnings.AppendWarning(Warning::MaxIsZero, "rescale");
 		return;
 	}
 	for (size_t idx : sort_order)
@@ -554,6 +565,7 @@ void Superposition::rescale(double t)
 	}
 	if (max == 0)
 	{
+		warnings.AppendWarning(Warning::MaxIsZero, "rescale");
 		return;
 	}
 	for (size_t idx : sort_order)
@@ -588,20 +600,6 @@ void Superposition::shuffle()
 {
 	std::shuffle(sort_order.begin(), sort_order.end(), rng);
 }
-
-/*
-	bool is_transpose = false;
-	size_t max_index = 0;
-	std::vector<size_t> sort_order;
-	label_type ket_label_type;
-	std::map<size_t, double> coeffs;
-
-	std::map<size_t, std::string> pos2str_label;
-	std::map<std::string, size_t> str_label2pos;
-
-	std::map<size_t, double> pos2float_label;
-	std::map<double, size_t> float_label2pos;
-*/
 
 void Superposition::merge()
 {
@@ -692,6 +690,7 @@ Superposition Superposition::range(double F1, double F2)
 	Superposition sp2;
 	if (F2 < F1)
 	{
+		warnings.AppendWarning(Warning::EmptyRange, "range");
 		return sp2;
 	}
 	int i1 = static_cast<long long int>(F1); // convert to ints for now. TODO: full float version!
@@ -715,11 +714,13 @@ Superposition Superposition::range(double F1, double F2, double F3)
 	Superposition sp2;
 	if (F3 == 0) // stop empty steps from being an infinite loop
 	{
+		warnings.AppendWarning(Warning::ZeroRangeStep, "range");
 		return sp2;
 	}
 	if ((F1 > F2 && F3 > 0) || (F1 < F2 && F3 < 0))
 	{
-			return sp2;
+		warnings.AppendWarning(Warning::EmptyRange, "range");
+		return sp2;
 	}
 	int i1 = static_cast<long long int>(F1); // convert to ints for now. TODO: full float version!
 	int i2 = static_cast<long long int>(F2);
@@ -762,11 +763,13 @@ double Superposition::cread(double F1) // used in cfor loops // later handle -ve
 	{
 		// symtab.error("value", "cread", "index starts at 1 not 0"); // maybe make error messages global, not defined inside operators?
 		// symtab.error("cread", 12345);  // 12345 maps to: type of "value error", and message of "index starts at 1 not 0".
+		warnings.AppendWarning(Warning::ZeroIndex, "cread");
 		return 0;
 	}
 	if (i < 1 || i > sort_order.size())
 	{
 		// symtab.error("value", "cread", "index is out of range"); // later return valid range? ie, 1 .. sort_order.size()? Using our format string?
+		warnings.AppendWarning(Warning::IndexRangeError, "cread");
 		return 0;
 	}
 	size_t idx = sort_order[i - 1];
@@ -780,11 +783,13 @@ Superposition Superposition::lread(double F1) // used in lfor loops
 	if (i == 0)
 	{
 		// symtab.error("value", "lread", "index starts at 1 not 0");
+		warnings.AppendWarning(Warning::ZeroIndex, "lread");
 		return sp;
 	}
 	if (i < 1 || i > sort_order.size())
 	{
 		// symtab.error("value", "lread", "index is out of range");
+		warnings.AppendWarning(Warning::IndexRangeError, "lread");
 		return sp;
 	}
 	size_t idx = sort_order[i - 1];
@@ -800,11 +805,13 @@ Superposition Superposition::read(double F1) // used in for loops
 	if (i == 0)
 	{
 		// symtab.error("value", "read", "index starts at 1 not 0");
+		warnings.AppendWarning(Warning::ZeroIndex, "read");
 		return sp;
 	}
 	if (i < 1 || i > sort_order.size())
 	{
 		// symtab.error("value", "read", "index is out of range");
+		warnings.AppendWarning(Warning::IndexRangeError, "read");
 		return sp;
 	}
 	size_t idx = sort_order[i - 1];
@@ -820,6 +827,7 @@ void Superposition::erase(double F1)
 	if (i < 1 || i > sort_order.size())
 	{
 		// symtab.warning("value", "erase", "index is out of range");
+		warnings.AppendWarning(Warning::IndexRangeError, "erase");
 		return;
 	}
 	size_t idx = sort_order[i - 1];
