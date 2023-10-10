@@ -1,6 +1,6 @@
 // Author: Garry Morrison
 // Added: 2023-9-20
-// Updated: 2023-9-20
+// Updated: 2023-10-10
 
 #include "Superposition.h"
 #include <algorithm>
@@ -155,6 +155,7 @@ double Superposition::measure_currency()
 	return F;
 }
 
+/*
 double Superposition::read_coeff(const std::string& s1)
 {
 	if (str_label2pos.find(s1) == str_label2pos.end())
@@ -163,6 +164,17 @@ double Superposition::read_coeff(const std::string& s1)
 	}
 	size_t idx = str_label2pos[s1];
 	return coeffs[idx];
+}
+*/
+
+double Superposition::read_coeff(const std::string& s1)
+{
+	auto it = str_label2pos.find(s1);
+	if (it == str_label2pos.end())
+	{
+		return 0;
+	}
+	return coeffs[it->second];
 }
 
 double Superposition::max_coeff()
@@ -197,10 +209,17 @@ double Superposition::min_coeff()
 
 void Superposition::add(const std::string& s1)  // still incomplete ....
 {
+	/*
 	if (str_label2pos.find(s1) != str_label2pos.end())
 	{
 		size_t idx = str_label2pos[s1];
 		coeffs[idx] += 1;
+	}
+	*/
+	auto it = str_label2pos.find(s1);
+	if (it != str_label2pos.end())
+	{
+		coeffs[it->second] += 1;
 	}
 	else
 	{
@@ -216,10 +235,17 @@ void Superposition::add(const std::string& s1)  // still incomplete ....
 
 void Superposition::add(const std::string& s1, double F1)  // still incomplete ....
 {
+	/*
 	if (str_label2pos.find(s1) != str_label2pos.end())
 	{
 		size_t idx = str_label2pos[s1];
 		coeffs[idx] += F1;
+	}
+	*/
+	auto it = str_label2pos.find(s1);
+	if (it != str_label2pos.end())
+	{
+		coeffs[it->second] += F1;
 	}
 	else
 	{
