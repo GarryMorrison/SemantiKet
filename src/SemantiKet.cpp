@@ -370,6 +370,12 @@ int main(int argc, char* argv[])
 		ntype3 = Node::NType::Leaf;
 		std::cout << "ntype 3: " << Node::to_string(ntype3) << "\n\n";
 
+		// Test SymbolType maps:
+		SymbolType::SType stype1 = SymbolType::SType::Variable;
+		SymbolType::SType stype2 = SymbolType::SType::Context;
+		std::cout << "stype 1: " << SymbolType::to_string(stype1) << "\n";
+		std::cout << "stype 2: " << SymbolType::to_string(stype2) << "\n\n";
+
 
 		// Test AST code:
 		SKet::yyTOKEN token;

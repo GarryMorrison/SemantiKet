@@ -52,9 +52,13 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 "src/core/ASTVisitor/PrintTree.h"
 "src/core/ASTVisitor/GraphTree.h"
 "src/core/ASTVisitor/MakeSymbolTables.h"
-"src/core/SymTable/Symbol.h" "src/core/SymTable/Symbol.cpp"
-"src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp")
+)
 
+# Symbol source files:
+set(SYM_SRC "src/core/SymTable/SymbolType.h" "src/core/SymTable/SymbolType.cpp"
+"src/core/SymTable/Symbol.h" "src/core/SymTable/Symbol.cpp"
+"src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp"
+)
 
 # Core source files:
 set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp" 
@@ -67,7 +71,7 @@ set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp"
 
 
 # Add source to this project's executable.
-add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${AST_SRC} ${Core_SRC})
+add_executable (SemantiKet "src/SemantiKet.cpp" "src/SemantiKet.h" ${Parser_SRC} ${BISON_Parser_OUTPUTS} ${FLEX_Lexer_OUTPUTS} ${AST_SRC} ${SYM_SRC} ${Core_SRC})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SemantiKet PROPERTY CXX_STANDARD 20)
