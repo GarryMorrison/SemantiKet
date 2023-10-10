@@ -418,6 +418,10 @@ int main(int argc, char* argv[])
 		std::cout << local_st->to_string();
 		std::cout << global_st->to_string();
 
+
+		// test push-value and pop-value:
+		// Superposition sp20 = 
+
 	}
 
 	return 0;

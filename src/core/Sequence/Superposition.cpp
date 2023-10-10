@@ -837,3 +837,27 @@ void Superposition::erase(double F1)
 	pos2str_label.erase(idx);
 	str_label2pos.erase(label);
 }
+
+void Superposition::push_value()
+{
+	for (size_t idx : sort_order)
+	{
+		double c = coeffs[idx];
+		std::string label = pos2str_label[idx];
+		std::string label2;
+		if (!label.empty() && label != " ")
+		{
+			label2.append(label);
+			label2.append(": ");
+		}
+		label2.append(std::to_string(c));  // round our floats here? eg, float_to_str?
+		pos2str_label[idx] = label2;
+		str_label2pos.erase(label);
+		str_label2pos[label2] = idx;
+	}
+}
+
+void Superposition::pop_value() // fill out later!
+{
+
+}

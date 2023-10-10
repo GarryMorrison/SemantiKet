@@ -80,4 +80,7 @@ public:
 	Superposition read(double F1); // used in for loops
 
 	void erase(double F1);
+
+	void push_value();
+	void pop_value();
 };
