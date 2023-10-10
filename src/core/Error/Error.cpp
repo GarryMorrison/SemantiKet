@@ -61,3 +61,11 @@ const EType Error::FoundSeqExpectingSp = {
 	""
 };
 
+const EType Error::InvalidBranch = {
+	"InvalidBranch",
+	"misc",
+	"invalid branch, we should not be here!",
+	""
+};
+
+
