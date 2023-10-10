@@ -850,10 +850,11 @@ void Superposition::push_value()
 			label2.append(label);
 			label2.append(": ");
 		}
-		label2.append(std::to_string(c));  // round our floats here? eg, float_to_str?
+		label2.append(std::to_string(c));  // round our floats here? eg, float_to_str? Maybe leave that job to round[n] operator?
 		pos2str_label[idx] = label2;
 		str_label2pos.erase(label);
 		str_label2pos[label2] = idx;
+		coeffs[idx] = 1;
 	}
 }
 

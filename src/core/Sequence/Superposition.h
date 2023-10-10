@@ -72,8 +72,8 @@ public:
 	Superposition split();
 	Superposition split(const std::string &s1);
 
-	Superposition range(double F1, double F2);
-	Superposition range(double F1, double F2, double F3);
+	static Superposition range(double F1, double F2);
+	static Superposition range(double F1, double F2, double F3);
 
 	double cread(double F1); // used in cfor loops
 	Superposition lread(double F1); // used in lfor loops

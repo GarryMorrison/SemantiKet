@@ -420,7 +420,11 @@ int main(int argc, char* argv[])
 
 
 		// test push-value and pop-value:
-		// Superposition sp20 = 
+		Superposition sp20 = Superposition::range(1, 5);
+		std::cout << "\nsp20: " << sp20.to_string() << "\n";
+		sp20.push_value();
+		std::cout << "push-value sp20: " << sp20.to_string() << "\n\n";
+
 
 	}
 
