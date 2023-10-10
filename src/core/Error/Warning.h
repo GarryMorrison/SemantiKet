@@ -34,5 +34,6 @@ public:
 	static const WType ZeroRangeStep;
 	static const WType ZeroIndex;
 	static const WType IndexRangeError;
+	static const WType FoundStringExpectingFloat;
 
 };

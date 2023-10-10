@@ -858,7 +858,54 @@ void Superposition::push_value()
 	}
 }
 
-void Superposition::pop_value() // fill out later!
+Superposition Superposition::pop_value()
 {
-
+	Superposition sp2;
+	bool has_value_error = false;
+	for (size_t idx : sort_order)
+	{
+		double c = coeffs[idx];
+		std::string label = pos2str_label[idx];
+		size_t sep_pos = label.find_last_of(": ");
+		if (sep_pos == std::string::npos) // label does not contain ": " substring
+		{
+			try
+			{
+				double c2 = std::stod(label);
+				sp2.add(" ", c * c2);
+			}
+			catch (std::exception& e)
+			{
+				has_value_error = true;
+				sp2.add(label, c);
+			}
+		}
+		else
+		{
+			std::string head = label.substr(0, sep_pos - 1);
+			std::string tail = label.substr(sep_pos + 1);
+			try
+			{
+				double c2 = std::stod(tail);
+				if (head.empty())
+				{
+					sp2.add(" ", c * c2);
+				}
+				else
+				{
+					sp2.add(head, c * c2);
+				}
+			}
+			catch (std::exception& e)
+			{
+				has_value_error = true;
+				sp2.add(label, c);
+			}
+		}
+	}
+	if (has_value_error)
+	{
+		warnings.AppendWarning(Warning::FoundStringExpectingFloat, "pop-value"); // warning or error?
+	}
+	return sp2;
 }

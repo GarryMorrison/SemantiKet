@@ -82,5 +82,5 @@ public:
 	void erase(double F1);
 
 	void push_value();
-	void pop_value();
+	Superposition pop_value();
 };

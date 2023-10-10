@@ -419,12 +419,25 @@ int main(int argc, char* argv[])
 		std::cout << global_st->to_string();
 
 
-		// test push-value and pop-value:
+		// test push-value:
 		Superposition sp20 = Superposition::range(1, 5);
 		std::cout << "\nsp20: " << sp20.to_string() << "\n";
 		sp20.push_value();
 		std::cout << "push-value sp20: " << sp20.to_string() << "\n\n";
 
+		// test pop-value:
+		Superposition sp21;
+		sp21.add("alpha", 2);
+		sp21.add("alpha: beta", 3);
+		sp21.add("37", 5);
+		sp21.add(": 19", 7);
+		sp21.add("x: 137", 11);
+		Superposition sp22 = sp21.pop_value();
+		Superposition sp23 = sp20.pop_value();
+		std::cout << "sp21: " << sp21.to_string() << "\n";
+		std::cout << "sp22: " << sp22.to_string() << "\n";
+		std::cout << "sp23: " << sp23.to_string() << "\n\n";
+		warnings.PrintWarnings();
 
 	}
 
