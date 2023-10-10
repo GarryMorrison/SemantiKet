@@ -41,3 +41,8 @@ void Warning::PrintWarnings()
 	std::cout << s << "\n\n";
 }
 
+void Warning::ResetWarnings()
+{
+	warning_types.clear();
+	warning_locations.clear();
+}

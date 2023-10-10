@@ -23,6 +23,7 @@ public:
 	void AppendError(EType etype, const std::string& where);
 	size_t GetErrorCount();
 	void PrintErrors();
+	void ResetErrors();
 
 	static const EType FoundSpExpectingKet;
 	static const EType FoundSeqExpectingSp;

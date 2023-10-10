@@ -23,6 +23,7 @@ public:
 	void AppendWarning(WType wtype, const std::string& where);
 	size_t GetWarningCount();
 	void PrintWarnings();
+	void ResetWarnings();
 
 	// Go find some warning types to add here:
 	// static const WType FoundSpExpectingKet;

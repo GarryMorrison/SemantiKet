@@ -350,6 +350,9 @@ int main(int argc, char* argv[])
 		errors.AppendError(Error::FoundSeqExpectingSp, "also inside SKet.cpp");
 		// now let's see what we have:
 		errors.PrintErrors();
+		// let's reset them, then see what we have:
+		errors.ResetErrors();
+		errors.PrintErrors();
 		// and see what warnings we have:
 		warnings.PrintWarnings();
 

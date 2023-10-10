@@ -41,6 +41,11 @@ void Error::PrintErrors()
 	std::cout << s << "\n\n";
 }
 
+void Error::ResetErrors()
+{
+	error_types.clear();
+	error_locations.clear();
+}
 
 const EType Error::FoundSpExpectingKet = {
 		"FoundSpExpectingKet",
