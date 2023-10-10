@@ -46,3 +46,46 @@ void Warning::ResetWarnings()
 	warning_types.clear();
 	warning_locations.clear();
 }
+
+const WType Warning::SumIsZero = {
+	"SumIsZero",
+	"misc",
+	"sum is 0, can't proceed",
+	""
+};
+
+const WType Warning::MaxIsZero = {
+	"MaxIsZero",
+	"misc",
+	"max is 0, can't proceed",
+	""
+};
+
+const WType Warning::EmptyRange = {
+	"EmptyRange",
+	"IndexError",
+	"indices imply empty range",
+	""
+};
+
+const WType Warning::ZeroRangeStep = {
+	"ZeroRangeStep",
+	"IndexError",
+	"range step is 0, returning empty range",
+	""
+};
+
+const WType Warning::ZeroIndex = {
+	"ZeroIndex",
+	"IndexError",
+	"indices start at 1, not 0",
+	""
+};
+
+const WType Warning::IndexRangeError = {
+	"IndexRangeError",
+	"IndexError",
+	"index is out of range",
+	""
+};
+

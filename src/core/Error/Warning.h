@@ -28,5 +28,11 @@ public:
 	// Go find some warning types to add here:
 	// static const WType FoundSpExpectingKet;
 	// static const WType FoundSeqExpectingSp;
+	static const WType SumIsZero;
+	static const WType MaxIsZero;
+	static const WType EmptyRange;
+	static const WType ZeroRangeStep;
+	static const WType ZeroIndex;
+	static const WType IndexRangeError;
 
 };
