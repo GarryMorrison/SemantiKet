@@ -7,7 +7,7 @@
 #include <string>
 #include <map>
 
-class SymbolType {
+class Symbol {
 public:
 	enum class SType { Base, Variable, Context, LearnRule, WildcardLearnRule, Function };
 
