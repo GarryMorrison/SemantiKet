@@ -11,6 +11,7 @@
 // #include "../Parser/token.h"
 #include "parser.tab.h"
 #include "../Parser/token.h"
+#include "Symbol.h"
 
 
 class Type;
@@ -20,6 +21,7 @@ public:
 	std::string name;
 	Type *type = nullptr;
 	SKet::Parser::token_type ttype = SKet::Parser::token_type::UNKNOWN;
+	Symbol::SType stype = Symbol::SType::Base;
 	// bool is_const = false;
 	// std::vector<int> line_numbers;
 
@@ -35,19 +37,20 @@ public:
 	virtual std::set<int> getLines() { std::set<int> empty_set; return empty_set; } // This too
 };
 
-class Type : public BaseSymbol {
+class Type : public BaseSymbol {  // Need SType?
 public:
 	Type() {};
 	Type(const std::string &name) : BaseSymbol(name) {};
 };
 
-class BuiltInType : public Type {
+class BuiltInType : public Type {  // Need SType?
 public:
 	BuiltInType(const std::string& name) : Type(name) {}
 };
 
 class VariableSymbol : public BaseSymbol {
 public:
+	Symbol::SType stype = Symbol::SType::Variable;
 	bool is_const = false;
 	std::set<int> line_numbers;
 
