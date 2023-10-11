@@ -83,4 +83,5 @@ public:
 
 	void push_value();
 	Superposition pop_value();
+	Superposition round(double F1);
 };

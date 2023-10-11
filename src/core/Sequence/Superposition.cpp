@@ -909,3 +909,46 @@ Superposition Superposition::pop_value()
 	}
 	return sp2;
 }
+
+Superposition Superposition::round(double F1)
+{
+	Superposition sp2;
+	unsigned int decimal_places = static_cast<unsigned int>(F1); // perform checks on valid values here?
+	for (size_t idx : sort_order)
+	{
+		double c = coeffs[idx];
+		std::string label = pos2str_label[idx];
+		size_t sep_pos = label.find_last_of(": ");
+		if (sep_pos == std::string::npos) // label does not contain ": " substring
+		{
+			try
+			{
+				double c2 = std::stod(label);
+				std::string label2 = float_to_str(c2, decimal_places);
+				sp2.add(label2, c);
+			}
+			catch (std::exception& e)
+			{
+				sp2.add(label, c);
+			}
+		}
+		else  // label does contain ": " substring
+		{
+			std::string head = label.substr(0, sep_pos - 1);
+			std::string tail = label.substr(sep_pos + 1);
+			try
+			{
+				double c2 = std::stod(tail);
+				std::string label2(head);
+				label2.append(": ");
+				label2.append(float_to_str(c2, decimal_places));
+				sp2.add(label2, c);
+			}
+			catch (std::exception& e)
+			{
+				sp2.add(label, c);
+			}
+		}
+	}
+	return sp2;
+}

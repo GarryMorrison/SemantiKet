@@ -445,6 +445,16 @@ int main(int argc, char* argv[])
 		std::cout << "sp23: " << sp23.to_string() << "\n\n";
 		warnings.PrintWarnings();
 
+		// test round[n]:
+		Superposition sp24;
+		sp24.add("3.141592653", 2);
+		sp24.add("pi: 3.141592653", 3);
+		sp24.add("alpha", 5);
+		sp24.add("alpha: beta", 7);
+		Superposition sp25 = sp24.round(3);
+		std::cout << "sp24: " << sp24.to_string() << "\n";
+		std::cout << "sp25: " << sp25.to_string() << "\n\n";
+
 	}
 
 	return 0;
