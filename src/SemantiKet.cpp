@@ -15,6 +15,9 @@
 // Define our serial global:
 Serial serial;
  
+// Define our scope serial global:
+Serial scope_serial;
+
 // Define our parse tree:
 SKet::Tree tree("the root"); // Delete a little later
 
