@@ -19,8 +19,8 @@ namespace SKet {
 
 	class MakeSymbolTables : public ASTVisitor {
 	public:
-		Scope* sc = nullptr;
-		MakeSymbolTables(Scope* scope) { sc = scope; }
+		BaseScope* sc = nullptr;
+		MakeSymbolTables(BaseScope* scope) { sc = scope; }
 		virtual void visit(Leaf& Node) override {
 			if (sc)
 			{

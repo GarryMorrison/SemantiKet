@@ -4,7 +4,7 @@
 
 #include "SymTable.h"
 
-SymbolTable::SymbolTable(const std::string& name, Scope* scope)
+SymbolTable::SymbolTable(const std::string& name, BaseScope* scope)
 {
 	this->name = name; 
 	this->parent_scope = scope; 
@@ -31,7 +31,7 @@ std::string SymbolTable::getScopeName() {
 	}
 }
 
-void SymbolTable::addChild(Scope* sc)
+void SymbolTable::addChild(BaseScope* sc)
 {
 	if (sc)
 	{
@@ -77,7 +77,7 @@ BaseSymbol* SymbolTable::resolve(const std::string& name)
 {
 	if (symbols.find(name) == symbols.end())  
 	{
-		Scope* parent = getEnclosingScope(); // look in parent scope too! More complex implementation later
+		BaseScope* parent = getEnclosingScope(); // look in parent scope too! More complex implementation later
 		if (parent != nullptr)
 		{
 			return parent->resolve(name);
@@ -110,7 +110,7 @@ std::string SymbolTable::to_string(int level) {
 		s += parent->to_string(level + 1);
 	}
 	*/
-	for (Scope* child : kids)
+	for (BaseScope* child : kids)
 	{
 		if (child)
 		{
