@@ -5,7 +5,6 @@
 #include "BaseSymbol.h"
 #include "../misc/misc.h"
 
-SKet::yyTOKEN sample_token; // we need a cleaner way to access token names!
 
 /*
 Symbol::Symbol(const std::string& name, Type* type, bool is_const, int line) 

@@ -4,7 +4,6 @@
 // Added: 2023-10-11
 // Updated: 2023-10-11
 
-SKet::yyTOKEN sample_token2; // we need a cleaner way to access token names!
 
 VariableSymbol::VariableSymbol(SKet::yyTOKEN tok)
 	: BaseSymbol(tok.text, tok.code)
@@ -29,7 +28,7 @@ std::string VariableSymbol::to_string()
 	std::string s;
 	if (ttype != SKet::Parser::token_type::UNKNOWN)
 	{
-		s = "<" + getName() + ":" + sample_token2.get_token_type(ttype) + ">"; // we need a cleaner way to map to token names!!
+		s = "<" + getName() + ":" + SKet::yyTOKEN::to_string(ttype) + ">";
 	}
 	else if (type != nullptr)
 	{

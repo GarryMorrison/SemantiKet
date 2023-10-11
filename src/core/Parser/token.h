@@ -110,6 +110,7 @@ namespace SKet {
             {323, "ERROR_MESSAGE"}
         };
 
+        /*
         std::map<Parser::token_type, std::string> parser_token_string_map = {  // Map parser tokens to their string name
             {Parser::token_type::EMPTY, "EMPTY"},
             {Parser::token_type::UNKNOWN, "UNKNOWN"},
@@ -182,10 +183,13 @@ namespace SKet {
             {Parser::token_type::IS_ERROR, "IS_ERROR"},
             {Parser::token_type::ERROR_MESSAGE, "ERROR_MESSAGE"}
         };
+        */
+        static const std::map<Parser::token_type, std::string> parser_token_string_map;
 
         std::string get_token_type(Parser::token_type token_code);
         // std::string type_to_string() { return get_token_type(code); };
         std::string type_to_string();
+        static std::string to_string(Parser::token_type token_code);
     };
 
 };
