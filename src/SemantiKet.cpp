@@ -398,7 +398,7 @@ int main(int argc, char* argv[])
 		// Test symbols and symbol table:
 		std::cout << "---------------------------------------\n";
 		Type* ket = new BuiltInType("ket");
-		Symbol* our_symbol = new VariableSymbol("Fred", ket);
+		BaseSymbol* our_symbol = new VariableSymbol("Fred", ket);
 		std::cout << "our symbol: " + our_symbol->to_string() << "\n";
 		SymbolTable *global_st = new SymbolTable();
 		global_st->define(our_symbol);
@@ -407,15 +407,15 @@ int main(int argc, char* argv[])
 		// SymbolTable local_st("local");
 		// SymbolTable *local_st = new SymbolTable("local", global_st);
 		SymbolTable* local_st = new SymbolTable(global_st);
-		Symbol* Sam = new VariableSymbol("Sam", ket, false, 3);
-		Symbol* Liz = new VariableSymbol("Liz", ket, true, 5);
+		BaseSymbol* Sam = new VariableSymbol("Sam", ket, false, 3);
+		BaseSymbol* Liz = new VariableSymbol("Liz", ket, true, 5);
 		// Symbol* Sam = new VariableSymbol("Sam", ket);
 		// Symbol* Liz = new VariableSymbol("Liz", ket);
 		local_st->define(Sam);
 		local_st->define(Liz);
 		token.text = "some token";
 		token.line = 137;
-		Symbol* vs = new VariableSymbol(token);
+		BaseSymbol* vs = new VariableSymbol(token);
 		vs->appendLine(259);
 		vs->appendLine(3571);
 		local_st->define(vs);

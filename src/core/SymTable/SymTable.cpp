@@ -51,7 +51,7 @@ void SymbolTable::define(Symbol* sym) {
 	}
 }
 */
-void SymbolTable::define(Symbol* sym)
+void SymbolTable::define(BaseSymbol* sym)
 {
 	if (sym)
 	{
@@ -73,7 +73,7 @@ void SymbolTable::define(Symbol* sym)
 	}
 }
 
-Symbol* SymbolTable::resolve(const std::string& name)
+BaseSymbol* SymbolTable::resolve(const std::string& name)
 {
 	if (symbols.find(name) == symbols.end())  
 	{

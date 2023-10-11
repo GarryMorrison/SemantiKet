@@ -15,7 +15,7 @@
 
 class Type;
 
-class Symbol {
+class BaseSymbol {
 public:
 	std::string name;
 	Type *type = nullptr;
@@ -23,10 +23,10 @@ public:
 	// bool is_const = false;
 	// std::vector<int> line_numbers;
 
-	Symbol() {};
-	Symbol(const std::string &name) { this->name = name; }
-	Symbol(const std::string& name, Type* type) { this->name = name; this->type = type; }
-	Symbol(const std::string& name, SKet::Parser::token_type type) { this->name = name; this->ttype = type; }
+	BaseSymbol() {};
+	BaseSymbol(const std::string &name) { this->name = name; }
+	BaseSymbol(const std::string& name, Type* type) { this->name = name; this->type = type; }
+	BaseSymbol(const std::string& name, SKet::Parser::token_type type) { this->name = name; this->ttype = type; }
 	// Symbol(const std::string& name, Type* type, bool is_const) { this->name = name; this->type = type; this->is_const = is_const; }
 	// Symbol(const std::string& name, Type* type, bool is_const, int line);
 	std::string getName() { return name; }
@@ -35,10 +35,10 @@ public:
 	virtual std::set<int> getLines() { std::set<int> empty_set; return empty_set; } // This too
 };
 
-class Type : public Symbol {
+class Type : public BaseSymbol {
 public:
 	Type() {};
-	Type(const std::string &name) : Symbol(name) {};
+	Type(const std::string &name) : BaseSymbol(name) {};
 };
 
 class BuiltInType : public Type {
@@ -46,22 +46,22 @@ public:
 	BuiltInType(const std::string& name) : Type(name) {}
 };
 
-class VariableSymbol : public Symbol {
+class VariableSymbol : public BaseSymbol {
 public:
 	bool is_const = false;
 	std::set<int> line_numbers;
 
-	VariableSymbol(const std::string& name) : Symbol(name) {};
+	VariableSymbol(const std::string& name) : BaseSymbol(name) {};
 
 	// version 1 types:
-	VariableSymbol(const std::string& name, Type *type) : Symbol(name, type) {};
-	VariableSymbol(const std::string& name, Type* type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
-	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
+	VariableSymbol(const std::string& name, Type *type) : BaseSymbol(name, type) {};
+	VariableSymbol(const std::string& name, Type* type, bool is_const) : BaseSymbol(name, type) { this->is_const = is_const; };
+	VariableSymbol(const std::string& name, Type* type, bool is_const, int line) : BaseSymbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
 
 	// version 2 types:
-	VariableSymbol(const std::string& name, SKet::Parser::token_type type) : Symbol(name, type) {};
-	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const) : Symbol(name, type) { this->is_const = is_const; };
-	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const, int line) : Symbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
+	VariableSymbol(const std::string& name, SKet::Parser::token_type type) : BaseSymbol(name, type) {};
+	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const) : BaseSymbol(name, type) { this->is_const = is_const; };
+	VariableSymbol(const std::string& name, SKet::Parser::token_type type, bool is_const, int line) : BaseSymbol(name, type) { this->is_const = is_const; this->line_numbers.insert(line); };
 
 	// token version:
 	// VariableSymbol(SKet::yyTOKEN tok) : Symbol(tok.text, tok.code) { line_numbers.insert(tok.line); }

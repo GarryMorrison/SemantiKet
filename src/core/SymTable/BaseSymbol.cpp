@@ -2,7 +2,7 @@
 // Added: 2023-9-30
 // Updated: 2023-9-30
 
-#include "Symbol.h"
+#include "BaseSymbol.h"
 #include "../misc/misc.h"
 
 SKet::yyTOKEN sample_token; // we need a cleaner way to access token names!
@@ -17,7 +17,7 @@ Symbol::Symbol(const std::string& name, Type* type, bool is_const, int line)
 }
 */
 
-std::string Symbol::to_string() {
+std::string BaseSymbol::to_string() {
 	std::string s;
 	if (type != nullptr) 
 	{ 
@@ -42,7 +42,7 @@ std::string Symbol::to_string() {
 
 
 VariableSymbol::VariableSymbol(SKet::yyTOKEN tok)
-	: Symbol(tok.text, tok.code)
+	: BaseSymbol(tok.text, tok.code)
 {
 	line_numbers.insert(tok.line);
 

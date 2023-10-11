@@ -56,7 +56,7 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 
 # Symbol source files:
 set(SYM_SRC "src/core/SymTable/SymbolType.h" "src/core/SymTable/SymbolType.cpp"
-"src/core/SymTable/Symbol.h" "src/core/SymTable/Symbol.cpp"
+"src/core/SymTable/BaseSymbol.h" "src/core/SymTable/BaseSymbol.cpp"
 "src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp"
 )
 

@@ -27,7 +27,7 @@
 #include "core/ASTVisitor/GraphTree.h"
 #include "core/Parser/Driver.h"
 #include "core/SymTable/SymbolType.h"
-#include "core/SymTable/Symbol.h"
+#include "core/SymTable/BaseSymbol.h"
 #include "core/SymTable/SymTable.h"
 #include "core/ASTVisitor/MakeSymbolTables.h"
 // #include "core/Parser/token.h"
