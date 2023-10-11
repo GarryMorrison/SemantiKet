@@ -15,6 +15,7 @@ std::string SymbolType::to_string(SType stype)
 }
 
 const std::map<SymbolType::SType, std::string> SymbolType::STypeStringMap = {
+	{ SymbolType::SType::Base, "Base"},
 	{ SymbolType::SType::Variable, "Variable"},
 	{ SymbolType::SType::Context, "Context"},
 	{ SymbolType::SType::LearnRule, "LearnRule"},

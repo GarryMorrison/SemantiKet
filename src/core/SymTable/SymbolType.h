@@ -9,7 +9,7 @@
 
 class SymbolType {
 public:
-	enum class SType { Variable, Context, LearnRule, WildcardLearnRule, Function };
+	enum class SType { Base, Variable, Context, LearnRule, WildcardLearnRule, Function };
 
 	static const std::map<SType, std::string> STypeStringMap;
 	static std::string to_string(SType stype);
