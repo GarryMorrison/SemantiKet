@@ -1,0 +1,19 @@
+// test symbol types
+// Added: 2023-10-11
+
+// context assignment:
+#context = |global context>
+
+// float assignment:
+pi = 3.14159265
+
+// standard learn rule:
+age |Fred> => 37 |years>
+
+// wild card learn rule:
+plural * #=> _self _ |s>
+
+// function definition:
+def fn[p1, p2, p3] #=> seq
+
+
