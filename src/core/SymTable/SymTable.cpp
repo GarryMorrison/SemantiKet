@@ -15,9 +15,13 @@ SymbolTable::SymbolTable(const std::string& name, BaseScope* scope)
 }
 
 void SymbolTable::initTypeSystem() {  // Add more types here later!
+	define(new BuiltInType("bool"));
+	define(new BuiltInType("float"));
 	define(new BuiltInType("ket"));
+	define(new BuiltInType("bra"));
 	define(new BuiltInType("sp"));
 	define(new BuiltInType("seq"));
+	define(new BuiltInType("string"));
 }
 
 std::string SymbolTable::getScopeName() {
