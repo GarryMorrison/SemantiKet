@@ -49,14 +49,14 @@ void Error::ResetErrors()
 
 const EType Error::FoundSpExpectingKet = {
 		"FoundSpExpectingKet",
-		"Value",
+		"Type",
 		"Found a superposition, but expecting a ket",
 		""
 };
 
 const EType Error::FoundSeqExpectingSp = {
 	"FoundSeqExpectingSp",
-	"Value",
+	"Type",
 	"Found a sequence, but expecting a superposition",
 	""
 };

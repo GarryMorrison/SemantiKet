@@ -91,7 +91,7 @@ const WType Warning::IndexRangeError = {
 
 const WType Warning::FoundStringExpectingFloat = {
 	"FoundStringExpectingFloat",
-	"Value",
+	"Type",
 	"found a string, but expecting a float",
 	""
 };
