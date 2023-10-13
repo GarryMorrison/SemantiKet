@@ -25,25 +25,25 @@ VariableSymbol::VariableSymbol(SKet::yyTOKEN tok)
 
 std::string VariableSymbol::to_string()
 {
-	std::string s;
+	std::string s = pad_str(Symbol::to_string(stype), " ", 15, false); // maybe larger than 25 later?
 	if (ttype != SKet::Parser::token_type::UNKNOWN)
 	{
-		s = "<" + getName() + ":" + SKet::yyTOKEN::to_string(ttype) + ">";
+		s += "<" + getName() + ":" + SKet::yyTOKEN::to_string(ttype) + ">";
 	}
 	else if (type != nullptr)
 	{
-		s = "<" + getName() + ":" + type->getName() + ">";
+		s += "<" + getName() + ":" + type->getName() + ">";
 	}
 	else
 	{
-		s = getName();
+		s += getName();
 	}
 
 	if (is_const)
 	{
 		s += " (const) ";
 	}
-	std::string s2 = pad_str(s, " ", 50, false); // 50 should do for now
+	std::string s2 = pad_str(s, " ", 55, false); // 50 should do for now
 	for (int line : line_numbers)
 	{
 		s2 += pad_str(std::to_string(line), " ", 6, false);
