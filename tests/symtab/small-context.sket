@@ -1,0 +1,15 @@
+// quick test of context
+// Added: 2023-10-14
+
+// Context assignment:
+#context1 = |A1: A2: A3>
+
+// Assignment:
+a = 2
+
+// Context switch:
+#context1
+
+// Parent context switch:
+#parent
+

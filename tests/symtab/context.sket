@@ -1,0 +1,48 @@
+// context examples
+// Added: 2023-10-14
+
+// Assignment in global context:
+a = 2
+
+// Context assignment in global context:
+#context1 = |A1: A2: A3>
+
+// Assignment in global context:
+b = 3
+
+// Context assignment in global context:
+#context2 = |B1: B2>
+
+// Assignment in global context:
+c = 5
+
+// Context switch:
+#context1
+
+// Assignment in A1: A2: A3:
+d = 7
+
+// Context assignment in A1: A2: A3:
+#context3 = |C1: C2: C3: C4>
+
+// Assignment in A1: A2: A3:
+e = 11
+
+// Parent context switch:
+#parent
+
+// Assignment in global context:
+f = 13
+
+// Context switch:
+#context2
+
+// Assignment in B1: B2:
+g = 17
+
+// Parent context switch:
+#parent
+
+// Assignment in global context:
+h = 19
+
