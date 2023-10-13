@@ -28,6 +28,9 @@ public:
 	static const EType FoundSpExpectingKet;
 	static const EType FoundSeqExpectingSp;
 	static const EType InvalidBranch;
+	static const EType RefUnknownContext;
+	static const EType RefUnknownSymbol;
+	static const EType CantAssignToConst;
 
 };
 

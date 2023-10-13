@@ -68,4 +68,23 @@ const EType Error::InvalidBranch = {
 	""
 };
 
+const EType Error::RefUnknownContext = {
+	"RefUnknownContext",
+	"Symbol",
+	"attempt to reference an unknown context",
+	""
+};
 
+const EType Error::RefUnknownSymbol = {
+	"RefUnknownSymbol",
+	"Symbol",
+	"attempt to reference an unknown symbol",
+	""
+};
+
+const EType Error::CantAssignToConst = {
+	"CantAssignToConst",
+	"Syntax",
+	"attempt to assign to a constant",
+	""
+};
