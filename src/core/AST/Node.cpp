@@ -18,6 +18,9 @@ const std::map<Node::NType, std::string> Node::NTypeStringMap = {
 	{ Node::NType::AST, "AST"},
 	{ Node::NType::Leaf, "Leaf"},
 	{ Node::NType::Internal, "Internal"},
-	{ Node::NType::Root, "Root"}
+	{ Node::NType::Root, "Root"},
+	{ Node::NType::ContextAssignment, "ContextAssignment"},
+	{ Node::NType::ContextSwitch, "ContextSwitch"},
+	{ Node::NType::Assignment, "Assignment"}
 };
 
