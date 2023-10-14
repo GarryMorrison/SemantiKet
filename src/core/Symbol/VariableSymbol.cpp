@@ -9,18 +9,7 @@ VariableSymbol::VariableSymbol(SKet::yyTOKEN tok)
 	: BaseSymbol(tok.text, tok.code)
 {
 	line_numbers.insert(tok.line);
-
-	switch (ttype)
-	{
-	case SKet::Parser::token_type::INT:  // add more literal types here later. Nope, shift it to BaseSymbol::Construct()
-	case SKet::Parser::token_type::FLOAT:
-	case SKet::Parser::token_type::LITERAL_KET:
-	case SKet::Parser::token_type::LITERAL_BRA:
-		is_const = true;
-		break;
-	default:
-		is_const = false;
-	}
+	is_const = false;
 }
 
 std::string VariableSymbol::to_string()
