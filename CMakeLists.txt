@@ -58,6 +58,7 @@ set(AST_SRC "src/core/AST/NodeType.h" "src/core/AST/NodeType.cpp"
 set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/Symbol/BaseSymbol.h" "src/core/Symbol/BaseSymbol.cpp"
 "src/core/Symbol/VariableSymbol.h" "src/core/Symbol/VariableSymbol.cpp"
+"src/core/Symbol/ConstantSymbol.h" "src/core/Symbol/ConstantSymbol.cpp"
 "src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp"
 )
 
