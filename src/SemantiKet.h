@@ -23,6 +23,7 @@
 #include "core/AST/Internal.h"
 #include "core/AST/Root.h"
 #include "core/AST/ContextAssignment.h"
+#include "core/AST/ContextSwitch.h"
 #include "core/AST/Assignment.h"
 #include "core/ASTVisitor/ASTVisitor.h"
 #include "core/ASTVisitor/PrintTree.h"

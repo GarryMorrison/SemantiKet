@@ -255,7 +255,7 @@ statements: statement
 statement: SEMICOLON /* seems we need this */
 | context_assignment /* define context label */
 // | CONTEXT_ID /* context switch */
-| qualified_context
+| qualified_context{ $$ = new ContextSwitch($1); }
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
 | chain_seq SEMICOLON
 | assignment
