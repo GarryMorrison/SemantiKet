@@ -68,6 +68,7 @@ namespace SKet {
 			if (Node.nkids == 2)
 			{
 				std::cout << Node.kids[0]->tok.text << "\n";  // tok.text is empty string for now. Fix!
+				std::cout << Node.kids[0]->getnkids() << "\n"; // just a test
 			}
 		}
 
