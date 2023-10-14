@@ -53,11 +53,22 @@ namespace SKet {
 
 		virtual void visit(ContextAssignment& Node) override
 		{
+			std::cout << "Context Assignment\n";
 			if (Node.nkids < 2) // if not complete, then do nothing. Maybe error later?
 			{
 				return;
 			}
-			std::cout << "Context Assignment\n";
+			/*
+			if (Node.nkids == 2)
+			{
+				Leaf* left = dynamic_cast<Leaf*>(Node.kids);
+
+			}
+			*/
+			if (Node.nkids == 2)
+			{
+				std::cout << Node.kids[0]->tok.text << "\n";  // tok.text is empty string for now. Fix!
+			}
 		}
 
 		virtual void visit(ContextSwitch& Node) override
