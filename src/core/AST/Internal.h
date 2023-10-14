@@ -38,6 +38,7 @@ namespace SKet {
 		Internal(AST* t1, AST* t2, AST* t3);
 		Internal(AST* t1, AST* t2, AST* t3, AST* t4);
 
+		Internal(Node::NType type) { ntype = type; }
 		Internal(Node::NType type, AST* t1) : Internal(t1) { ntype = type; }
 		Internal(Node::NType type, AST* t1, AST* t2) : Internal(t1, t2) { ntype = type; }
 		Internal(Node::NType type, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { ntype = type; }

@@ -28,7 +28,9 @@ namespace SKet {
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
-		ContextAssignment(AST* t1) : Internal(Node::NType::ContextAssignment, t1) { }
+		// ContextAssignment(AST* t1) : Internal(Node::NType::ContextAssignment, t1) { }
+		// ContextAssignment(AST* t1);
+		ContextAssignment(AST* t1, AST* t2) : Internal(Node::NType::ContextAssignment, t1, t2) { }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

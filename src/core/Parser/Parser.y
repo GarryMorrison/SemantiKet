@@ -253,7 +253,7 @@ statements: statement
 ;
 
 statement: SEMICOLON /* seems we need this */
-| context_assignment /* define context label */{ $$ = new ContextAssignment($1); }
+| context_assignment /* define context label */
 // | CONTEXT_ID /* context switch */
 | qualified_context
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
@@ -272,7 +272,8 @@ statement: SEMICOLON /* seems we need this */
 | error_seq
 ;
 
-context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Internal("context assignment", 1020, $1, $3); }
+// context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Internal("context assignment", 1020, $1, $3); }
+context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new ContextAssignment($1, $3); }
 ;
 
 context_rhs: LITERAL_KET /* |some context> */
