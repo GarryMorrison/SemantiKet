@@ -4,14 +4,14 @@
 // Added: 2023-9-28
 // Updated: 2023-9-29
 
-extern NodeTypeMap node_type;
+// extern NodeTypeMap node_type;
 
 namespace SKet {
 
 	Internal::Internal(AST* t1) 
 	{
 		id = serial.get_id();
-		ntype = NodeType::Internal;
+		ntype = Node::NType::Internal;
 		if (t1)
 		{
 			kids.push_back(t1);
@@ -22,7 +22,7 @@ namespace SKet {
 	Internal::Internal(AST* t1, AST* t2)
 	{
 		id = serial.get_id();
-		ntype = NodeType::Internal;
+		ntype = Node::NType::Internal;
 		if (t1)
 		{
 			kids.push_back(t1);
@@ -38,7 +38,7 @@ namespace SKet {
 	Internal::Internal(AST* t1, AST* t2, AST* t3)
 	{
 		id = serial.get_id();
-		ntype = NodeType::Internal;
+		ntype = Node::NType::Internal;
 		if (t1)
 		{
 			kids.push_back(t1);
@@ -58,7 +58,7 @@ namespace SKet {
 	Internal::Internal(AST* t1, AST* t2, AST* t3, AST* t4)
 	{
 		id = serial.get_id();
-		ntype = NodeType::Internal;
+		ntype = Node::NType::Internal;
 		if (t1)
 		{
 			kids.push_back(t1);
@@ -85,7 +85,8 @@ namespace SKet {
 	{
 		if (sym.empty())
 		{
-			return node_type.Name(ntype);
+			// return node_type.Name(ntype);
+			return Node::to_string(ntype);
 		}
 		else
 		{

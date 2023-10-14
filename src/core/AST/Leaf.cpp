@@ -10,7 +10,7 @@ namespace SKet {
 		: tok(token)
 	{
 		id = serial.get_id();
-		ntype = NodeType::Leaf;
+		ntype = Node::NType::Leaf;
 	}
 
 };

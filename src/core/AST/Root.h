@@ -23,13 +23,14 @@ namespace SKet {
 	{
 	public:
 		int id = -1;
-		NodeType ntype;
+		// NodeType ntype;
+		Node::NType ntype = Node::NType::Root;
 		// yyTOKEN tok;
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
 		// Root(AST* t1);
-		Root(AST* t1) : Internal(NodeType::Root, t1) {}
+		Root(AST* t1) : Internal(Node::NType::Root, t1) { }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

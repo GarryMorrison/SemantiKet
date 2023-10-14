@@ -6,6 +6,7 @@
 
 
 #include "../ASTVisitor/ASTVisitor.h"
+#include "Node.h"
 
 
 namespace SKet {
@@ -14,6 +15,7 @@ namespace SKet {
 	{
 	public:
 		AST() {}
+		Node::NType ntype = Node::NType::AST;
 		virtual ~AST() {}
 		virtual void accept(ASTVisitor& V) = 0;
 

@@ -19,7 +19,8 @@ namespace SKet {
 	{
 	public:
 		int id = -1;
-		NodeType ntype;
+		// NodeType ntype;
+		Node::NType ntype = Node::NType::Leaf;
 		yyTOKEN tok;
 		// size_t nkids = 0;
 		// std::vector<AST*> kids;

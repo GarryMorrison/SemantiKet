@@ -26,7 +26,8 @@ namespace SKet {
 		std::string sym;
 		int rule_id = -1;
 		int id = -1;
-		NodeType ntype;
+		// NodeType ntype;
+		Node::NType ntype = Node::NType::Internal;
 		// yyTOKEN tok;
 		size_t nkids = 0;
 		std::vector<AST*> kids;
@@ -37,10 +38,10 @@ namespace SKet {
 		Internal(AST* t1, AST* t2, AST* t3);
 		Internal(AST* t1, AST* t2, AST* t3, AST* t4);
 
-		Internal(NodeType type, AST* t1) : Internal(t1) { ntype = type; }
-		Internal(NodeType type, AST* t1, AST* t2) : Internal(t1, t2) { ntype = type; }
-		Internal(NodeType type, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { ntype = type; }
-		Internal(NodeType type, AST* t1, AST* t2, AST* t3, AST* t4) : Internal(t1, t2, t3, t4) { ntype = type; }
+		Internal(Node::NType type, AST* t1) : Internal(t1) { ntype = type; }
+		Internal(Node::NType type, AST* t1, AST* t2) : Internal(t1, t2) { ntype = type; }
+		Internal(Node::NType type, AST* t1, AST* t2, AST* t3) : Internal(t1, t2, t3) { ntype = type; }
+		Internal(Node::NType type, AST* t1, AST* t2, AST* t3, AST* t4) : Internal(t1, t2, t3, t4) { ntype = type; }
 
 		Internal(const std::string& s, int id, AST* t1) : Internal(t1) { sym = s; rule_id = id; }
 		Internal(const std::string& s, int id, AST* t1, AST* t2) : Internal(t1, t2) { sym = s; rule_id = id; }
