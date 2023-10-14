@@ -520,7 +520,8 @@ seq_seq: sp_seq
 ;
 
 // assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
-assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("assignment", 1160, $1, $3); }
+// assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("assignment", 1160, $1, $3); }
+assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Assignment($1, $3); }
 ;
 
 global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
