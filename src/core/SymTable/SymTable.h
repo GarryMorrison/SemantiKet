@@ -10,7 +10,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "BaseSymbol.h"
+#include "../Symbol/BaseSymbol.h"
 #include "../misc/misc.h"
 
 

@@ -10,7 +10,7 @@
 #include "../AST/Root.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
-#include "../SymTable/BaseSymbol.h"
+#include "../Symbol/BaseSymbol.h"
 #include "../SymTable/SymTable.h"
 
 // namespace SKet??
