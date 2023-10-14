@@ -89,11 +89,11 @@ namespace SKet {
 					yyTOKEN token = Node.kids[0]->gettoken();
 					if (token.text == "#parent")
 					{
-						std::cout << "line " << token.line << ": parent context switch " << token.text << "\n";
+						std::cout << "line " << token.line << ": parent context switch ref " << token.text << "\n";
 					}
 					else
 					{
-						std::cout << "line " << token.line << ": context switch " << token.text << "\n";  // Error if token.text is not a known context!
+						std::cout << "line " << token.line << ": context switch ref " << token.text << "\n";  // Error if token.text is not a known context!
 					}
 				}
 			}
