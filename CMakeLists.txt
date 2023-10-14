@@ -59,6 +59,7 @@ set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/Symbol/BaseSymbol.h" "src/core/Symbol/BaseSymbol.cpp"
 "src/core/Symbol/VariableSymbol.h" "src/core/Symbol/VariableSymbol.cpp"
 "src/core/Symbol/ConstantSymbol.h" "src/core/Symbol/ConstantSymbol.cpp"
+"src/core/Symbol/KetSymbol.h" "src/core/Symbol/KetSymbol.cpp"
 "src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp"
 )
 

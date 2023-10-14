@@ -5,6 +5,7 @@
 #include "BaseSymbol.h"
 #include "VariableSymbol.h"
 #include "ConstantSymbol.h"
+#include "KetSymbol.h"
 #include "../misc/misc.h"
 
 
@@ -24,9 +25,11 @@ BaseSymbol* BaseSymbol::Construct(SKet::yyTOKEN tok)
 	{
 	case SKet::Parser::token_type::INT:  // add more literal types here later.
 	case SKet::Parser::token_type::FLOAT:
-	// case SKet::Parser::token_type::LITERAL_KET:  // return new KetSymbol(tok) later.
-	// case SKet::Parser::token_type::LITERAL_BRA:  // return new BraSymbol(tok) later.
 		return new ConstantSymbol(tok);
+	case SKet::Parser::token_type::LITERAL_KET:  // add more ket types here later.
+		return new KetSymbol(tok);
+	// case SKet::Parser::token_type::LITERAL_BRA:  // return new BraSymbol(tok) later.
+	// 	return new BraSymbol(tok);
 	default:
 		return new VariableSymbol(tok);
 	}
