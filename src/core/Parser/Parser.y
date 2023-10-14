@@ -253,7 +253,7 @@ statements: statement
 ;
 
 statement: SEMICOLON /* seems we need this */
-| context_assignment /* define context label */
+| context_assignment /* define context label */{ $$ = new ContextAssignment($1); }
 // | CONTEXT_ID /* context switch */
 | qualified_context
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */

@@ -22,6 +22,7 @@
 #include "core/AST/Leaf.h"
 #include "core/AST/Internal.h"
 #include "core/AST/Root.h"
+#include "core/AST/ContextAssignment.h"
 #include "core/ASTVisitor/ASTVisitor.h"
 #include "core/ASTVisitor/PrintTree.h"
 #include "core/ASTVisitor/GraphTree.h"
