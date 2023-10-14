@@ -40,10 +40,36 @@ namespace SKet {
 				}
 			}
 		}
-		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }  // implement!
-		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+
+		virtual void visit(Root& Node) override {
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+		}
+
+		virtual void visit(ContextAssignment& Node) override
+		{
+			if (Node.nkids < 2) // if not complete, then do nothing. Maybe error later?
+			{
+				return;
+			}
+			std::cout << "Context Assignment\n";
+		}
+
+		virtual void visit(ContextSwitch& Node) override
+		{
+			std::cout << "Context Switch\n";
+		}
+
+		virtual void visit(Assignment& Node) override
+		{
+			std::cout << "Assignment\n";
+		}
+
 	};
 
 }
