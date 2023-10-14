@@ -81,7 +81,7 @@ namespace SKet {
 		}
 	}
 
-	std::string Internal::type_to_string()
+	std::string Internal::to_string()
 	{
 		if (sym.empty())
 		{

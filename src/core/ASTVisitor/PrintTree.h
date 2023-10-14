@@ -26,7 +26,8 @@ namespace SKet {
 
 		virtual void visit(Internal& Node) override {
 			// std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
-			std::cout << indent(3 * level) << Node.id << "  " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
+			// std::cout << indent(3 * level) << Node.id << "  " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
 			level++;
 			for (AST* tree : Node.kids)

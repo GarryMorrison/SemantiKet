@@ -60,7 +60,8 @@ namespace SKet {
 				parent_id = -1;
 			}
 
-			out += "N" + std::to_string(Node.id) + " [shape=box label=\"" + Node.type_to_string() + "\"]; \n";
+			// out += "N" + std::to_string(Node.id) + " [shape=box label=\"" + Node.type_to_string() + "\"]; \n";
+			out += "N" + std::to_string(Node.id) + " [shape=box label=\"" + Node.to_string() + "\"]; \n";
 			for (AST* child : Node.kids)
 			{
 				if (child)
