@@ -20,6 +20,8 @@ namespace SKet {
 		Node::NType ntype = Node::NType::AST;
 		yyTOKEN tok;
 		size_t nkids = 0;
+
+		virtual yyTOKEN gettoken() { return tok; }
 		virtual size_t getnkids() { return nkids; }
 		virtual ~AST() {}
 		virtual void accept(ASTVisitor& V) = 0;

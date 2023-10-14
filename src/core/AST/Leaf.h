@@ -22,11 +22,12 @@ namespace SKet {
 		// NodeType ntype;
 		Node::NType ntype = Node::NType::Leaf;
 		yyTOKEN tok;
-		size_t nkids = 1;
+		size_t nkids = 0;
 		// std::vector<AST*> kids;
 
 		Leaf(yyTOKEN token);
-		size_t getnkids() { return nkids; }
+		yyTOKEN gettoken() { return tok; }
+		size_t getnkids() { return nkids; }  // delete later, we only needed it for testing
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);
 		}

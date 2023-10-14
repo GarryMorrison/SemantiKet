@@ -53,7 +53,7 @@ namespace SKet {
 
 		virtual void visit(ContextAssignment& Node) override
 		{
-			std::cout << "Context Assignment\n";
+			// std::cout << "Context Assignment\n";
 			if (Node.nkids < 2) // if not complete, then do nothing. Maybe error later?
 			{
 				return;
@@ -67,19 +67,49 @@ namespace SKet {
 			*/
 			if (Node.nkids == 2)
 			{
-				std::cout << Node.kids[0]->tok.text << "\n";  // tok.text is empty string for now. Fix!
-				std::cout << Node.kids[0]->getnkids() << "\n"; // just a test
+				// std::cout << Node.kids[0]->tok.text << "\n";  // tok.text is empty string for now. Fix!
+				// std::cout << Node.kids[0]->gettoken().text << "\n"; // check if kids[0] is not nullptr?
+				// std::cout << Node.kids[0]->getnkids() << "\n"; // just a test
+				if (Node.kids[0] && Node.kids[1])
+				{
+					yyTOKEN token = Node.kids[0]->gettoken();
+					std::string label = Node.kids[1]->gettoken().text;
+					std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
+				}
 			}
 		}
 
 		virtual void visit(ContextSwitch& Node) override
 		{
-			std::cout << "Context Switch\n";
+			// std::cout << "Context Switch\n";
+			if (Node.nkids == 1)
+			{
+				if (Node.kids[0])
+				{
+					yyTOKEN token = Node.kids[0]->gettoken();
+					if (token.text == "#parent")
+					{
+						std::cout << "line " << token.line << ": parent context switch " << token.text << "\n";
+					}
+					else
+					{
+						std::cout << "line " << token.line << ": context switch " << token.text << "\n";  // Error if token.text is not a known context!
+					}
+				}
+			}
 		}
 
 		virtual void visit(Assignment& Node) override
 		{
-			std::cout << "Assignment\n";
+			// std::cout << "Assignment\n";
+			if (Node.nkids > 1)
+			{
+				if (Node.kids[0])
+				{
+					yyTOKEN token = Node.kids[0]->gettoken();
+					std::cout << "line " << token.line << ": def " << token.text << "\n";
+				}
+			}
 		}
 
 	};
