@@ -8,6 +8,9 @@
 #include "../AST/Leaf.h"
 #include "../AST/Internal.h"
 #include "../AST/Root.h"
+#include "../AST/ContextAssignment.h"
+#include "../AST/ContextSwitch.h"
+#include "../AST/Assignment.h"
 #include "ASTVisitor.h"
 #include "../misc/misc.h"
 
@@ -40,8 +43,62 @@ namespace SKet {
 			level--;
 		}
 
-		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
+		// virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(Root& Node) override {
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
+
+		virtual void visit(ContextAssignment& Node) override {
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
+
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
+
+		virtual void visit(ContextSwitch& Node) override {
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
+
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
+
+		virtual void visit(Assignment& Node) override {
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
+
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
 	};
 
 };

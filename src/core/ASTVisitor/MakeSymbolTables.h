@@ -8,6 +8,9 @@
 #include "../AST/Leaf.h"
 #include "../AST/Internal.h"
 #include "../AST/Root.h"
+#include "../AST/ContextAssignment.h"
+#include "../AST/ContextSwitch.h"
+#include "../AST/Assignment.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
@@ -37,7 +40,10 @@ namespace SKet {
 				}
 			}
 		}
-		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }  // implement!
+		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 	};
 
 }

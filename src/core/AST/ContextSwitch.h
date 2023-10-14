@@ -28,7 +28,9 @@ namespace SKet {
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
-		ContextSwitch(AST* t1) : Internal(Node::NType::ContextSwitch, t1) { }
+		// ContextSwitch(AST* t1) : Internal(Node::NType::ContextSwitch, t1) { }
+		ContextSwitch(AST* t1);
+		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

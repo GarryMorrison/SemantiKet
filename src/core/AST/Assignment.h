@@ -28,7 +28,9 @@ namespace SKet {
 		size_t nkids = 0;
 		std::vector<AST*> kids;
 
-		Assignment(AST* t1, AST* t2) : Internal(Node::NType::Assignment, t1, t2) { }
+		// Assignment(AST* t1, AST* t2) : Internal(Node::NType::Assignment, t1, t2) { }
+		Assignment(AST* t1, AST* t2);
+		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);

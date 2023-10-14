@@ -12,6 +12,9 @@ namespace SKet {
 	class Leaf;
 	class Internal;
 	class Root;
+	class ContextAssignment;
+	class ContextSwitch;
+	class Assignment;
 
 	class ASTVisitor {
 	public:
@@ -19,6 +22,9 @@ namespace SKet {
 		virtual void visit(Leaf& Node) = 0;
 		virtual void visit(Internal& Node) = 0;
 		virtual void visit(Root& Node) = 0;
+		virtual void visit(ContextAssignment& Node) = 0;
+		virtual void visit(ContextSwitch& Node) = 0;
+		virtual void visit(Assignment& Node) = 0;
 	};
 
 };

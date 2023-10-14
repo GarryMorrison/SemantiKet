@@ -30,7 +30,9 @@ namespace SKet {
 		std::vector<AST*> kids;
 
 		// Root(AST* t1);
-		Root(AST* t1) : Internal(Node::NType::Root, t1) { }
+		// Root(AST* t1) : Internal(Node::NType::Root, t1) { }
+		Root(AST* t1);
+		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {
 			V.visit(*this);
