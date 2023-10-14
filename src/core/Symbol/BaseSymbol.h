@@ -29,6 +29,9 @@ public:
 	BaseSymbol(const std::string &name) { this->name = name; }
 	BaseSymbol(const std::string& name, Type* type) { this->name = name; this->type = type; }
 	BaseSymbol(const std::string& name, SKet::Parser::token_type type) { this->name = name; this->ttype = type; }
+
+	static BaseSymbol* Construct(SKet::yyTOKEN tok);
+
 	// Symbol(const std::string& name, Type* type, bool is_const) { this->name = name; this->type = type; this->is_const = is_const; }
 	// Symbol(const std::string& name, Type* type, bool is_const, int line);
 	std::string getName() { return name; }

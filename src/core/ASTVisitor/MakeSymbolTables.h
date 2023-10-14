@@ -24,7 +24,8 @@ namespace SKet {
 		virtual void visit(Leaf& Node) override {
 			if (sc)
 			{
-				sc->define(new VariableSymbol(Node.tok));
+				// sc->define(new VariableSymbol(Node.tok));
+				sc->define(BaseSymbol::Construct(Node.tok));
 			}
 		}
 		virtual void visit(Internal& Node) override {
