@@ -66,6 +66,7 @@ set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/SymTable/SymTable.h" "src/core/SymTable/SymTable.cpp"
 "src/core/Scope/BaseScope.h"
 "src/core/Scope/GlobalScope.h" "src/core/Scope/GlobalScope.cpp"
+"src/core/Scope/LocalScope.h" "src/core/Scope/LocalScope.cpp"
 )
 
 # Core source files:
