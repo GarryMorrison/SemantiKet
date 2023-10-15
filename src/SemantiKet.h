@@ -33,7 +33,7 @@
 #include "core/Symbol/VariableSymbol.h"
 #include "core/Symbol/BaseSymbol.h"
 // #include "core/SymTable/VariableSymbol.h"
-#include "core/SymTable/SymTable.h"
+#include "core/SymTable/SymbolTable.h"
 #include "core/ASTVisitor/MakeSymbolTables.h"
 // #include "core/Parser/token.h"
 // #include "core/Parser/tree.h"

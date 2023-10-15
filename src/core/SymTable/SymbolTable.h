@@ -2,7 +2,7 @@
 
 // Author: Garry Morrison
 // Added: 2023-9-30
-// Updated: 2023-9-30
+// Updated: 2023-10-15
 
 // namespace SKet or not?
 
@@ -13,8 +13,10 @@
 #include "../Symbol/BaseSymbol.h"
 #include "../misc/misc.h"
 #include "../Scope/BaseScope.h"
+#include "../Scope/GlobalScope.h"
 
 
+/*
 class SymbolTable : public BaseScope { // derive more classes from this!
 public:
 	std::string name;
@@ -38,4 +40,13 @@ public:
 	std::string to_string() { return this->to_string(1); }
 	std::string to_string(int level);
 
+};
+*/
+
+class SymbolTable {
+public:
+	GlobalScope* globalScope = nullptr;
+
+	SymbolTable();
+	void Print();
 };

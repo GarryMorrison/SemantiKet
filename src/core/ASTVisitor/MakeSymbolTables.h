@@ -14,7 +14,7 @@
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
-#include "../SymTable/SymTable.h"
+#include "../SymTable/SymbolTable.h"
 
 // namespace SKet??
 

@@ -83,10 +83,17 @@ int main(int argc, char* argv[])
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 
 		// towards a symbol table:
+		/*
 		SymbolTable* global_st = new SymbolTable();
 		SKet::MakeSymbolTables Tables(global_st);
 		driver.ast->accept(Tables);
 		std::cout << global_st->to_string();
+		*/
+		GlobalScope* globalScope = new GlobalScope();
+		SKet::MakeSymbolTables Tables(globalScope);
+		driver.ast->accept(Tables);
+		std::cout << globalScope->to_string();
+
 	}
 	
 	if (argc > 2)
@@ -403,10 +410,12 @@ int main(int argc, char* argv[])
 		Type* ket = new BuiltInType("ket");
 		BaseSymbol* our_symbol = new VariableSymbol("Fred", ket);
 		std::cout << "our symbol: " + our_symbol->to_string() << "\n";
-		SymbolTable *global_st = new SymbolTable();
-		global_st->define(our_symbol);
-		std::cout << "symbol table:\n";
-		std::cout << global_st->to_string();
+		SymbolTable *symtab = new SymbolTable();
+		symtab->globalScope->define(our_symbol);
+		// std::cout << "symbol table:\n";
+		// std::cout << global_st->to_string();
+		symtab->Print();
+		/* // Re-enable later!
 		// SymbolTable local_st("local");
 		// SymbolTable *local_st = new SymbolTable("local", global_st);
 		SymbolTable* local_st = new SymbolTable(global_st);
@@ -426,7 +435,7 @@ int main(int argc, char* argv[])
 		local_st->define(vs);
 		std::cout << local_st->to_string();
 		std::cout << global_st->to_string();
-
+		*/
 
 		// test push-value:
 		Superposition sp20 = Superposition::range(1, 5);
