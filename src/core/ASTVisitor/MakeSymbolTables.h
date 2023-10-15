@@ -94,10 +94,22 @@ namespace SKet {
 					if (token.text == "#parent")
 					{
 						std::cout << "line " << token.line << ": parent context switch ref " << token.text << "\n";
+						BaseScope* tmp = currentScope->getEnclosingScope();
+						if (tmp)
+						{
+							currentScope = tmp;
+						}
 					}
 					else
 					{
 						std::cout << "line " << token.line << ": context switch ref " << token.text << "\n";  // Error if token.text is not a known context!
+						// currentScope = currentScope->resolveContext(token.text); // null pointer deref if context not defined!
+						
+						BaseScope* tmp = currentScope->resolveContext(token.text);
+						if (tmp)
+						{
+							currentScope = tmp;
+						}
 					}
 				}
 			}

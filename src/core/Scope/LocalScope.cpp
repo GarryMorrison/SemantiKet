@@ -83,6 +83,7 @@ ContextSymbol* LocalScope::resolveContext(const std::string& name)
 	if (it == context_symbols.end())
 	{
 		// Error::RefUnknownContext // wire this in!
+		return nullptr;
 	}
 	else
 	{
@@ -94,6 +95,13 @@ std::string LocalScope::to_string(int level) {
 	std::string s;
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + ":\n";
 	for (const auto& elt : symbols)
+	{
+		if (elt.second != nullptr)
+		{
+			s += indent(2 * level + 2) + elt.second->to_string() + "\n";
+		}
+	}
+	for (const auto& elt : context_symbols)
 	{
 		if (elt.second != nullptr)
 		{

@@ -93,6 +93,7 @@ ContextSymbol* GlobalScope::resolveContext(const std::string& name)
 	if (it == context_symbols.end())
 	{
 		// Error::RefUnknownContext // wire this in!
+		return nullptr;
 	}
 	else
 	{
