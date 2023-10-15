@@ -5,6 +5,8 @@
 // Updated: 2023-10-15
 
 #include <string>
+#include <vector>
+#include <map>
 #include "BaseScopedSymbol.h"
 #include "../Parser/Serial.h"
 
@@ -19,6 +21,7 @@ public:
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
+	std::map<std::string, ContextSymbol*> context_symbols;
 
 	ContextSymbol(const std::string& name1, const std::string& label1, BaseScope* scope) { 
 		scope_id = scope_serial.get_id();
@@ -40,6 +43,8 @@ public:
 	std::vector<BaseScope*> getChildScopes() { return kids; }
 	void define(BaseSymbol* sym);
 	BaseSymbol* resolve(const std::string& name);
+	void defineContext(ContextSymbol* context);
+	ContextSymbol* resolveContext(const std::string& name);
 	std::string to_string() { return to_string(1); }
 	std::string to_string(int level);
 };

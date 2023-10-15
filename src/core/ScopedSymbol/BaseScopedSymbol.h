@@ -4,8 +4,13 @@
 // Added: 2023-10-15
 // Updated: 2023-10-15
 
+#include <string>
+#include <vector>
 #include "../Symbol/BaseSymbol.h"
 #include "../Scope/BaseScope.h"
+// #include "../ScopedSymbol/ContextSymbol.h"
+
+// class BaseScope;
 
 class BaseScopedSymbol : public BaseSymbol, public BaseScope {
 public:
@@ -20,6 +25,8 @@ public:
 	virtual std::vector<BaseScope*> getChildScopes() = 0;
 	virtual void define(BaseSymbol* sym) = 0;
 	virtual BaseSymbol* resolve(const std::string& name) = 0;
+	virtual void defineContext(ContextSymbol* context) = 0;
+	virtual ContextSymbol* resolveContext(const std::string& name) = 0;
 	virtual std::string to_string() = 0;
 	virtual std::string to_string(int level) = 0;
 };

@@ -1,4 +1,5 @@
 #include "LocalScope.h"
+#include "../ScopedSymbol/ContextSymbol.h"
 
 // Author: Garry Morrison
 // Added: 2023-10-15
@@ -50,6 +51,38 @@ BaseSymbol* LocalScope::resolve(const std::string& name)
 		{
 			return nullptr;
 		}
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+void LocalScope::defineContext(ContextSymbol* context)
+{
+	if (context)
+	{
+		if (!context->name.empty())
+		{
+			auto it = context_symbols.find(context->name);
+			if (it == context_symbols.end())
+			{
+				context_symbols[context->name] = context;
+			}
+			else
+			{
+				// Error::ContextRedefinition, probably.
+			}
+		}
+	}
+}
+
+ContextSymbol* LocalScope::resolveContext(const std::string& name)
+{
+	auto it = context_symbols.find(name);
+	if (it == context_symbols.end())
+	{
+		// Error::RefUnknownContext // wire this in!
 	}
 	else
 	{

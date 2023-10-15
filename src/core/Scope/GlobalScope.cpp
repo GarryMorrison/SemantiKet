@@ -1,4 +1,5 @@
 #include "GlobalScope.h"
+#include "../ScopedSymbol/ContextSymbol.h"
 
 // Author: Garry Morrison
 // Added: 2023-10-15
@@ -45,6 +46,7 @@ void GlobalScope::define(BaseSymbol* sym)
 	}
 }
 
+
 BaseSymbol* GlobalScope::resolve(const std::string& name)
 {
 	auto it = symbols.find(name);
@@ -59,6 +61,38 @@ BaseSymbol* GlobalScope::resolve(const std::string& name)
 		{
 			return nullptr;
 		}
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+void GlobalScope::defineContext(ContextSymbol* context)
+{
+	if (context)
+	{
+		if (!context->name.empty())
+		{
+			auto it = context_symbols.find(context->name);
+			if (it == context_symbols.end())
+			{
+				context_symbols[context->name] = context;
+			}
+			else
+			{
+				// Error::ContextRedefinition, probably.
+			}
+		}
+	}
+}
+
+ContextSymbol* GlobalScope::resolveContext(const std::string& name)
+{
+	auto it = context_symbols.find(name);
+	if (it == context_symbols.end())
+	{
+		// Error::RefUnknownContext // wire this in!
 	}
 	else
 	{

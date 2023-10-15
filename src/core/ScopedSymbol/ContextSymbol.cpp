@@ -56,7 +56,39 @@ BaseSymbol* ContextSymbol::resolve(const std::string& name)
 	}
 }
 
-std::string ContextSymbol::to_string(int level) {
+void ContextSymbol::defineContext(ContextSymbol* context)
+{
+	if (context)
+	{
+		if (!context->name.empty())
+		{
+			auto it = context_symbols.find(context->name);
+			if (it == context_symbols.end())
+			{
+				context_symbols[context->name] = context;
+			}
+			else
+			{
+				// Error::ContextRedefinition, probably.
+			}
+		}
+	}
+}
+
+ContextSymbol* ContextSymbol::resolveContext(const std::string& name)
+{
+	auto it = context_symbols.find(name);
+	if (it == context_symbols.end())
+	{
+		// Error::RefUnknownContext // wire this in!
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+std::string ContextSymbol::to_string(int level) {  // do something better here later?
 	std::string s;
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + " " + getContextLabel() + ":\n";
 	for (const auto& elt : symbols)
