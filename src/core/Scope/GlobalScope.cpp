@@ -110,6 +110,13 @@ std::string GlobalScope::to_string(int level) {
 			s += indent(2 * level + 2) + elt.second->to_string() + "\n";
 		}
 	}
+	for (const auto& elt : context_symbols)
+	{
+		if (elt.second != nullptr)
+		{
+			s += indent(2 * level + 2) + elt.second->to_string() + "\n";
+		}
+	}
 	/*
 	Scope* parent = getEnclosingScope();
 	if (parent != nullptr)

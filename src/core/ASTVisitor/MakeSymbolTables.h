@@ -15,6 +15,7 @@
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
 #include "../SymTable/SymbolTable.h"
+#include "../ScopedSymbol/ContextSymbol.h"
 
 // namespace SKet??
 
@@ -74,6 +75,7 @@ namespace SKet {
 						yyTOKEN token = node.kids[0]->getToken();
 						std::string label = node.kids[1]->getToken().text;
 						std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
+						currentScope->defineContext(new ContextSymbol(token.text, label, currentScope));
 					}
 					// std::cout << "NType 0: " << Node::to_string(node.kids[0]->getNType()) << "\n";
 					// std::cout << "NType 1: " << Node::to_string(node.kids[1]->getNType()) << "\n";
