@@ -12,7 +12,7 @@ extern Serial scope_serial;
 class LocalScope : public BaseScope {
 public:
 	int scope_id = -1;
-	BaseScope* parent_scope = nullptr;
+	BaseScope* parentScope = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
@@ -21,7 +21,7 @@ public:
 	// satisfy our interface:
 	int getScopeID() { return scope_id; }
 	std::string getScopeName() { return "Local Scope"; }
-	BaseScope* getEnclosingScope() { return parent_scope; }
+	BaseScope* getEnclosingScope() { return parentScope; }
 	void addChild(BaseScope*);
 	std::vector<BaseScope*> getChildScopes() { return kids; }
 	void define(BaseSymbol* sym);

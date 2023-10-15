@@ -4,24 +4,37 @@
 // Added: 2023-10-15
 // Updated: 2023-10-15
 
-#include "BaseScope.h"
+#include <string>
+#include "BaseScopedSymbol.h"
 #include "../Parser/Serial.h"
 
 extern Serial scope_serial;
 
-class GlobalScope : public BaseScope {
+class ContextSymbol : public BaseScopedSymbol {
 public:
 	int scope_id = -1;
+	std::string name;
+	std::string label; // more ContextSymbol specific variables later! Eg, supported-ops, terminals, and non-terminals.
 	BaseScope* parentScope = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
-	GlobalScope() { scope_id = scope_serial.get_id(); initTypeSystem(); }
-	void initTypeSystem();
 
-	// satisfy our interface:
+	ContextSymbol(const std::string& name1, const std::string& label1, BaseScope* scope) { 
+		scope_id = scope_serial.get_id();
+		name = name1;
+		label = label1;
+		if (scope)  // Probably an Error if nullptr.
+		{
+			parentScope = scope;
+		}
+	}
+
+	std::string getContextLabel() { return label; }
+
+	// satisfy our Scope interface:
 	int getScopeID() { return scope_id; }
-	std::string getScopeName() { return "Global Scope"; }
+	std::string getScopeName() { return name; }
 	BaseScope* getEnclosingScope() { return parentScope; }
 	void addChild(BaseScope*);
 	std::vector<BaseScope*> getChildScopes() { return kids; }
