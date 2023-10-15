@@ -6,12 +6,12 @@
 
 SymbolTable::SymbolTable()
 {
-	globalScope = new GlobalScope(); // report error if this fails?
+	globalScope = new GlobalScope(); // report error if this fails? Error::MemoryAllocationFailed perhaps?
 }
 
 void SymbolTable::Print()
 {
-	std::cout << "Symbol Table:\n-------------\n";
+	std::cout << "\nSymbol Table:\n-------------\n";
 	if (globalScope)
 	{
 		std::cout << globalScope->to_string() << "\n";

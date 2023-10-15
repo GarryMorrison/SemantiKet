@@ -89,11 +89,16 @@ int main(int argc, char* argv[])
 		driver.ast->accept(Tables);
 		std::cout << global_st->to_string();
 		*/
+		/*
 		GlobalScope* globalScope = new GlobalScope();
 		SKet::MakeSymbolTables Tables(globalScope);
 		driver.ast->accept(Tables);
 		std::cout << globalScope->to_string();
-
+		*/
+		SymbolTable* symtab = new SymbolTable();
+		SKet::MakeSymbolTables Tables(symtab);
+		driver.ast->accept(Tables);
+		symtab->Print();
 	}
 	
 	if (argc > 2)

@@ -22,13 +22,20 @@ namespace SKet {
 
 	class MakeSymbolTables : public ASTVisitor {
 	public:
-		BaseScope* sc = nullptr;
-		MakeSymbolTables(BaseScope* scope) { sc = scope; }
+		// BaseScope* sc = nullptr;
+		// MakeSymbolTables(BaseScope* scope) { sc = scope; }
+		BaseScope* currentScope = nullptr;
+		MakeSymbolTables(SymbolTable* symtab) { 
+			if (symtab)  // we should error if symtab is nullptr!
+			{
+				currentScope = symtab->globalScope;
+			}
+		}
 		virtual void visit(Leaf& node) override {
-			if (sc)
+			if (currentScope)
 			{
 				// sc->define(new VariableSymbol(node.tok));
-				sc->define(BaseSymbol::Construct(node.tok));
+				currentScope->define(BaseSymbol::Construct(node.tok));
 			}
 		}
 		virtual void visit(Internal& node) override {
@@ -103,6 +110,7 @@ namespace SKet {
 				{
 					yyTOKEN token = node.kids[0]->getToken();
 					std::cout << "line " << token.line << ": def " << token.text << "\n";
+					currentScope->define(BaseSymbol::Construct(token));
 				}
 			}
 		}
