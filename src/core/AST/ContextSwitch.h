@@ -30,6 +30,7 @@ namespace SKet {
 
 		// ContextSwitch(AST* t1) : Internal(Node::NType::ContextSwitch, t1) { }
 		ContextSwitch(AST* t1);
+		Node::NType getNType() { return ntype; }
 		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {

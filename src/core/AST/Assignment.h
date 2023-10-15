@@ -30,6 +30,7 @@ namespace SKet {
 
 		// Assignment(AST* t1, AST* t2) : Internal(Node::NType::Assignment, t1, t2) { }
 		Assignment(AST* t1, AST* t2);
+		Node::NType getNType() { return ntype; }
 		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {

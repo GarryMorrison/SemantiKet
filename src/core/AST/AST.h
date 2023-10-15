@@ -21,7 +21,8 @@ namespace SKet {
 		yyTOKEN tok;
 		size_t nkids = 0;
 
-		virtual yyTOKEN gettoken() { return tok; }
+		virtual Node::NType getNType() { return ntype; }
+		virtual yyTOKEN getToken() { return tok; }
 		virtual size_t getnkids() { return nkids; }
 		virtual ~AST() {}
 		virtual void accept(ASTVisitor& V) = 0;

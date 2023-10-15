@@ -24,15 +24,15 @@ namespace SKet {
 	public:
 		BaseScope* sc = nullptr;
 		MakeSymbolTables(BaseScope* scope) { sc = scope; }
-		virtual void visit(Leaf& Node) override {
+		virtual void visit(Leaf& node) override {
 			if (sc)
 			{
-				// sc->define(new VariableSymbol(Node.tok));
-				sc->define(BaseSymbol::Construct(Node.tok));
+				// sc->define(new VariableSymbol(node.tok));
+				sc->define(BaseSymbol::Construct(node.tok));
 			}
 		}
-		virtual void visit(Internal& Node) override {
-			for (AST* tree : Node.kids)
+		virtual void visit(Internal& node) override {
+			for (AST* tree : node.kids)
 			{
 				if (tree)
 				{
@@ -41,8 +41,8 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(Root& Node) override {
-			for (AST* tree : Node.kids)
+		virtual void visit(Root& node) override {
+			for (AST* tree : node.kids)
 			{
 				if (tree)
 				{
@@ -51,42 +51,37 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(ContextAssignment& Node) override
+		virtual void visit(ContextAssignment& node) override
 		{
 			// std::cout << "Context Assignment\n";
-			if (Node.nkids < 2) // if not complete, then do nothing. Maybe error later?
+			if (node.nkids < 2) // if not complete, then do nothing. Maybe error later?
 			{
 				return;
 			}
-			/*
-			if (Node.nkids == 2)
+			if (node.nkids == 2)
 			{
-				Leaf* left = dynamic_cast<Leaf*>(Node.kids);
-
-			}
-			*/
-			if (Node.nkids == 2)
-			{
-				// std::cout << Node.kids[0]->tok.text << "\n";  // tok.text is empty string for now. Fix!
-				// std::cout << Node.kids[0]->gettoken().text << "\n"; // check if kids[0] is not nullptr?
-				// std::cout << Node.kids[0]->getnkids() << "\n"; // just a test
-				if (Node.kids[0] && Node.kids[1])
+				if (node.kids[0] && node.kids[1])
 				{
-					yyTOKEN token = Node.kids[0]->gettoken();
-					std::string label = Node.kids[1]->gettoken().text;
-					std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
+					if (node.kids[0]->getNType() == Node::NType::Leaf && node.kids[1]->getNType() == Node::NType::Leaf)
+					{
+						yyTOKEN token = node.kids[0]->getToken();
+						std::string label = node.kids[1]->getToken().text;
+						std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
+					}
+					// std::cout << "NType 0: " << Node::to_string(node.kids[0]->getNType()) << "\n";
+					// std::cout << "NType 1: " << Node::to_string(node.kids[1]->getNType()) << "\n";
 				}
 			}
 		}
 
-		virtual void visit(ContextSwitch& Node) override
+		virtual void visit(ContextSwitch& node) override
 		{
 			// std::cout << "Context Switch\n";
-			if (Node.nkids == 1)
+			if (node.nkids == 1)
 			{
-				if (Node.kids[0])
+				if (node.kids[0])
 				{
-					yyTOKEN token = Node.kids[0]->gettoken();
+					yyTOKEN token = node.kids[0]->getToken();
 					if (token.text == "#parent")
 					{
 						std::cout << "line " << token.line << ": parent context switch ref " << token.text << "\n";
@@ -99,14 +94,14 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(Assignment& Node) override
+		virtual void visit(Assignment& node) override
 		{
 			// std::cout << "Assignment\n";
-			if (Node.nkids > 1)
+			if (node.nkids > 1)
 			{
-				if (Node.kids[0])
+				if (node.kids[0])
 				{
-					yyTOKEN token = Node.kids[0]->gettoken();
+					yyTOKEN token = node.kids[0]->getToken();
 					std::cout << "line " << token.line << ": def " << token.text << "\n";
 				}
 			}
