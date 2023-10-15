@@ -12,19 +12,8 @@
 #include <vector>
 #include "../Symbol/BaseSymbol.h"
 #include "../misc/misc.h"
+#include "../Scope/BaseScope.h"
 
-
-class BaseScope {
-public:
-	virtual std::string getScopeName() = 0;
-	virtual BaseScope* getEnclosingScope() = 0;
-	virtual void addChild(BaseScope*) = 0;
-	virtual std::vector<BaseScope*> getChildScopes() = 0;
-	virtual void define(BaseSymbol *sym) = 0;
-	virtual BaseSymbol* resolve(const std::string& name) = 0;
-	virtual std::string to_string() = 0;
-	virtual std::string to_string(int level) = 0;
-};
 
 class SymbolTable : public BaseScope { // derive more classes from this!
 public:
