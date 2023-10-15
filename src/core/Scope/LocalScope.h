@@ -5,16 +5,21 @@
 // Updated: 2023-10-15
 
 #include "BaseScope.h"
+#include "../Parser/Serial.h"
+
+extern Serial scope_serial;
 
 class LocalScope : public BaseScope {
 public:
+	int scope_id = -1;
 	BaseScope* parent_scope = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
-	LocalScope() {}
+	LocalScope() { scope_id = scope_serial.get_id(); }
 
 	// satisfy our interface:
+	int getScopeID() { return scope_id; }
 	std::string getScopeName() { return "Local Scope"; }
 	BaseScope* getEnclosingScope() { return parent_scope; }
 	void addChild(BaseScope*);

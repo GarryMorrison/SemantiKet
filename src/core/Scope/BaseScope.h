@@ -16,6 +16,7 @@
 
 class BaseScope {
 public:
+	virtual int getScopeID() = 0;
 	virtual std::string getScopeName() = 0;
 	virtual BaseScope* getEnclosingScope() = 0;
 	virtual void addChild(BaseScope*) = 0;

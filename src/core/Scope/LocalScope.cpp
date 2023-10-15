@@ -59,7 +59,7 @@ BaseSymbol* LocalScope::resolve(const std::string& name)
 
 std::string LocalScope::to_string(int level) {
 	std::string s;
-	s = indent(2 * level) + getScopeName() + ":\n";
+	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + ":\n";
 	for (const auto& elt : symbols)
 	{
 		if (elt.second != nullptr)
