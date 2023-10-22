@@ -88,3 +88,10 @@ const EType Error::CantAssignToConst = {
 	"attempt to assign to a constant",
 	""
 };
+
+const EType Error::MemoryAllocationFailed = {
+	"MemoryAllocationFailed",
+	"Memory",
+	"failed to allocate memory",
+	""
+};

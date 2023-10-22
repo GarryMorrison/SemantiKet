@@ -31,6 +31,7 @@ public:
 	static const EType RefUnknownContext;
 	static const EType RefUnknownSymbol;
 	static const EType CantAssignToConst;
+	static const EType MemoryAllocationFailed;
 
 };
 
