@@ -1,6 +1,7 @@
 %{ /*** C/C++ Declarations ***/
 
 #pragma warning(disable : 4996)  // Looks like we need this for it to compile ...
+// #pragma warning(disable : 4005)  // does this silence our warnings? Nope!
 
     // #include <stdint.h>  // Nope. That didn't help.
 #include <string>
