@@ -185,6 +185,23 @@ std::string pad_str(std::string s, std::string delim, int width, bool left)
     return s + padding;
 }
 
+std::string pmp_str(std::vector<std::string>& tokens, std::string& pre, std::string& mid, std::string& post)
+{
+    std::string s(pre);
+    bool first_pass = true;
+    for (const auto& token : tokens)
+    {
+        if (!first_pass)
+        {
+            s.append(mid);
+        }
+        first_pass = false;
+        s.append(token);
+    }
+    s.append(post);
+    return s;
+}
+
 // from here:
 // https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
 std::vector<std::string> split_str(const std::string& s1, const std::string& delimiter) {
