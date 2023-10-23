@@ -22,7 +22,10 @@ r4 = foo[p1, p2] ^^ k2
 
 // the next three are valid, but they don't make a lot of sense!
 // bra-ket:
-r5 = <phi| |psi> ^^ 2
+// now a parse error!
+// r5 = <phi| |psi> ^^ 2
+// the fix is to use brackets:
+r5 = (<end| op chain |start>) ^^ 2
 
 // curly seq:
 r6 = { a ++ b } ^^ 3
