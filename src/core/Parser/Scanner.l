@@ -157,6 +157,7 @@ typedef SKet::Parser::token_type token_type;
 "global" { return scan(token::GLOBAL, yylval); }
 "init" { return scan(token::INIT, yylval); }
 "def" { return scan(token::DEF, yylval); }
+"alias" { return scan(token::ALIAS, yylval); }
 "return" { return scan(token::RETURN, yylval); }
 "if" { return scan(token::IF, yylval); }
 "while" { return scan(token::WHILE, yylval); }

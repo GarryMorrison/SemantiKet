@@ -1,0 +1,6 @@
+// aliasing of functions, eg, so you don't need to specify the context all the time!
+// Added: 2023-10-23
+
+// simple alias:
+alias if-plural[n] = #global.#words.if-plural[n]
+

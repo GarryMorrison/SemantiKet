@@ -150,6 +150,7 @@
 %token <treeval> ERROR 321
 %token <treeval> IS_ERROR 322
 %token <treeval> ERROR_MESSAGE 323
+%token           ALIAS
 
 
 
@@ -216,6 +217,7 @@
 %type <treeval> star_id
 %type <treeval> id_star
 %type <treeval> assignment_lhs
+%type <treeval> fn_alias
 
 
 
@@ -269,6 +271,7 @@ statement: SEMICOLON /* seems we need this */
 | op_assignment
 | learn_rule
 | fn_def
+| fn_alias
 | for_statement
 | cfor_statement
 | sfor_statement
@@ -356,6 +359,10 @@ fn_def: DEF ID RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
 fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $3, $4); }
 | DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $5, $6); }
 | DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $4, $6, $7); }
+;
+
+// more rules later!
+fn_alias: ALIAS ID LEFT_SQUARE param_list RIGHT_SQUARE EQUAL context_chain DOT param_op{ $$ = new Internal("function alias", 1490, $2, $4, $7, $9); }
 ;
 
 /*
