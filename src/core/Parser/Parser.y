@@ -276,11 +276,16 @@ statement: SEMICOLON /* seems we need this */
 context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new ContextAssignment($1, $3); }
 ;
 
-context_rhs: LITERAL_KET /* |some context> */
-// | CONTEXT_ID /* #some-context */
+// context_rhs: LITERAL_KET /* |some context> */
+// // | CONTEXT_ID /* #some-context */
+// | qualified_context
+// | LITERAL_KET STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
+// | CONTEXT_ID STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
+// ;
+
+context_rhs: LITERAL_KET
 | qualified_context
-| LITERAL_KET STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
-| CONTEXT_ID STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
+| context_rhs STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
 ;
 
 context_op: CONTEXT_ID DOT context_op_type{ $$ = new Internal("context op", 1040, $1, $3); }
