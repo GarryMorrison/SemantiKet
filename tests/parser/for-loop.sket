@@ -13,3 +13,16 @@ for i in 1..10 .. 2:
     end:
 end:
 
+// for unpacking, float, ket version:
+for c, k in sp:
+    sprint["float: "] c
+    sprint["ket: "] k
+end:
+
+// for unpacking, float, ket, bra version:
+for c, k, b in density:
+    sprint["float: "] c
+    sprint["ket: "] k
+    sprint["bra: "] b
+end:
+

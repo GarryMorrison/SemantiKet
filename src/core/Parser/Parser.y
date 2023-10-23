@@ -221,6 +221,7 @@
 %type <treeval> assignment_lhs
 %type <treeval> fn_alias
 %type <treeval> bra
+%type <treeval> for_unpack
 
 
 
@@ -660,7 +661,13 @@ wildcard: DOT
 | DSTAR
 ;
 
-for_statement: FOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("for statement", 1230, $2, $4, $7); }
+// for_statement: FOR ID IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("for statement", 1230, $2, $4, $7); }
+for_statement: FOR for_unpack IN seq COLON SEMICOLON block_statements END_COLON SEMICOLON{ $$ = new Internal("for statement", 1230, $2, $4, $7); }
+;
+
+for_unpack: ID
+| ID COMMA ID{ $$ = new Internal("for unpack", 1500, $1, $3); }
+| ID COMMA ID COMMA ID{ $$ = new Internal("for unpack", 1500, $1, $3, $5); }
 ;
 
 block_statements: block_statement
