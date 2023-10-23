@@ -32,6 +32,7 @@ public:
 	static const EType RefUnknownSymbol;
 	static const EType CantAssignToConst;
 	static const EType MemoryAllocationFailed;
+	static const EType LearnRuleOpNotID;
 
 };
 

@@ -35,5 +35,7 @@ public:
 	static const WType ZeroIndex;
 	static const WType IndexRangeError;
 	static const WType FoundStringExpectingFloat;
+	static const WType TooManyToUnpack; // should this be an error instead?
+	static const WType TooFewToUnpack;  // should this be an error instead?
 
 };

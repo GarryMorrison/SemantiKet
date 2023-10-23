@@ -95,3 +95,10 @@ const EType Error::MemoryAllocationFailed = {
 	"failed to allocate memory",
 	""
 };
+
+const EType Error::LearnRuleOpNotID = {
+	"LearnRuleOpNotID",
+	"Type",
+	"learn rule operator must be ID",
+	""
+};

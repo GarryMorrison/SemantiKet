@@ -95,3 +95,17 @@ const WType Warning::FoundStringExpectingFloat = {
 	"found a string, but expecting a float",
 	""
 };
+
+const WType Warning::TooManyToUnpack = {
+	"TooManyToUnpack",
+	"Syntax",
+	"too many superpositions to unpack",
+	""
+};
+
+const WType Warning::TooFewToUnpack = {
+	"TooFewToUnpack",
+	"Syntax",
+	"too few superpositions to unpack",
+	""
+};
