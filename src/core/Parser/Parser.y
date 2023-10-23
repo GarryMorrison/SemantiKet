@@ -169,8 +169,8 @@
 %type <treeval> number
 %type <treeval> qualified_context
 %type <treeval> powered_op
-%type <treeval> chain_seq
-%type <treeval> ket_or_seq
+// %type <treeval> chain_seq
+// %type <treeval> ket_or_seq
 %type <treeval> ket
 %type <treeval> seq
 %type <treeval> string_seq
@@ -269,7 +269,8 @@ statement: SEMICOLON /* seems we need this */
 // | CONTEXT_ID /* context switch */
 | qualified_context{ $$ = new ContextSwitch($1); }
 // | chain SEMICOLON /* later switch to sequence, since chain is a proper subset of sequence */
-| chain_seq SEMICOLON
+// | chain_seq SEMICOLON
+| chain SEMICOLON
 | assignment
 | op_assignment
 | learn_rule
@@ -397,6 +398,7 @@ chain: ID
 | powered_op
 // | bra_ket
 | bra
+| ket
 | curly_seq
 | bracket_seq
 | ID chain{ $$ = new Internal("chain", 1070, $1, $2); }
@@ -407,6 +409,7 @@ chain: ID
 | powered_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
 // | bra_ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | bra chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | curly_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | bracket_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 ;
@@ -453,17 +456,18 @@ powered_op: chain_mbrs DPOW int_or_id{ $$ = new Internal("powered op", 1090, $1,
 curly_seq: LEFT_CURLY seq RIGHT_CURLY{ $$ = new Internal("curly seq", 1430, $2); }
 ;
 
-chain_seq: chain
+// chain_seq: chain
 // | chain ket_or_seq %prec NO_RULE{ $$ = new Tree("chain seq", 1100, $1, $2); } // Nope. Doesn't help.
 // | chain ket_or_seq { $$ = new Tree("chain seq", 1100, $1, $2); }
-| chain ket{ $$ = new Internal("chain ket", 1100, $1, $2); }
-;
+// | chain ket{ $$ = new Internal("chain ket", 1100, $1, $2); } // redundant now that ket is a chain member
+// ;
 
 
+/*
 ket_or_seq: ket
 // | bracket_seq  // deprecated. Now in chain. // is this still needed anywhere?
 ;
-
+*/
 
 bracket_seq: LEFT_PAREN seq RIGHT_PAREN{ $$ = $2; } // Add Internal("bracket seq"...) ?
 ;
@@ -501,8 +505,9 @@ string_seq: ket_or_seq
 | chain_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
 ;
 */
-string_seq: ket_or_seq
-| chain_seq
+// string_seq: ket_or_seq  // redundant!
+// | chain_seq // redundant!
+string_seq: chain
 | string_seq STRING_OP string_seq{ $$ = new Internal("string seq", 1110, $1, $2, $3); }
 ;
 
@@ -644,7 +649,8 @@ rule_lhs: ID ID{ $$ = new Tree("rule lhs", 1180, $1, $2); }
 ;
 */
 
-rule_lhs: chain_seq
+// rule_lhs: chain_seq  // redundant!
+rule_lhs : chain
 | ID wildcard{ $$ = new Internal("rule lhs", 1180, $1, $2); }
 ;
 
@@ -661,7 +667,8 @@ block_statements: block_statement
 ;
 
 block_statement: SEMICOLON
-| chain_seq SEMICOLON
+// | chain_seq SEMICOLON
+| chain SEMICOLON
 | assignment
 | op_assignment
 | global_assignment
