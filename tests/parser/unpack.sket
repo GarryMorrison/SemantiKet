@@ -12,3 +12,11 @@ head*, tail = seq2
 
 // head unpacking:
 head*, x, y, z = seq3
+
+
+// practical use case of unpacking:
+iso8601 * !=>
+    year, month, day = ssplit["-"] __self
+    return (ket2float year) |year> + (ket2float month) |month> + (ket2float day) |day>
+end:
+
