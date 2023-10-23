@@ -214,6 +214,7 @@
 %type <treeval> error_seq
 
 
+%left COMMA
 %left STRING_OP
 %left PLUS MINUS
 
@@ -332,6 +333,7 @@ fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $3
 | DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $4, $6, $7); }
 ;
 
+/*
 param_list: ID
 | ID COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 | STAR
@@ -339,6 +341,12 @@ param_list: ID
 | THREE_DOTS
 | THREE_DOTS COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 ;
+*/
+
+param_list: ID
+| STAR
+| THREE_DOTS
+| param_list COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
 
 
 // chain: ID %prec NO_LEFT_PAREN
