@@ -204,7 +204,7 @@
 %type <treeval> while_statement
 %type <treeval> equality_expr
 // %type <treeval> bool_expr
-%type <treeval> id_bra_ket
+// %type <treeval> id_bra_ket
 %type <treeval> init
 %type <treeval> init_list
 %type <treeval> bra_ket
@@ -213,6 +213,10 @@
 %type <treeval> int_or_id
 %type <treeval> error_seq
 %type <treeval> context_chain
+%type <treeval> star_id
+%type <treeval> id_star
+%type <treeval> assignment_lhs
+
 
 
 %left COMMA
@@ -555,22 +559,43 @@ seq_seq: sp_seq
 
 // assignment: ID EQUAL seq SEMICOLON{ $$ = new Tree("assignment", 1160, $1, $3); }
 // assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("assignment", 1160, $1, $3); }
-assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Assignment($1, $3); }
+// assignment: id_bra_ket EQUAL seq SEMICOLON{ $$ = new Assignment($1, $3); }
+assignment: assignment_lhs EQUAL seq SEMICOLON{ $$ = new Assignment($1, $3); }
 ;
 
-global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
+// global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
+global_assignment: GLOBAL assignment_lhs EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
 ;
 
-op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("op assignment", 1340, $1, $2, $3); }
+// op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("op assignment", 1340, $1, $2, $3); }
+op_assignment: assignment_lhs EQUAL_OP seq SEMICOLON{ $$ = new Internal("op assignment", 1340, $1, $2, $3); }
 ;
 
-global_op_assignment: GLOBAL id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("global op assignment", 1350, $2, $3, $4); }
+// global_op_assignment: GLOBAL id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("global op assignment", 1350, $2, $3, $4); }
+global_op_assignment: GLOBAL assignment_lhs EQUAL_OP seq SEMICOLON{ $$ = new Internal("global op assignment", 1350, $2, $3, $4); }
 ;
 
+/*
 id_bra_ket: ID
 | LITERAL_KET
 | LITERAL_BRA
 ;
+*/
+
+assignment_lhs: ID
+| LITERAL_KET
+| LITERAL_BRA
+| star_id
+| id_star
+| assignment_lhs COMMA assignment_lhs{ $$ = new Internal("assignment lhs", 1480, $1, $3); }
+;
+
+star_id: STAR ID{ $$ = new Internal("star id", 1470, $2); }
+;
+
+id_star: ID STAR{ $$ = new Internal("id star", 1475, $1); }
+;
+
 
 // learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
 learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Internal("learn rule", 1170, $1, $2, $3); }

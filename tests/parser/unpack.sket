@@ -1,0 +1,14 @@
+// unpacking sequences
+// Added: 2023-10-23
+
+// standard unpacking:
+a, b, c = ssplit |ABC>
+
+// tail unpacking:
+a, b, c, *tail = seq1
+
+// head unpacking:
+head*, tail = seq2
+
+// head unpacking:
+head*, x, y, z = seq3
