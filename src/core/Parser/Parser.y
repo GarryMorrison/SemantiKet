@@ -210,7 +210,7 @@
 // %type <treeval> id_bra_ket
 %type <treeval> init
 %type <treeval> init_list
-%type <treeval> bra_ket
+// %type <treeval> bra_ket
 %type <treeval> lfor_statement
 %type <treeval> curly_seq
 %type <treeval> int_or_id
@@ -394,7 +394,7 @@ chain: ID
 | context_op
 | param_op
 | powered_op
-| bra_ket
+// | bra_ket
 | curly_seq
 | bracket_seq
 | ID chain{ $$ = new Internal("chain", 1070, $1, $2); }
@@ -403,7 +403,7 @@ chain: ID
 | context_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | param_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
-| bra_ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
+// | bra_ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | curly_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | bracket_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 ;
@@ -427,7 +427,7 @@ chain_mbrs: ID
 | number
 | context_op
 | param_op
-| bra_ket
+// | bra_ket
 | curly_seq
 | bracket_seq
 ;
@@ -726,10 +726,11 @@ init_list: ID
 | ID COMMA init_list{ $$ = new Internal("init list", 1400, $1, $3); }
 ;
 
+/*
 bra_ket: LITERAL_BRA LITERAL_KET{ $$ = new Internal("bra ket", 1410, $1, $2); }
 | LITERAL_BRA chain LITERAL_KET{ $$ = new Internal("bra ket", 1410, $1, $2, $3); }
 ;
-
+*/
 
 %% /*** Additional Code ***/
 
