@@ -93,6 +93,9 @@ typedef SKet::Parser::token_type token_type;
 "_self" { return scan(token::SELF_KET, yylval); }
 "__self" { return scan(token::DSELF_KET, yylval); }
 "__self"[0-9]+ { return scan(token::DSELFK_KET, yylval); }
+"self"[0-9]+"__" { return scan(token::DSELFK_BRA, yylval); }
+"self__" { return scan(token::DSELF_BRA, yylval); }
+"self_" { return scan(token::SELF_BRA, yylval); }
 "_params" { return scan(token::PARAMS, yylval); }
 "error" { return scan(token::ERROR, yylval); }
 "_is_error" { return scan(token::IS_ERROR, yylval); }

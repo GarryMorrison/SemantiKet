@@ -151,7 +151,9 @@
 %token <treeval> IS_ERROR 322
 %token <treeval> ERROR_MESSAGE 323
 %token           ALIAS
-
+%token           SELF_BRA
+%token           DSELF_BRA
+%token           DSELFK_BRA
 
 
 %type <treeval> start

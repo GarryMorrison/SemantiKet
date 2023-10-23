@@ -232,6 +232,10 @@ namespace SKet {
             {Parser::token_type::MOD, "MOD"},
             {Parser::token_type::ERROR, "ERROR"},
             {Parser::token_type::IS_ERROR, "IS_ERROR"},
-            {Parser::token_type::ERROR_MESSAGE, "ERROR_MESSAGE"}
+            {Parser::token_type::ERROR_MESSAGE, "ERROR_MESSAGE"},
+            {Parser::token_type::ALIAS, "ALIAS"},
+            {Parser::token_type::SELF_BRA, "SELF_BRA"},
+            {Parser::token_type::DSELF_BRA, "DSELF_BRA"},
+            {Parser::token_type::DSELFK_BRA, "DSELFK_BRA"}
     };
 };
