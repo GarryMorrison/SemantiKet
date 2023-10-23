@@ -102,3 +102,11 @@ const EType Error::LearnRuleOpNotID = {
 	"learn rule operator must be ID",
 	""
 };
+
+const EType Error::TypeMismatch = {
+	"TypeMismatch",
+	"Type",
+	"superpositions, density operators and bra-superpositions must be pure, not mixed",
+	""
+};
+

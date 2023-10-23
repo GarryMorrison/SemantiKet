@@ -33,6 +33,7 @@ public:
 	static const EType CantAssignToConst;
 	static const EType MemoryAllocationFailed;
 	static const EType LearnRuleOpNotID;
+	static const EType TypeMismatch;
 
 };
 
