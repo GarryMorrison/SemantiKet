@@ -304,14 +304,22 @@ qualified_context: CONTEXT_ID
 param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Internal("param op", 1050, $1, $3); }
 ;
 
+/*
 rhs_params: STAR
 | STRINGLIT
-// | chain /* later swap in sequence */
 | seq
 | STAR COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
 | STRINGLIT COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
 | seq COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
 ;
+*/
+
+rhs_params: STAR
+| STRINGLIT
+| seq
+| rhs_params COMMA rhs_params{ $$ = new Internal("rhs params", 1060, $1, $3); }
+;
+
 
 // fn_def: DEF ID fn_params RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4, $5); }
 // ;
@@ -347,7 +355,7 @@ param_list: ID
 | STAR
 | THREE_DOTS
 | param_list COMMA param_list{ $$ = new Internal("param list", 1210, $1, $3); }
-
+;
 
 // chain: ID %prec NO_LEFT_PAREN
 // | number %prec NO_LEFT_PAREN

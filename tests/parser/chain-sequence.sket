@@ -19,6 +19,10 @@ sprint (start .. end)
 // chain bracket range kets sequence:
 sprint (|1> .. |10> .. |2>)
 
+// chain bracket three range kets:
+sprint ((1 ... 5) . sreverse (1 ... 5))
+
+
 // test minus as a chain member:
 // disabled for now!
 /*
