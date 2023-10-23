@@ -14,6 +14,7 @@
 // context operators:
 #context.op
 #context.foo[bar]
+#global.#context1.#context2.#context3.foo[p1, p2]
 
 // using a context operator:
 apples = #words.plural |apple>

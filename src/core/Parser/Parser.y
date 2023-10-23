@@ -212,9 +212,11 @@
 %type <treeval> curly_seq
 %type <treeval> int_or_id
 %type <treeval> error_seq
+%type <treeval> context_chain
 
 
 %left COMMA
+%left DOT
 %left STRING_OP
 %left PLUS MINUS
 
@@ -289,16 +291,27 @@ context_rhs: LITERAL_KET
 | context_rhs STRING_OP context_rhs{ $$ = new Internal("context rhs", 1030, $1, $2, $3); }
 ;
 
-context_op: CONTEXT_ID DOT context_op_type{ $$ = new Internal("context op", 1040, $1, $3); }
+// context_op: CONTEXT_ID DOT context_op_type{ $$ = new Internal("context op", 1040, $1, $3); }
+context_op: context_chain DOT context_op_type{ $$ = new Internal("context op", 1040, $1, $3); }
 ;
 
 context_op_type: ID
 | param_op
 ;
 
+/*
 qualified_context: CONTEXT_ID
 | CONTEXT_ID DOT CONTEXT_ID{ $$ = new Internal("qualified context", 1080, $1, $3); }
 | CONTEXT_ID DOT CONTEXT_ID LEFT_SQUARE chain RIGHT_SQUARE{ $$ = new Internal("qualified context", 1080, $1, $3, $5); }
+;
+*/
+
+qualified_context: context_chain
+| context_chain LEFT_SQUARE chain RIGHT_SQUARE{ $$ = new Internal("qualified context", 1080, $1, $3); }
+;
+
+context_chain: CONTEXT_ID
+| context_chain DOT context_chain{ $$ = new Internal("context chain", 1460, $1, $3); }
 ;
 
 param_op: ID LEFT_SQUARE rhs_params RIGHT_SQUARE{ $$ = new Internal("param op", 1050, $1, $3); }
