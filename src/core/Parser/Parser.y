@@ -151,9 +151,9 @@
 %token <treeval> IS_ERROR 322
 %token <treeval> ERROR_MESSAGE 323
 %token           ALIAS
-%token           SELF_BRA
-%token           DSELF_BRA
-%token           DSELFK_BRA
+%token <treeval> SELF_BRA
+%token <treeval> DSELF_BRA
+%token <treeval> DSELFK_BRA
 
 
 %type <treeval> start
@@ -220,6 +220,7 @@
 %type <treeval> id_star
 %type <treeval> assignment_lhs
 %type <treeval> fn_alias
+%type <treeval> bra
 
 
 
@@ -395,6 +396,7 @@ chain: ID
 | param_op
 | powered_op
 // | bra_ket
+| bra
 | curly_seq
 | bracket_seq
 | ID chain{ $$ = new Internal("chain", 1070, $1, $2); }
@@ -404,6 +406,7 @@ chain: ID
 | param_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | powered_op chain{ $$ = new Internal("chain", 1070, $1, $2); }
 // | bra_ket chain{ $$ = new Internal("chain", 1070, $1, $2); }
+| bra chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | curly_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 | bracket_seq chain{ $$ = new Internal("chain", 1070, $1, $2); }
 ;
@@ -475,6 +478,12 @@ ket: LITERAL_KET /* |some ket> */
 | PARAMS /* _params */
 | IS_ERROR /* _is_error */
 | ERROR_MESSAGE /* _error_message */
+;
+
+bra: LITERAL_BRA
+| SELF_BRA
+| DSELF_BRA
+| DSELFK_BRA
 ;
 
 // seq: string_seq /* |alpha> :_ |beta> __ |gamma> _ |s> */
