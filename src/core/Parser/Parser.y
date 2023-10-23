@@ -287,7 +287,8 @@ statement: SEMICOLON /* seems we need this */
 ;
 
 // context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new Internal("context assignment", 1020, $1, $3); }
-context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new ContextAssignment($1, $3); }
+// context_assignment: CONTEXT_ID EQUAL context_rhs{ $$ = new ContextAssignment($1, $3); }
+context_assignment: context_chain EQUAL context_rhs{ $$ = new ContextAssignment($1, $3); }
 ;
 
 // context_rhs: LITERAL_KET /* |some context> */
