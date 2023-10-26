@@ -78,6 +78,7 @@ set(Core_SRC "src/core/misc/misc.h" "src/core/misc/misc.cpp"
 "src/core/Sequence/Superposition.h" "src/core/Sequence/Superposition.cpp"
 "src/core/Error/Error.h" "src/core/Error/Error.cpp"
 "src/core/Error/Warning.h" "src/core/Error/Warning.cpp"
+"src/core/Rule/Rule.h" "src/core/Rule/Rule.cpp"
 "src/core/Error/ErrorMap.h" "src/core/Error/ErrorMap.cpp")
 
 
