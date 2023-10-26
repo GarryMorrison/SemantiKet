@@ -22,7 +22,7 @@ Serial scope_serial;
 SKet::Tree tree("the root"); // Delete a little later
 
 // Define our new parse tree:
-SKet::AST *ast;
+SKet::AST *ast = nullptr;
 
 // Define our parsing driver:
 // SKet::Driver driver(tree);
@@ -76,6 +76,11 @@ int main(int argc, char* argv[])
 		std::cout << "----------------------------------";
 		bool verbose_lex = true;  // tweak as desired!
 		driver.parse_file(argv[1], verbose_lex);
+		if (driver.parse_error)
+		{
+			std::cout << "Parse error, exiting ... \n";
+			return 1;
+		}
 		// driver.tree.print();
 		// driver.tree.save_graph("syntax-tree.dot");
 		SKet::PrintTree Print;
