@@ -95,6 +95,13 @@ ContextSymbol* GlobalScope::resolveContext(const std::string& name)
 		return parentScope;
 	}
 	*/
+	if (name == "#previous")
+	{
+		ContextSymbol* tmp = previousContext;
+		previousContext = currentContext;
+		currentContext = tmp;
+		return tmp;
+	}
 	auto it = context_symbols.find(name);
 	if (it == context_symbols.end())
 	{
@@ -103,7 +110,10 @@ ContextSymbol* GlobalScope::resolveContext(const std::string& name)
 	}
 	else
 	{
-		return it->second;
+		ContextSymbol* tmp = it->second;
+		previousContext = currentContext;
+		currentContext = tmp;
+		return tmp;
 	}
 }
 

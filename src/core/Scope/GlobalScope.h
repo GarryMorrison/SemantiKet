@@ -14,12 +14,15 @@ class GlobalScope : public BaseScope {
 public:
 	int scope_id = -1;
 	BaseScope* parentScope = nullptr;
+	ContextSymbol* currentContext = nullptr;
+	ContextSymbol* previousContext = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
 	std::map<std::string, ContextSymbol*> context_symbols;
 	GlobalScope() { scope_id = scope_serial.get_id(); initTypeSystem(); }
 	void initTypeSystem();
+	ContextSymbol* getPreviousContext() { return previousContext; }
 
 	// satisfy our interface:
 	int getScopeID() { return scope_id; }
