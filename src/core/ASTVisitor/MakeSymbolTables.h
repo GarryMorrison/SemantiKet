@@ -30,6 +30,11 @@ namespace SKet {
 			if (symtab)  // we should error if symtab is nullptr!
 			{
 				currentScope = symtab->globalScope;
+				BaseScope* tmp = currentScope->resolveContext("#global"); // switch to #global context
+				if (tmp)
+				{
+					currentScope = tmp;
+				}
 			}
 		}
 		virtual void visit(Leaf& node) override {

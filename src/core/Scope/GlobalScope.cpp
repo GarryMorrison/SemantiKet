@@ -5,7 +5,7 @@
 // Added: 2023-10-15
 // Updated: 2023-10-15
 
-void GlobalScope::initTypeSystem() {  // Add more types here later!
+void GlobalScope::initTypeSystem() {  // Add more types here later! Make first char capital?
 	define(new BuiltInType("bool"));
 	define(new BuiltInType("float"));
 	define(new BuiltInType("ket"));
