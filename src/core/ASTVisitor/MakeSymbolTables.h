@@ -84,6 +84,13 @@ namespace SKet {
 						std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
 						// currentScope->defineContext(new ContextSymbol(token.text, label, currentScope));
 						globalScope->defineContext(new ContextSymbol(token.text, label, globalScope)); // Make context's global, unless specified otherwise with #context1.#subcontext = |sub context>
+
+						// Follow a context define, with a context switch:
+						BaseScope* tmp = globalScope->resolveContext(token.text); // Error if token.text is not a known context!
+						if (tmp)
+						{
+							currentScope = tmp;
+						}
 					}
 					// std::cout << "NType 0: " << Node::to_string(node.kids[0]->getNType()) << "\n";
 					// std::cout << "NType 1: " << Node::to_string(node.kids[1]->getNType()) << "\n";
@@ -94,6 +101,7 @@ namespace SKet {
 		virtual void visit(ContextSwitch& node) override
 		{
 			// std::cout << "Context Switch\n";
+			/*
 			if (node.nkids == 1)
 			{
 				if (node.kids[0])
@@ -119,6 +127,17 @@ namespace SKet {
 							currentScope = tmp;
 						}
 					}
+				}
+			}
+			*/
+			if (node.nkids == 1 && node.kids[0])
+			{
+				yyTOKEN token = node.kids[0]->getToken();
+				std::cout << "line " << token.line << ": context switch ref " << token.text << "\n";
+				BaseScope* tmp = globalScope->resolveContext(token.text); // Error if token.text is not a known context!
+				if (tmp)
+				{
+					currentScope = tmp;
 				}
 			}
 		}
