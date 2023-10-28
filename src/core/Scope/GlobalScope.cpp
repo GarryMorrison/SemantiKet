@@ -89,6 +89,12 @@ void GlobalScope::defineContext(ContextSymbol* context)
 
 ContextSymbol* GlobalScope::resolveContext(const std::string& name)
 {
+	/* // Maybe it needs to be in MakeSymbolTables afterall? Since return type is wrong.
+	if (name == "#parent") // handle special context name:
+	{
+		return parentScope;
+	}
+	*/
 	auto it = context_symbols.find(name);
 	if (it == context_symbols.end())
 	{

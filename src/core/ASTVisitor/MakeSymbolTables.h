@@ -130,11 +130,31 @@ namespace SKet {
 				}
 			}
 			*/
+			/*
 			if (node.nkids == 1 && node.kids[0])
 			{
 				yyTOKEN token = node.kids[0]->getToken();
 				std::cout << "line " << token.line << ": context switch ref " << token.text << "\n";
 				BaseScope* tmp = globalScope->resolveContext(token.text); // Error if token.text is not a known context!
+				if (tmp)
+				{
+					currentScope = tmp;
+				}
+			}
+			*/
+			if (node.nkids == 1 && node.kids[0])
+			{
+				yyTOKEN token = node.kids[0]->getToken();
+				std::cout << "line " << token.line << ": context switch ref " << token.text << "\n";
+				BaseScope* tmp;
+				if (token.text == "#parent")
+				{
+					tmp = currentScope->getEnclosingScope();
+				}
+				else
+				{
+					tmp = globalScope->resolveContext(token.text); // Error if token.text is not a known context!
+				}
 				if (tmp)
 				{
 					currentScope = tmp;
