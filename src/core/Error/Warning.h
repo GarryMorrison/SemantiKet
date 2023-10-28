@@ -20,7 +20,7 @@ public:
 	std::vector<WType> warning_types;
 	std::vector<std::string> warning_locations;
 
-	void AppendWarning(WType wtype, const std::string& where);
+	void AppendWarning(const WType& wtype, const std::string& where);
 	size_t GetWarningCount();
 	void PrintWarnings();
 	void ResetWarnings();

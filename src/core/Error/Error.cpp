@@ -6,7 +6,7 @@
 #include "Error.h"
 #include "../misc/misc.h"
 
-void Error::AppendError(EType etype, const std::string& where)
+void Error::AppendError(const EType& etype, const std::string& where)
 {
 	error_types.push_back(etype);
 	error_locations.push_back(where);

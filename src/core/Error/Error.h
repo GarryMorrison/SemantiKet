@@ -20,7 +20,7 @@ public:
 	std::vector<EType> error_types;
 	std::vector<std::string> error_locations;
 
-	void AppendError(EType etype, const std::string& where);
+	void AppendError(const EType& etype, const std::string& where);
 	size_t GetErrorCount();
 	void PrintErrors();
 	void ResetErrors();

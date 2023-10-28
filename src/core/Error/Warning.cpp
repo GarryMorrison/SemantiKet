@@ -6,7 +6,7 @@
 #include "Warning.h"
 #include "../misc/misc.h"
 
-void Warning::AppendWarning(WType wtype, const std::string& where)
+void Warning::AppendWarning(const WType& wtype, const std::string& where)
 {
 	warning_types.push_back(wtype);
 	warning_locations.push_back(where);
