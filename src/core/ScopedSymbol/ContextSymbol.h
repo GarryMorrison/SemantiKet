@@ -18,6 +18,7 @@ public:
 	std::string name;
 	std::string label; // more ContextSymbol specific variables later! Eg, supported-ops, terminals, and non-terminals.
 	BaseScope* parentScope = nullptr;
+	ContextSymbol* previousContext = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
 	std::map<std::string, BaseSymbol*> symbols;
@@ -32,8 +33,10 @@ public:
 			parentScope = scope;
 		}
 	}
+	ContextSymbol(const std::string& name1, const std::string& label1, BaseScope* scope, ContextSymbol* context) : ContextSymbol(name1, label1, scope) { previousContext = context; }
 
 	std::string getContextLabel() { return label; }
+	ContextSymbol* getPreviousContext() { return previousContext; }
 
 	// satisfy our Scope interface:
 	int getScopeID() { return scope_id; }

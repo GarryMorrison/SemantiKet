@@ -77,6 +77,10 @@ void ContextSymbol::defineContext(ContextSymbol* context)
 
 ContextSymbol* ContextSymbol::resolveContext(const std::string& name)
 {
+	if (name == "#previous")
+	{
+		return getPreviousContext();
+	}
 	auto it = context_symbols.find(name);
 	if (it == context_symbols.end())
 	{
