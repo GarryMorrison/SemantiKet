@@ -153,6 +153,7 @@ typedef SKet::Parser::token_type token_type;
 "sfor" { return scan(token::SFOR, yylval); }
 "lfor" { return scan(token::LFOR, yylval); }
 "in" { return scan(token::IN, yylval); }
+"as" { return scan(token::AS, yylval); }
 ":" { return scan(token::COLON, yylval); }
 "end:" { return scan(token::END_COLON, yylval); }
 "break" { return scan(token::BREAK, yylval); }

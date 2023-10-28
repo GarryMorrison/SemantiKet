@@ -1,0 +1,12 @@
+// a test of chunk notation
+// See for example: https://www.w3.org/Data/demos/chunks/chunks.html
+// Added: 2023-10-28
+
+as |Fred>:
+    type => |person>
+    age => 37 |years>
+    mother => |Trude>
+    father => |Robert>
+    friends => split[", "] |Sam, Max, Liz, Jane, Tom>
+end:
+

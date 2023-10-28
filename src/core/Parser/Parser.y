@@ -154,6 +154,7 @@
 %token <treeval> SELF_BRA
 %token <treeval> DSELF_BRA
 %token <treeval> DSELFK_BRA
+%token           AS
 
 
 %type <treeval> start
@@ -222,6 +223,9 @@
 %type <treeval> fn_alias
 %type <treeval> bra
 %type <treeval> for_unpack
+%type <treeval> chunk
+%type <treeval> chunk_rules
+%type <treeval> chunk_rule
 
 
 
@@ -275,6 +279,7 @@ statement: SEMICOLON /* seems we need this */
 | assignment
 | op_assignment
 | learn_rule
+| chunk
 | fn_def
 | fn_alias
 | for_statement
@@ -630,6 +635,17 @@ rule_rhs: seq
 // | SEMICOLON block_statements end_or_return{ $$ = new Tree("rule rhs", 1280, $2, $3); }
 | SEMICOLON block_statements END_COLON{ $$ = new Internal("rule rhs", 1280, $2); }
 ;
+
+chunk: AS seq COLON SEMICOLON chunk_rules END_COLON SEMICOLON{ $$ = new Internal("chunk", 1510, $2, $5); }
+;
+
+chunk_rules: chunk_rule
+| chunk_rule chunk_rules{ $$ = new Internal("chunk rules", 1520, $1, $2); }
+;
+
+chunk_rule: ID RULE rule_rhs SEMICOLON{ $$ = new Internal("chunk rule", 1530, $1, $2, $3); } // rule_rhs vs seq on the rhs of a chunk_rule?
+;
+
 
 /*
 end_or_return: END_COLON

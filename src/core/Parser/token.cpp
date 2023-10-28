@@ -236,6 +236,7 @@ namespace SKet {
             {Parser::token_type::ALIAS, "ALIAS"},
             {Parser::token_type::SELF_BRA, "SELF_BRA"},
             {Parser::token_type::DSELF_BRA, "DSELF_BRA"},
-            {Parser::token_type::DSELFK_BRA, "DSELFK_BRA"}
+            {Parser::token_type::DSELFK_BRA, "DSELFK_BRA"},
+            {Parser::token_type::AS, "AS"}
     };
 };
