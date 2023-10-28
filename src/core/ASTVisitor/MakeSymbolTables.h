@@ -25,10 +25,12 @@ namespace SKet {
 	public:
 		// BaseScope* sc = nullptr;
 		// MakeSymbolTables(BaseScope* scope) { sc = scope; }
+		BaseScope* globalScope = nullptr;
 		BaseScope* currentScope = nullptr;
 		MakeSymbolTables(SymbolTable* symtab) { 
 			if (symtab)  // we should error if symtab is nullptr!
 			{
+				globalScope = symtab->globalScope;
 				currentScope = symtab->globalScope;
 				BaseScope* tmp = currentScope->resolveContext("#global"); // switch to #global context
 				if (tmp)
@@ -80,7 +82,8 @@ namespace SKet {
 						yyTOKEN token = node.kids[0]->getToken();
 						std::string label = node.kids[1]->getToken().text;
 						std::cout << "line " << token.line << ": def context " << token.text << " " << label << "\n";
-						currentScope->defineContext(new ContextSymbol(token.text, label, currentScope));
+						// currentScope->defineContext(new ContextSymbol(token.text, label, currentScope));
+						globalScope->defineContext(new ContextSymbol(token.text, label, globalScope)); // Make context's global, unless specified otherwise with #context1.#subcontext = |sub context>
 					}
 					// std::cout << "NType 0: " << Node::to_string(node.kids[0]->getNType()) << "\n";
 					// std::cout << "NType 1: " << Node::to_string(node.kids[1]->getNType()) << "\n";
@@ -123,14 +126,11 @@ namespace SKet {
 		virtual void visit(Assignment& node) override
 		{
 			// std::cout << "Assignment\n";
-			if (node.nkids > 1)
+			if (node.nkids > 1 && node.kids[0])
 			{
-				if (node.kids[0])
-				{
-					yyTOKEN token = node.kids[0]->getToken();
-					std::cout << "line " << token.line << ": def " << token.text << "\n";
-					currentScope->define(BaseSymbol::Construct(token));
-				}
+				yyTOKEN token = node.kids[0]->getToken();
+				std::cout << "line " << token.line << ": def " << token.text << "\n";
+				currentScope->define(BaseSymbol::Construct(token));
 			}
 		}
 

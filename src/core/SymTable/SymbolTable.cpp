@@ -18,7 +18,7 @@ SymbolTable::SymbolTable()
 		errors.AppendError(Error::MemoryAllocationFailed, "Symbol Table constructor");
 		return;
 	}
-	globalScope->defineContext(new ContextSymbol("#global", "global context", globalScope));
+	globalScope->defineContext(new ContextSymbol("#global", "global context", globalScope)); // Here, or in MakeSymbolTables.h?
 }
 
 void SymbolTable::Print()
