@@ -10,6 +10,6 @@ a = 2
 // Context switch:
 #context1
 
-// Previous context switch:
-#previous
+// Parent context switch:
+#parent
 

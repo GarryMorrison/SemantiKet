@@ -4,45 +4,45 @@
 // Assignment in global context:
 a = 2
 
-// Context assignment in global context:
+// Context assignment:
 #context1 = |A1: A2: A3>
 
-// Assignment in global context:
+// Assignment in context1:
 b = 3
 
-// Context assignment in global context:
+// Context assignment:
 #context2 = |B1: B2>
 
-// Assignment in global context:
+// Assignment in context2:
 c = 5
 
 // Context switch:
 #context1
 
-// Assignment in A1: A2: A3:
+// Assignment in context1:
 d = 7
 
-// Context assignment in A1: A2: A3:
+// Context assignment:
 #context3 = |C1: C2: C3: C4>
 
-// Assignment in A1: A2: A3:
+// Assignment in context3:
 e = 11
 
-// Parent context switch:
-#parent
+// Previous context switch:
+#previous
 
-// Assignment in global context:
+// Assignment in context1:
 f = 13
 
 // Context switch:
 #context2
 
-// Assignment in B1: B2:
+// Assignment in context2:
 g = 17
 
-// Parent context switch:
-#parent
+// Previous context switch:
+#previous
 
-// Assignment in global context:
+// Assignment in context1:
 h = 19
 
