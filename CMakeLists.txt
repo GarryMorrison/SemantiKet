@@ -70,6 +70,7 @@ set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/Scope/LocalScope.h" "src/core/Scope/LocalScope.cpp"
 "src/core/ScopedSymbol/BaseScopedSymbol.h"
 "src/core/ScopedSymbol/ContextSymbol.h" "src/core/ScopedSymbol/ContextSymbol.cpp"
+"src/core/ScopedSymbol/FunctionSymbol.h" "src/core/ScopedSymbol/FunctionSymbol.cpp"
 )
 
 # Core source files:

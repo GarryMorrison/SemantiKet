@@ -17,6 +17,7 @@
 #include "../Symbol/BaseSymbol.h"
 #include "../SymTable/SymbolTable.h"
 #include "../ScopedSymbol/ContextSymbol.h"
+#include "../ScopedSymbol/FunctionSymbol.h"
 
 // namespace SKet??
 
@@ -207,6 +208,7 @@ namespace SKet {
 				yyTOKEN token = node.kids[0]->getToken();
 				std::cout << "line " << token.line << ": fn def: " << token.text << "\n";
 				// currentScope->define(BaseSymbol::Construct(token));
+				currentScope->define(new FunctionSymbol(node));
 			}
 		}
 	};
