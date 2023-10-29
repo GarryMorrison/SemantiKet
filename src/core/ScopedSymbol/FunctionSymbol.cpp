@@ -1,5 +1,6 @@
 #include "FunctionSymbol.h"
 #include "../Parser/token.h"
+#include "../misc/misc.h"
 
 // Author: Garry Morrison
 // Added: 2023-10-29
@@ -26,12 +27,27 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		parentScope = scope;
 	}
 	
-	if (node.nkids > 1 && node.kids[0])
+	
+	if (node.nkids > 1 && node.kids[0])  // get the name of the function
 	{
 		SKet::yyTOKEN token = node.kids[0]->getToken();
 
 		name = token.text;
 		fn_name = token.text;
+	}
+	
+	if (node.nkids == 3 && node.kids[0] && node.kids[1] && node.kids[2])
+	{
+		fn_rule_type = node.kids[1]->getToken().text;
+	}
+	else if (node.nkids == 4 && node.kids[0] && node.kids[1] && node.kids[2] && node.kids[3])
+	{
+		// need to walk node.kids[1] to extract out the arguments. Not yet sure the best way .... ParamList AST node?
+		fn_rule_type = node.kids[2]->getToken().text;
+	}
+	else
+	{
+		std::cout << "Error in FunctionSymbol constructor\n"; // Later wire in an error here.
 	}
 	
 }
@@ -134,6 +150,8 @@ ContextSymbol* FunctionSymbol::resolveContext(const std::string& name)
 std::string FunctionSymbol::to_string(int level) {  // do something better here later?
 	std::string s;
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + " " + getFunctionName() + ":\n";
+	s += indent(2 * level + 10) + "args: " + pmp_str(args, "[", ", ", "]\n");
+	s += indent(2 * level + 10) + "function rule type: " + fn_rule_type + "\n";
 	for (const auto& elt : symbols)
 	{
 		if (elt.second != nullptr)

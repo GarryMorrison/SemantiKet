@@ -19,6 +19,8 @@ public:
 	int scope_id = -1;
 	std::string name;
 	std::string fn_name; // more FunctionSymbol specific variables later! Eg, arguments.
+	std::vector<std::string> args;
+	std::string fn_rule_type;
 	BaseScope* parentScope = nullptr;
 	ContextSymbol* currentContext = nullptr;
 	ContextSymbol* previousContext = nullptr;

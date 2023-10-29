@@ -24,8 +24,8 @@ std::string indent(int width);
 std::string pad_digits(int number, int width);
 std::string pad_str_right(std::string s, int width);
 std::string pad_str(std::string s, std::string delim, int width, bool left = true);
-std::string pmp_str(std::vector<std::string>& tokens, std::string& pre, std::string& mid, std::string& post);
-std::string pmp_str(std::set<std::string>& tokens, std::string& pre, std::string& mid, std::string& post);
+std::string pmp_str(std::vector<std::string>& tokens, const std::string& pre, const std::string& mid, const std::string& post);
+std::string pmp_str(std::set<std::string>& tokens, const std::string& pre, const std::string& mid, const std::string& post);
 
 
 std::vector<std::string> split_str(const std::string& s1, const std::string& delimiter);

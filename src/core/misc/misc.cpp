@@ -185,7 +185,7 @@ std::string pad_str(std::string s, std::string delim, int width, bool left)
     return s + padding;
 }
 
-std::string pmp_str(std::vector<std::string>& tokens, std::string& pre, std::string& mid, std::string& post)
+std::string pmp_str(std::vector<std::string>& tokens, const std::string& pre, const std::string& mid, const std::string& post)
 {
     std::string s(pre);
     bool first_pass = true;
@@ -202,7 +202,7 @@ std::string pmp_str(std::vector<std::string>& tokens, std::string& pre, std::str
     return s;
 }
 
-std::string pmp_str(std::set<std::string>& tokens, std::string& pre, std::string& mid, std::string& post)
+std::string pmp_str(std::set<std::string>& tokens, const std::string& pre, const std::string& mid, const std::string& post)
 {
     std::string s(pre);
     bool first_pass = true;
