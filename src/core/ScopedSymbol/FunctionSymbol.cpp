@@ -1,6 +1,7 @@
 #include "FunctionSymbol.h"
 #include "../Parser/token.h"
 #include "../misc/misc.h"
+#include "../AST/AST.h"
 
 // Author: Garry Morrison
 // Added: 2023-10-29
@@ -42,6 +43,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 	}
 	else if (node.nkids == 4 && node.kids[0] && node.kids[1] && node.kids[2] && node.kids[3])
 	{
+		/*
 		// need to walk node.kids[1] to extract out the arguments. Not yet sure the best way .... ParamList AST node?
 		if (node.kids[1]->getNType() == Node::NType::Leaf) // 1 param function:
 		{
@@ -51,6 +53,13 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		else // more than 1 param function:
 		{
 			// walk the tree
+		}
+		*/
+		std::vector<SKet::yyTOKEN> tokens;
+		SKet::ExtractTokensFromAST(node.kids[1], tokens);
+		for (auto const& token : tokens)
+		{
+			args.push_back(token.text);
 		}
 		fn_rule_type = node.kids[2]->getToken().text;
 	}
