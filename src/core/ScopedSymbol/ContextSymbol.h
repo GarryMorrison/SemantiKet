@@ -18,6 +18,7 @@ public:
 	std::string name;
 	std::string label; // more ContextSymbol specific variables later! Eg, supported-ops, terminals, and non-terminals.
 	BaseScope* parentScope = nullptr;
+	ContextSymbol* currentContext = nullptr;
 	ContextSymbol* previousContext = nullptr;
 	size_t nkids = 0;
 	std::vector<BaseScope*> kids;
