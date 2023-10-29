@@ -36,13 +36,22 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		fn_name = token.text;
 	}
 	
-	if (node.nkids == 3 && node.kids[0] && node.kids[1] && node.kids[2])
+	if (node.nkids == 3 && node.kids[0] && node.kids[1] && node.kids[2]) // 0 param function, ie, a pure operator
 	{
 		fn_rule_type = node.kids[1]->getToken().text;
 	}
 	else if (node.nkids == 4 && node.kids[0] && node.kids[1] && node.kids[2] && node.kids[3])
 	{
 		// need to walk node.kids[1] to extract out the arguments. Not yet sure the best way .... ParamList AST node?
+		if (node.kids[1]->getNType() == Node::NType::Leaf) // 1 param function:
+		{
+			std::string arg = node.kids[1]->getToken().text;
+			args.push_back(arg);
+		}
+		else // more than 1 param function:
+		{
+			// walk the tree
+		}
 		fn_rule_type = node.kids[2]->getToken().text;
 	}
 	else
