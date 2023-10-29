@@ -9,5 +9,9 @@ def fn3[p1, p2, p3] #=> seq3
 
 def fn4[p1, p2, p3, p4] #=> seq4
 
-
+def fn0 #=>
+    a = 2
+    global b = 3
+    c = 5
+end:
 
