@@ -22,7 +22,7 @@ void ContextSymbol::define(BaseSymbol* sym)
 		{
 			if (symbols.find(name) == symbols.end()) // name is not in set, so insert it
 			{
-				std::cout << "ContextSymbol just stored symbol: " << name << "\n";
+				std::cout << "ContextSymbol stored symbol: " << name << "\n";
 				symbols[name] = sym;
 			}
 			else
@@ -34,6 +34,10 @@ void ContextSymbol::define(BaseSymbol* sym)
 				}
 			}
 		}
+	}
+	else
+	{
+		std::cout << "ContextSymbol define failed on null symbol\n"; // wire in an Error here later!
 	}
 }
 

@@ -32,6 +32,9 @@ public:
 	std::string getFunctionName() { return fn_name; }
 	ContextSymbol* getPreviousContext() { return previousContext; }
 
+	// satisfy our Symbol interface:
+	std::string getName() { return name; }
+
 	// satisfy our Scope interface:
 	int getScopeID() { return scope_id; }
 	std::string getScopeName() { return name; }

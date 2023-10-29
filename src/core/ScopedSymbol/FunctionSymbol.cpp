@@ -25,7 +25,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 	{
 		parentScope = scope;
 	}
-
+	
 	if (node.nkids > 1 && node.kids[0])
 	{
 		SKet::yyTOKEN token = node.kids[0]->getToken();
@@ -33,6 +33,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		name = token.text;
 		fn_name = token.text;
 	}
+	
 }
 
 void FunctionSymbol::addChild(BaseScope* sc)

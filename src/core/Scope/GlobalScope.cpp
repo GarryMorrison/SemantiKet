@@ -33,7 +33,7 @@ void GlobalScope::define(BaseSymbol* sym)
 		{
 			if (symbols.find(name) == symbols.end()) // name is not in set, so insert it
 			{
-				std::cout << "GlobalScope just stored symbol: " << name << "\n";
+				std::cout << "GlobalScope stored symbol: " << name << "\n";
 				symbols[name] = sym;
 			}
 			else

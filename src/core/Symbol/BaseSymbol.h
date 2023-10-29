@@ -34,7 +34,7 @@ public:
 
 	// Symbol(const std::string& name, Type* type, bool is_const) { this->name = name; this->type = type; this->is_const = is_const; }
 	// Symbol(const std::string& name, Type* type, bool is_const, int line);
-	std::string getName() { return name; }
+	virtual std::string getName() { return name; }
 	void setType(Type* type) { this->type = type; }
 	Type* getType() { return type; }
 	virtual std::string to_string();
