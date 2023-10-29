@@ -2,7 +2,28 @@
 
 // Author: Garry Morrison
 // Added: 2023-9-28
-// Updated: 2023-9-28
+// Updated: 2023-10-29
+
+namespace SKet {
+
+	void ExtractTokensFromAST(AST* currentNode, std::vector<yyTOKEN>& tokens)
+	{
+		if (!currentNode)
+		{
+			return;
+		}
+
+		if (currentNode->getNType() == Node::NType::Leaf)
+		{
+			tokens.push_back(currentNode->getToken());
+		}
+
+		for (AST* child : currentNode->getKids())
+		{
+			ExtractTokensFromAST(child, tokens);
+		}
+	}
+};
 
 /* // Delete later!
 namespace SKet {
