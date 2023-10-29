@@ -1,0 +1,5 @@
+// test function definition
+// Added: 2023-10-29
+
+def fn[p1, p2, p3] #=> seq
+

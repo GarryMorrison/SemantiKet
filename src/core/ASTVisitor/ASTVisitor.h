@@ -15,6 +15,7 @@ namespace SKet {
 	class ContextAssignment;
 	class ContextSwitch;
 	class Assignment;
+	class FunctionDefinition;
 
 	class ASTVisitor {
 	public:
@@ -25,6 +26,7 @@ namespace SKet {
 		virtual void visit(ContextAssignment& Node) = 0;
 		virtual void visit(ContextSwitch& Node) = 0;
 		virtual void visit(Assignment& Node) = 0;
+		virtual void visit(FunctionDefinition& Node) = 0;
 	};
 
 };

@@ -79,6 +79,7 @@ namespace SKet {
 		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+		virtual void visit(FunctionDefinition& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 
 	};
 };

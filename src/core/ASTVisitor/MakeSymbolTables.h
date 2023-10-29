@@ -11,6 +11,7 @@
 #include "../AST/ContextAssignment.h"
 #include "../AST/ContextSwitch.h"
 #include "../AST/Assignment.h"
+#include "../AST/FunctionDefinition.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
@@ -198,6 +199,16 @@ namespace SKet {
 			}
 		}
 
+		virtual void visit(FunctionDefinition& node) override
+		{
+			// std::cout << "Function Definition\n";
+			if (node.nkids > 1 && node.kids[0])
+			{
+				yyTOKEN token = node.kids[0]->getToken();
+				std::cout << "line " << token.line << ": fn def: " << token.text << "\n";
+				// currentScope->define(BaseSymbol::Construct(token));
+			}
+		}
 	};
 
 }

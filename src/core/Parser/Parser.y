@@ -367,9 +367,15 @@ fn_def: DEF ID RULE seq SEMICOLON{ $$ = new Tree("fn def", 1190, $2, $3, $4); }
 ;
 */
 
+/*
 fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $3, $4); }
 | DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $5, $6); }
 | DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new Internal("fn def", 1190, $2, $4, $6, $7); }
+;
+*/
+fn_def: DEF ID RULE rule_rhs SEMICOLON{ $$ = new FunctionDefinition($2, $3, $4); }
+| DEF ID LEFT_SQUARE RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new FunctionDefinition($2, $5, $6); }
+| DEF ID LEFT_SQUARE param_list RIGHT_SQUARE RULE rule_rhs SEMICOLON{ $$ = new FunctionDefinition($2, $4, $6, $7); }
 ;
 
 // more rules later!

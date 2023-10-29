@@ -21,6 +21,7 @@ const std::map<Node::NType, std::string> Node::NTypeStringMap = {
 	{ Node::NType::Root, "Root"},
 	{ Node::NType::ContextAssignment, "ContextAssignment"},
 	{ Node::NType::ContextSwitch, "ContextSwitch"},
-	{ Node::NType::Assignment, "Assignment"}
+	{ Node::NType::Assignment, "Assignment"},
+	{ Node::NType::FunctionDefinition, "FunctionDefinition"}
 };
 
