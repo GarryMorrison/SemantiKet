@@ -207,10 +207,6 @@ namespace SKet {
 			{
 				yyTOKEN token = node.kids[0]->getToken();
 				std::cout << "line " << token.line << ": fn def: " << token.text << "\n";
-				// currentScope->define(BaseSymbol::Construct(token));
-				// BaseScope* tmp = new FunctionSymbol(node, currentScope);
-				// std::cout << "fn symbol: " << tmp->to_string() << "\n";
-				// currentScope->define(BaseSymbol::Construct(token)); // testing which scope is being used. ContextSymbol I think.
 				currentScope->define(new FunctionSymbol(node, currentScope));
 			}
 		}
