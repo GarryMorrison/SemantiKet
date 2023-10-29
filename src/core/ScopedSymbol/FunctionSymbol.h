@@ -27,6 +27,7 @@ public:
 	std::map<std::string, BaseSymbol*> symbols;
 	std::map<std::string, ContextSymbol*> context_symbols;
 	FunctionSymbol(SKet::FunctionDefinition& node);
+	FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope);
 
 	std::string getFunctionName() { return fn_name; }
 	ContextSymbol* getPreviousContext() { return previousContext; }

@@ -7,10 +7,29 @@
 
 FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node) // flesh out later!
 {
+	scope_id = scope_serial.get_id();
+
 	if (node.nkids > 1 && node.kids[0])
 	{
 		SKet::yyTOKEN token = node.kids[0]->getToken();
 		
+		name = token.text;
+		fn_name = token.text;
+	}
+}
+
+FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
+{
+	scope_id = scope_serial.get_id();
+	if (scope)
+	{
+		parentScope = scope;
+	}
+
+	if (node.nkids > 1 && node.kids[0])
+	{
+		SKet::yyTOKEN token = node.kids[0]->getToken();
+
 		name = token.text;
 		fn_name = token.text;
 	}

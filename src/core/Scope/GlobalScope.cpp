@@ -28,18 +28,20 @@ void GlobalScope::define(BaseSymbol* sym)
 {
 	if (sym)
 	{
-		if (!sym->name.empty())
+		std::string name = sym->getName();
+		if (!name.empty())
 		{
-			if (symbols.find(sym->name) == symbols.end()) // name is not in set, so insert it
+			if (symbols.find(name) == symbols.end()) // name is not in set, so insert it
 			{
-				symbols[sym->name] = sym;
+				std::cout << "GlobalScope just stored symbol: " << name << "\n";
+				symbols[name] = sym;
 			}
 			else
 			{
 				std::set<int> lines = sym->getLines(); // Do more stuff here later. Eg, check types match, and so on.
 				for (int line : lines)
 				{
-					symbols[sym->name]->appendLine(line);
+					symbols[name]->appendLine(line);
 				}
 			}
 		}
