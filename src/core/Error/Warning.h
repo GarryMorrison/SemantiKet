@@ -19,8 +19,11 @@ class Warning {
 public:
 	std::vector<WType> warning_types;
 	std::vector<std::string> warning_locations;
+	std::vector<int> warning_lines;
+	std::vector<int> warning_columns;
 
 	void AppendWarning(const WType& wtype, const std::string& where);
+	void AppendWarning(const WType& wtype, const std::string& where, int line, int column);
 	size_t GetWarningCount();
 	void PrintWarnings();
 	void ResetWarnings();

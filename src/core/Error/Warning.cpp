@@ -10,6 +10,16 @@ void Warning::AppendWarning(const WType& wtype, const std::string& where)
 {
 	warning_types.push_back(wtype);
 	warning_locations.push_back(where);
+	warning_lines.push_back(-1);
+	warning_columns.push_back(-1);
+}
+
+void Warning::AppendWarning(const WType& wtype, const std::string& where, int line, int column)
+{
+	warning_types.push_back(wtype);
+	warning_locations.push_back(where);
+	warning_lines.push_back(line);
+	warning_columns.push_back(column);
 }
 
 size_t Warning::GetWarningCount()
@@ -31,7 +41,16 @@ void Warning::PrintWarnings()
 		{
 			s += "\n";
 		}
-		s += pad_str(std::to_string(i + 1) + ")", " ", 5, false) + "Location:    " + warning_locations[i] + "\n";
+		s += pad_str(std::to_string(i + 1) + ")", " ", 5, false) + "Location:    " + warning_locations[i];
+		if (warning_lines[i] > 0)
+		{
+			s += ", line: " + std::to_string(warning_lines[i]);
+		}
+		if (warning_columns[i] > 0)
+		{
+			s += " column: " + std::to_string(warning_columns[i]);
+		}
+		s += "\n";
 		s += pad_str("", " ", 5, false) + "Type:        " + wtype.Type + "\n";
 		s += pad_str("", " ", 5, false) + "Name:        " + wtype.Name + "\n";
 		s += pad_str("", " ", 5, false) + "Message:     " + wtype.Message + "\n";
