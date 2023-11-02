@@ -87,25 +87,23 @@ namespace SKet {
 				parent_id = -1;
 			}
 
-			// out += "N" + std::to_string(Node.id) + " [shape=box label=\"" + Node.type_to_string() + "\"]; \n";
 			out += "N" + std::to_string(Node.getID()) + " [shape=box label=\"" + Node.to_string() + "\"]; \n";
 			for (AST* child : Node.getKids())
 			{
 				if (child)
 				{
-					// out += "N" + std::to_string(Node.id) + " -> N" + std::to_string(child->id) + ";\n";
 					parent_id = Node.getID();
 					child->accept(*this);
 				}
 			}
 		}
 
-		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); } // implement! // Should now work, test it!
-		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(GlobalAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
-		virtual void visit(FunctionDefinition& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(GlobalAssignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(FunctionDefinition& Node) override { visit(static_cast<Internal&>(Node)); }
 
 	};
 };

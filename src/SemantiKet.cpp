@@ -87,6 +87,12 @@ int main(int argc, char* argv[])
 		driver.ast->accept(Print);
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 
+		// output a syntax tree: // comment out as needed:
+		SKet::GraphTree Graph;
+		driver.ast->accept(Graph);
+		Graph.save("syntax-tree.dot");
+		// std::system("dot -Tpng syntax-tree.dot > tree.png"); // Slow, so commented out until wanted/needed.
+
 		// towards a symbol table:
 		/*
 		SymbolTable* global_st = new SymbolTable();
