@@ -110,3 +110,10 @@ const EType Error::TypeMismatch = {
 	""
 };
 
+const EType Error::VariadicDotsMustBeLastArgument = {
+	"VariadicDotsMustBeLastArgument",
+	"Syntax",
+	"Variadic three dots must be the last argument",
+	""
+};
+

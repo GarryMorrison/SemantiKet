@@ -34,6 +34,7 @@ public:
 	static const EType MemoryAllocationFailed;
 	static const EType LearnRuleOpNotID;
 	static const EType TypeMismatch;
+	static const EType VariadicDotsMustBeLastArgument;
 
 };
 
