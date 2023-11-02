@@ -61,7 +61,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 				if (args.size() < tokens.size())
 				{
 					syntax_error = true;
-					std::cout << "Variadic docs must be the last argument\n"; // leave this in place for now, remove later.
+					std::cout << "Variadic dots must be the last argument\n"; // leave this in place for now, remove later.
 					errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor");
 				}
 			}

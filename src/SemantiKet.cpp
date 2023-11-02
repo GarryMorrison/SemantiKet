@@ -104,6 +104,8 @@ int main(int argc, char* argv[])
 		SKet::MakeSymbolTables Tables(symtab);
 		driver.ast->accept(Tables);
 		symtab->Print();
+		errors.PrintErrors();
+		warnings.PrintWarnings();
 	}
 	
 	if (argc > 2)
