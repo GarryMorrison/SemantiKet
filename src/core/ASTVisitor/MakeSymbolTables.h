@@ -200,6 +200,19 @@ namespace SKet {
 			}
 		}
 
+		/*
+		virtual void visit(GlobalAssignment& node) override
+		{
+			// std::cout << "GlobalAssignment\n";
+			if (node.nkids > 1 && node.kids[0])
+			{
+				yyTOKEN token = node.kids[0]->getToken();
+				std::cout << "line " << token.line << ": def " << token.text << "\n";
+				currentContext->define(BaseSymbol::Construct(token));
+			}
+		}
+		*/
+
 		virtual void visit(FunctionDefinition& node) override
 		{
 			// std::cout << "Function Definition\n";
