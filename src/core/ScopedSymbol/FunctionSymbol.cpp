@@ -193,14 +193,14 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 	{
 		if (elt.second != nullptr)
 		{
-			s += indent(2 * level + 6) + elt.second->to_string() + "\n";
+			s += indent(2 * level + 12) + elt.second->to_string() + "\n";
 		}
 	}
 	for (const auto& elt : context_symbols)
 	{
 		if (elt.second != nullptr)
 		{
-			s += indent(2 * level + 6) + elt.second->to_string() + "\n";
+			s += indent(2 * level + 12) + elt.second->to_string() + "\n";
 		}
 	}
 	/*

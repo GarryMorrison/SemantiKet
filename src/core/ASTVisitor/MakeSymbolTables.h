@@ -207,7 +207,22 @@ namespace SKet {
 			{
 				yyTOKEN token = node.kids[0]->getToken();
 				std::cout << "line " << token.line << ": fn def: " << token.text << "\n";
-				currentScope->define(new FunctionSymbol(node, currentScope));
+				// currentScope->define(new FunctionSymbol(node, currentScope));
+				FunctionSymbol* tmp = new FunctionSymbol(node, currentScope);
+				currentScope->define(tmp);
+				if (tmp)
+				{
+					currentScope = tmp;
+					if (node.nkids >= 3)
+					{
+						AST* tree = node.kids[node.nkids - 1];
+						if (tree)
+						{
+							tree->accept(*this);
+						}
+					}
+					currentScope = currentScope->getEnclosingScope();
+				}
 			}
 		}
 	};
