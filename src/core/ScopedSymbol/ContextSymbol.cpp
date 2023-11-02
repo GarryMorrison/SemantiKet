@@ -133,7 +133,7 @@ std::string ContextSymbol::to_string(int level) {  // do something better here l
 	{
 		if (child)
 		{
-			s += child->to_string(level + 1);
+			s += child->to_string(level + 5);
 		}
 	}
 	return s;
