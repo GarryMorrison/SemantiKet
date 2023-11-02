@@ -600,7 +600,8 @@ assignment: assignment_lhs EQUAL seq SEMICOLON{ $$ = new Assignment($1, $3); }
 ;
 
 // global_assignment: GLOBAL id_bra_ket EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
-global_assignment: GLOBAL assignment_lhs EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
+// global_assignment: GLOBAL assignment_lhs EQUAL seq SEMICOLON{ $$ = new Internal("global assignment", 1220, $2, $4); }
+global_assignment: GLOBAL assignment_lhs EQUAL seq SEMICOLON{ $$ = new GlobalAssignment($2, $4); }
 ;
 
 // op_assignment: id_bra_ket EQUAL_OP seq SEMICOLON{ $$ = new Internal("op assignment", 1340, $1, $2, $3); }

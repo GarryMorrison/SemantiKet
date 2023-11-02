@@ -15,6 +15,7 @@ namespace SKet {
 	class ContextAssignment;
 	class ContextSwitch;
 	class Assignment;
+	class GlobalAssignment;
 	class FunctionDefinition;
 
 	class ASTVisitor {
@@ -26,6 +27,7 @@ namespace SKet {
 		virtual void visit(ContextAssignment& Node) = 0;
 		virtual void visit(ContextSwitch& Node) = 0;
 		virtual void visit(Assignment& Node) = 0;
+		virtual void visit(GlobalAssignment& Node) = 0;
 		virtual void visit(FunctionDefinition& Node) = 0;
 	};
 

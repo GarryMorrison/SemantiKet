@@ -11,6 +11,7 @@
 #include "../AST/ContextAssignment.h"
 #include "../AST/ContextSwitch.h"
 #include "../AST/Assignment.h"
+#include "../AST/GlobalAssignment.h"
 #include "../AST/FunctionDefinition.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
@@ -200,7 +201,7 @@ namespace SKet {
 			}
 		}
 
-		/*
+		
 		virtual void visit(GlobalAssignment& node) override
 		{
 			// std::cout << "GlobalAssignment\n";
@@ -208,10 +209,10 @@ namespace SKet {
 			{
 				yyTOKEN token = node.kids[0]->getToken();
 				std::cout << "line " << token.line << ": def " << token.text << "\n";
-				currentContext->define(BaseSymbol::Construct(token));
+				currentContext->define(BaseSymbol::Construct(token)); // are we defining in the right scope?
 			}
 		}
-		*/
+		
 
 		virtual void visit(FunctionDefinition& node) override
 		{

@@ -11,6 +11,7 @@
 #include "../AST/ContextAssignment.h"
 #include "../AST/ContextSwitch.h"
 #include "../AST/Assignment.h"
+#include "../AST/GlobalAssignment.h"
 #include "../AST/FunctionDefinition.h"
 #include "ASTVisitor.h"
 #include "../misc/misc.h"
@@ -88,6 +89,20 @@ namespace SKet {
 		}
 
 		virtual void visit(Assignment& Node) override {
+			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
+
+			level++;
+			for (AST* tree : Node.kids)
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
+
+		virtual void visit(GlobalAssignment& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
 			level++;
