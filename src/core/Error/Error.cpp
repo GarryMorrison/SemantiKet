@@ -10,6 +10,16 @@ void Error::AppendError(const EType& etype, const std::string& where)
 {
 	error_types.push_back(etype);
 	error_locations.push_back(where);
+	error_lines.push_back(-1);
+	error_columns.push_back(-1);
+}
+
+void Error::AppendError(const EType& etype, const std::string& where, int line, int column)
+{
+	error_types.push_back(etype);
+	error_locations.push_back(where);
+	error_lines.push_back(line);
+	error_columns.push_back(column);
 }
 
 size_t Error::GetErrorCount()
@@ -31,7 +41,16 @@ void Error::PrintErrors()
 		{
 			s += "\n";
 		}
-		s += pad_str(std::to_string(i+1) + ")", " ", 5, false) + "Location:    " + error_locations[i] + "\n";
+		s += pad_str(std::to_string(i+1) + ")", " ", 5, false) + "Location:    " + error_locations[i];
+		if (error_lines[i] > 0)
+		{
+			s += ", line: " + std::to_string(error_lines[i]);
+		}
+		if (error_columns[i] > 0)
+		{
+			s += " column: " + std::to_string(error_columns[i]);
+		}
+		s += "\n";
 		s += pad_str("", " ", 5, false) + "Type:        " + etype.Type + "\n";
 		s += pad_str("", " ", 5, false) + "Name:        " + etype.Name + "\n";
 		s += pad_str("", " ", 5, false) + "Message:     " + etype.Message + "\n";

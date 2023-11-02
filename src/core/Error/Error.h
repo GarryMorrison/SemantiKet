@@ -19,8 +19,12 @@ class Error {
 public:
 	std::vector<EType> error_types;
 	std::vector<std::string> error_locations;
+	std::vector<int> error_lines;
+	std::vector<int> error_columns;
 
 	void AppendError(const EType& etype, const std::string& where);
+	void AppendError(const EType& etype, const std::string& where, int line, int column);
+
 	size_t GetErrorCount();
 	void PrintErrors();
 	void ResetErrors();

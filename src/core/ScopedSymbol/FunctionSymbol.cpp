@@ -62,7 +62,9 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 				{
 					syntax_error = true;
 					std::cout << "Variadic dots must be the last argument\n"; // leave this in place for now, remove later.
-					errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor");
+					// errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor");
+					// errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor, line: " + std::to_string(token.line) + " column: " + std::to_string(token.col));
+					errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor", token.line, token.col);
 				}
 			}
 		}
