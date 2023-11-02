@@ -58,6 +58,7 @@ namespace SKet {
 			out += "text = " + Node.tok.text + " \\l line = " + std::to_string(Node.tok.line) + " \\l column = " + std::to_string(Node.tok.col) + " \\l\"];\n";
 		}
 
+		/* // non polymorphic version:
 		virtual void visit(Internal& Node) override { 
 			if (parent_id != -1)
 			{
@@ -77,7 +78,29 @@ namespace SKet {
 				}
 			}
 		}
-		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
+		*/
+
+		virtual void visit(Internal& Node) override {
+			if (parent_id != -1)
+			{
+				out += "N" + std::to_string(parent_id) + " -> N" + std::to_string(Node.getID()) + ";\n";
+				parent_id = -1;
+			}
+
+			// out += "N" + std::to_string(Node.id) + " [shape=box label=\"" + Node.type_to_string() + "\"]; \n";
+			out += "N" + std::to_string(Node.getID()) + " [shape=box label=\"" + Node.to_string() + "\"]; \n";
+			for (AST* child : Node.getKids())
+			{
+				if (child)
+				{
+					// out += "N" + std::to_string(Node.id) + " -> N" + std::to_string(child->id) + ";\n";
+					parent_id = Node.getID();
+					child->accept(*this);
+				}
+			}
+		}
+
+		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); } // implement! // Should now work, test it!
 		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
 		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); } // implement!
