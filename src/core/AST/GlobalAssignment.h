@@ -29,7 +29,11 @@ namespace SKet {
 		std::vector<AST*> kids;
 
 		GlobalAssignment(AST* t1, AST* t2);
+		
+		int getID() { return id; }
 		Node::NType getNType() { return ntype; }
+		size_t getnkids() { return nkids; }
+		std::vector<AST*> getKids() { return kids; }
 		std::string to_string() { return Node::to_string(ntype); }
 
 		virtual void accept(ASTVisitor& V) override {

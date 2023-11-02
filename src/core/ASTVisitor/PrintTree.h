@@ -29,6 +29,7 @@ namespace SKet {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.tok.text << " (" << Node.tok.type_to_string() << "): line " << Node.tok.line << ", column " << Node.tok.col << "\n";
 		}
 
+		/* // Non polymorphic version:
 		virtual void visit(Internal& Node) override {
 			// std::cout << indent(2 * level) << Node.id << "  Node Type: " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
 			// std::cout << indent(3 * level) << Node.id << "  " << Node.type_to_string() << ": children: " << Node.nkids << "\n";
@@ -44,8 +45,23 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
+		virtual void visit(Internal& Node) override {
+			std::cout << indent(3 * level) << Node.getID() << "  " << Node.to_string() << ": children: " << Node.getnkids() << "\n";
 
-		// virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); }
+			level++;
+			for (AST* tree : Node.getKids())
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
+			}
+			level--;
+		}
+
+		virtual void visit(Root& Node) override { visit(static_cast<Internal&>(Node)); } // To use this, we need polymorphic methods!
+		/*
 		virtual void visit(Root& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -59,7 +75,10 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
 
+		virtual void visit(ContextAssignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		/*
 		virtual void visit(ContextAssignment& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -73,7 +92,10 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
 
+		virtual void visit(ContextSwitch& Node) override { visit(static_cast<Internal&>(Node)); }
+		/*
 		virtual void visit(ContextSwitch& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -87,7 +109,10 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
 
+		virtual void visit(Assignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		/*
 		virtual void visit(Assignment& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -101,7 +126,10 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
 
+		virtual void visit(GlobalAssignment& Node) override { visit(static_cast<Internal&>(Node)); }
+		/*
 		virtual void visit(GlobalAssignment& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -115,7 +143,10 @@ namespace SKet {
 			}
 			level--;
 		}
+		*/
 
+		virtual void visit(FunctionDefinition& Node) override { visit(static_cast<Internal&>(Node)); }
+		/*
 		virtual void visit(FunctionDefinition& Node) override {
 			std::cout << indent(3 * level) << Node.id << "  " << Node.to_string() << ": children: " << Node.nkids << "\n";
 
@@ -129,7 +160,7 @@ namespace SKet {
 			}
 			level--;
 		}
-
+		*/
 	};
 
 };
