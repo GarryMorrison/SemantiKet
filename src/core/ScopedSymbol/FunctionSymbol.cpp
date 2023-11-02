@@ -3,6 +3,11 @@
 #include "../misc/misc.h"
 #include "../AST/AST.h"
 #include "../Scope/LocalScope.h"
+#include "../Error/Error.h"
+#include "../Error/Warning.h"
+
+extern Error errors;
+extern Warning warnings;
 
 // Author: Garry Morrison
 // Added: 2023-10-29
@@ -38,6 +43,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		fn_name = token.text;
 	}
 	
+	bool syntax_error = false;
 	if (node.nkids == 3 && node.kids[0] && node.kids[1] && node.kids[2]) // 0 param function, ie, a pure operator
 	{
 		fn_rule_type = node.kids[1]->getToken().text;
@@ -49,12 +55,35 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		for (auto const& token : tokens)
 		{
 			args.push_back(token.text);
+			if (token.code == SKet::Parser::token_type::THREE_DOTS)
+			{
+				is_variadic = true;
+				if (args.size() < tokens.size())
+				{
+					syntax_error = true;
+					std::cout << "Variadic docs must be the last argument\n"; // leave this in place for now, remove later.
+					errors.AppendError(Error::VariadicDotsMustBeLastArgument, "FunctionSymbol constructor");
+				}
+			}
 		}
+		
 		fn_rule_type = node.kids[2]->getToken().text;
 	}
 	else
 	{
 		std::cout << "Error in FunctionSymbol constructor\n"; // Later wire in an error here.
+	}
+	if (syntax_error)
+	{
+		fn_name.append("__ERROR");
+	}
+	else
+	{
+		fn_name.append("__" + std::to_string(args.size()));
+		if (is_variadic)
+		{
+			fn_name.append("+");
+		}
 	}
 	addChild(new LocalScope());
 }
@@ -158,6 +187,7 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 	std::string s;
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + " " + getFunctionName() + ":\n";
 	s += indent(2 * level + 10) + "args: " + pmp_str(args, "[", ", ", "]\n");
+	s += indent(2 * level + 10) + "variadic: " + bool_to_str(is_variadic) + "\n";
 	s += indent(2 * level + 10) + "function rule type: " + fn_rule_type + "\n";
 	for (const auto& elt : symbols)
 	{

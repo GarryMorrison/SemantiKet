@@ -20,6 +20,7 @@ public:
 	std::string name;
 	std::string fn_name; // more FunctionSymbol specific variables later! Eg, arguments.
 	std::vector<std::string> args;
+	bool is_variadic = false;
 	std::string fn_rule_type;
 	BaseScope* parentScope = nullptr;
 	ContextSymbol* currentContext = nullptr;

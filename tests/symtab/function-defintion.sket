@@ -15,3 +15,7 @@ def fn0 #=>
     c = 5
 end:
 
+def fn_e[p1, ..., p3] #=> seq5
+
+def fn_v[p1, p2, p3, ...] #=> seq6
+
