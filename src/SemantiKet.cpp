@@ -83,6 +83,11 @@ int main(int argc, char* argv[])
 		}
 		// driver.tree.print();
 		// driver.tree.save_graph("syntax-tree.dot");
+		if (!driver.ast)
+		{
+			std::cout << "AST failure!\n";
+			return 1;
+		}
 		SKet::PrintTree Print;
 		driver.ast->accept(Print);
 		std::cout << Print.to_string();
