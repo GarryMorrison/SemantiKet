@@ -23,10 +23,13 @@ namespace SKet {
 	class PrintTree : public ASTVisitor {
 	public:
 		int level = 0;
+		std::string s;
 		PrintTree() {}
+		std::string to_string() { return s + "\n"; } // Do I need the \n here?
 
 		virtual void visit(Leaf& Node) override {
-			std::cout << indent(3 * level) << Node.id << "  " << Node.tok.text << " (" << Node.tok.type_to_string() << "): line " << Node.tok.line << ", column " << Node.tok.col << "\n";
+			// std::cout << indent(3 * level) << Node.id << "  " << Node.tok.text << " (" << Node.tok.type_to_string() << "): line " << Node.tok.line << ", column " << Node.tok.col << "\n";
+			s += indent(3 * level) + std::to_string(Node.id) + "  " + Node.tok.text + " (" + Node.tok.type_to_string() + "): line " + std::to_string(Node.tok.line) + ", column " + std::to_string(Node.tok.col) + "\n";
 		}
 
 		/* // Non polymorphic version:
@@ -47,7 +50,8 @@ namespace SKet {
 		}
 		*/
 		virtual void visit(Internal& Node) override {
-			std::cout << indent(3 * level) << Node.getID() << "  " << Node.to_string() << ": children: " << Node.getnkids() << "\n";
+			// std::cout << indent(3 * level) << Node.getID() << "  " << Node.to_string() << ": children: " << Node.getnkids() << "\n";
+			s += indent(3 * level) + std::to_string(Node.getID()) + "  " + Node.to_string() + ": children: " + std::to_string(Node.getnkids()) + "\n";
 
 			level++;
 			for (AST* tree : Node.getKids())
