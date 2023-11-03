@@ -1,12 +1,12 @@
-#include "Assignment.h"
+#include "Chunk.h"
 
 // Author: Garry Morrison
-// Added: 2023-10-14
-// Updated: 2023-10-14
+// Added: 2023-11-3
+// Updated: 2023-11-3
 
 namespace SKet {
 
-	Assignment::Assignment(AST* t1, AST* t2)
+	Chunk::Chunk(AST* t1, AST* t2)
 	{
 		id = serial.get_id();
 		if (t1)
