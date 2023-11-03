@@ -200,6 +200,16 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 	s += indent(2 * level + 10) + "variadic: " + bool_to_str(is_variadic) + "\n";
 	// s += indent(2 * level + 10) + "function rule type: " + fn_rule_type + "\n";
 	s += indent(2 * level + 10) + "function rtype: " + Rule::to_string(fn_rtype) + "\n";
+	if (RHS)
+	{
+		s += indent(2 * level + 10) + "RHS:\n";
+		SKet::PrintTree Print(level + 5);
+		RHS->accept(Print);
+		s += indent(2 * level + 10) + "----\n";
+		s += Print.to_string();
+		s += indent(2 * level + 10) + "----\n";
+	}
+
 	for (const auto& elt : symbols)
 	{
 		if (elt.second != nullptr)
@@ -228,10 +238,6 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 			s += child->to_string(level + 5);
 		}
 	}
-	/*
-	SKet::PrintTree Print;
-	RHS->accept(Print);
-	s += Print.to_string();
-	*/
+	
 	return s;
 }
