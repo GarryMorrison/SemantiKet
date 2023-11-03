@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
 		SKet::PrintTree Print;
 		driver.ast->accept(Print);
 		std::cout << Print.to_string();
+		return 0;
 		// std::system("dot -Tpng syntax-tree.dot > tree.png");  // Comment this out if you don't want it to auto generate an image of the syntax tree.
 
 		// output a syntax tree: // comment out as needed:

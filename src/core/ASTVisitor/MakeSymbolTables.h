@@ -13,6 +13,7 @@
 #include "../AST/Assignment.h"
 #include "../AST/GlobalAssignment.h"
 #include "../AST/FunctionDefinition.h"
+#include "../AST/Chunk.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
@@ -58,7 +59,7 @@ namespace SKet {
 			}
 		}
 		virtual void visit(Internal& node) override {
-			for (AST* tree : node.kids)
+			for (AST* tree : node.getKids())
 			{
 				if (tree)
 				{
@@ -239,6 +240,8 @@ namespace SKet {
 				}
 			}
 		}
+
+		virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
 	};
 
 }
