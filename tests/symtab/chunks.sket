@@ -1,0 +1,15 @@
+// test chunks notation
+// Added: 2023-11-3
+
+as |Fred>:
+    type => |person>
+    age => 37 |years>
+    mother => |Trude>
+    father => |Robert>
+end:
+
+as |Fido>:
+    type => |dog>
+    breed => |collie>
+end:
+
