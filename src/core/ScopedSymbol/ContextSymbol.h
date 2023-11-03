@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include "BaseScopedSymbol.h"
 #include "../Parser/Serial.h"
 
@@ -17,6 +18,9 @@ public:
 	int scope_id = -1;
 	std::string name;
 	std::string label; // more ContextSymbol specific variables later! Eg, supported-ops, terminals, and non-terminals.
+	std::set<std::string> supported_ops;
+	std::set<std::string> non_terminals;
+	std::set<std::string> terminals;
 	BaseScope* parentScope = nullptr;
 	ContextSymbol* currentContext = nullptr;
 	ContextSymbol* previousContext = nullptr;

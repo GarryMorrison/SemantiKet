@@ -108,6 +108,9 @@ ContextSymbol* ContextSymbol::resolveContext(const std::string& name)
 std::string ContextSymbol::to_string(int level) {  // do something better here later?
 	std::string s;
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + " " + getContextLabel() + ":\n";
+	s += indent(2 * level + 6) + "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
+	s += indent(2 * level + 6) + "non-terminals: " + pmp_str(non_terminals, "[", ", ", "]\n");
+	s += indent(2 * level + 6) + "terminals: " + pmp_str(terminals, "[", ", ", "]\n");
 	for (const auto& elt : symbols)
 	{
 		if (elt.second != nullptr)
