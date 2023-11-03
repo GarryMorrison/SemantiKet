@@ -13,4 +13,6 @@ public:
 
 	static const std::map<RType, std::string> RTypeStringMap;
 	static std::string to_string(RType rtype);
+	static Rule::RType from_string(const std::string& s);
+
 };
