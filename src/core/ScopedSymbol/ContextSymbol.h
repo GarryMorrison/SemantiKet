@@ -21,6 +21,12 @@ public:
 	std::set<std::string> supported_ops;
 	std::set<std::string> non_terminals;
 	std::set<std::string> terminals;
+	void setSupportedOp(const std::string& op);
+	std::set<std::string> getSupportedOps() { return supported_ops; }
+	void setNonTerminal(const std::string& ket);
+	std::set<std::string> getNonTerminals() { return non_terminals; }
+	void setTerminal(const std::string& ket);
+	std::set<std::string> getTerminals() { return terminals; }
 	BaseScope* parentScope = nullptr;
 	ContextSymbol* currentContext = nullptr;
 	ContextSymbol* previousContext = nullptr;
