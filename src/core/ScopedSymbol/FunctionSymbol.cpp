@@ -2,6 +2,7 @@
 #include "../Parser/token.h"
 #include "../misc/misc.h"
 #include "../AST/AST.h"
+#include "../ASTVisitor/PrintTree.h"
 #include "../Scope/LocalScope.h"
 #include "../Error/Error.h"
 #include "../Error/Warning.h"
@@ -16,7 +17,7 @@ extern Warning warnings;
 FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node) // flesh out later!
 {
 	scope_id = scope_serial.get_id();
-
+	fn_rtype = Rule::RType::Standard;
 	if (node.nkids > 1 && node.kids[0])
 	{
 		SKet::yyTOKEN token = node.kids[0]->getToken();
@@ -29,6 +30,7 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node) // flesh out late
 FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 {
 	scope_id = scope_serial.get_id();
+	fn_rtype = Rule::RType::Standard;
 	if (scope)
 	{
 		parentScope = scope;
@@ -88,6 +90,10 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 		{
 			fn_name.append("+");
 		}
+	}
+	if (node.kids[node.nkids - 1])
+	{
+		RHS = node.kids[node.nkids - 1];
 	}
 	addChild(new LocalScope());
 }
@@ -222,5 +228,10 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 			s += child->to_string(level + 5);
 		}
 	}
+	/*
+	SKet::PrintTree Print;
+	RHS->accept(Print);
+	s += Print.to_string();
+	*/
 	return s;
 }
