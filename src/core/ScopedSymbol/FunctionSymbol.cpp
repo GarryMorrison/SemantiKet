@@ -46,7 +46,8 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 	bool syntax_error = false;
 	if (node.nkids == 3 && node.kids[0] && node.kids[1] && node.kids[2]) // 0 param function, ie, a pure operator
 	{
-		fn_rule_type = node.kids[1]->getToken().text;
+		// fn_rule_type = node.kids[1]->getToken().text;
+		fn_rtype = Rule::from_string(node.kids[1]->getToken().text);
 	}
 	else if (node.nkids == 4 && node.kids[0] && node.kids[1] && node.kids[2] && node.kids[3])
 	{
@@ -69,7 +70,8 @@ FunctionSymbol::FunctionSymbol(SKet::FunctionDefinition& node, BaseScope* scope)
 			}
 		}
 		
-		fn_rule_type = node.kids[2]->getToken().text;
+		// fn_rule_type = node.kids[2]->getToken().text;
+		fn_rtype = Rule::from_string(node.kids[2]->getToken().text);
 	}
 	else
 	{
@@ -190,7 +192,8 @@ std::string FunctionSymbol::to_string(int level) {  // do something better here 
 	s = indent(2 * level) + std::to_string(getScopeID()) + " " + getScopeName() + " " + getFunctionName() + ":\n";
 	s += indent(2 * level + 10) + "args: " + pmp_str(args, "[", ", ", "]\n");
 	s += indent(2 * level + 10) + "variadic: " + bool_to_str(is_variadic) + "\n";
-	s += indent(2 * level + 10) + "function rule type: " + fn_rule_type + "\n";
+	// s += indent(2 * level + 10) + "function rule type: " + fn_rule_type + "\n";
+	s += indent(2 * level + 10) + "function rtype: " + Rule::to_string(fn_rtype) + "\n";
 	for (const auto& elt : symbols)
 	{
 		if (elt.second != nullptr)

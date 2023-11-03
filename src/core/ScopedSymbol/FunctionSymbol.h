@@ -11,6 +11,7 @@
 #include "ContextSymbol.h"
 #include "../AST/FunctionDefinition.h"
 #include "../Parser/Serial.h"
+#include "../Rule/Rule.h"
 
 extern Serial scope_serial;
 
@@ -21,7 +22,8 @@ public:
 	std::string fn_name; // more FunctionSymbol specific variables later! Eg, arguments.
 	std::vector<std::string> args;
 	bool is_variadic = false;
-	std::string fn_rule_type;
+	std::string fn_rule_type; // deprecated, remove later!
+	Rule::RType fn_rtype;
 	BaseScope* parentScope = nullptr;
 	ContextSymbol* currentContext = nullptr;
 	ContextSymbol* previousContext = nullptr;
