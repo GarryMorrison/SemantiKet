@@ -241,7 +241,7 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
+		// virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
 	};
 
 }

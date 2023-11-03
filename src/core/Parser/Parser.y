@@ -643,8 +643,8 @@ rule_rhs: seq
 | SEMICOLON block_statements END_COLON{ $$ = new Internal("rule rhs", 1280, $2); }
 ;
 
-// chunk: AS seq COLON SEMICOLON chunk_rules END_COLON SEMICOLON{ $$ = new Internal("chunk", 1510, $2, $5); }
-chunk: AS seq COLON SEMICOLON chunk_rules END_COLON SEMICOLON{ $$ = new Chunk($2, $5); }
+chunk: AS seq COLON SEMICOLON chunk_rules END_COLON SEMICOLON{ $$ = new Internal("chunk", 1510, $2, $5); }
+// chunk: AS seq COLON SEMICOLON chunk_rules END_COLON SEMICOLON{ $$ = new Chunk($2, $5); }
 ;
 
 chunk_rules: chunk_rule
