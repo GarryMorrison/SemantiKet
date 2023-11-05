@@ -28,6 +28,7 @@
 #include "core/AST/GlobalAssignment.h"
 #include "core/AST/FunctionDefinition.h"
 #include "core/AST/Chunk.h"
+#include "core/AST/ChunkRule.h"
 #include "core/ASTVisitor/ASTVisitor.h"
 #include "core/ASTVisitor/PrintTree.h"
 #include "core/ASTVisitor/GraphTree.h"
