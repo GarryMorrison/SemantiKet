@@ -29,6 +29,7 @@ namespace SKet {
 	class GlobalAssignment;
 	class FunctionDefinition;
 	class Chunk;
+	class ChunkRule;
 
 	class ASTVisitor {
 	public:
@@ -42,6 +43,7 @@ namespace SKet {
 		virtual void visit(GlobalAssignment& Node) = 0;
 		virtual void visit(FunctionDefinition& Node) = 0;
 		virtual void visit(Chunk& Node) = 0;
+		virtual void visit(ChunkRule& Node) = 0;
 	};
 
 };

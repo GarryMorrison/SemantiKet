@@ -14,6 +14,7 @@
 #include "../AST/GlobalAssignment.h"
 #include "../AST/FunctionDefinition.h"
 #include "../AST/Chunk.h"
+#include "../AST/ChunkRule.h"
 #include "ASTVisitor.h"
 #include "../misc/misc.h"
 
@@ -73,6 +74,7 @@ namespace SKet {
 		virtual void visit(GlobalAssignment& Node) override { visit(static_cast<Internal&>(Node)); }
 		virtual void visit(FunctionDefinition& Node) override { visit(static_cast<Internal&>(Node)); }
 		virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); }
+		virtual void visit(ChunkRule& Node) override { visit(static_cast<Internal&>(Node)); }
 
 	};
 
