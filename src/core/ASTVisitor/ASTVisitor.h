@@ -41,7 +41,7 @@ namespace SKet {
 		virtual void visit(Assignment& Node) = 0;
 		virtual void visit(GlobalAssignment& Node) = 0;
 		virtual void visit(FunctionDefinition& Node) = 0;
-		// virtual void visit(Chunk& Node) = 0;
+		virtual void visit(Chunk& Node) = 0;
 	};
 
 };
