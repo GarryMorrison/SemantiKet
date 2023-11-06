@@ -1,0 +1,8 @@
+// learn rules
+// Added: 2023-11-7
+
+friends |Sam> => split[", "] |Tom, Liz, Robert, Fred>
+nick-name |Sam> => |Sammy>
+is-married |Sam> => |yes>
+
+

@@ -635,7 +635,8 @@ id_star: ID STAR{ $$ = new Internal("id star", 1475, $1); }
 
 
 // learn_rule: rule_lhs RULE seq SEMICOLON{ $$ = new Tree("learn rule", 1170, $1, $2, $3); } // Add rule_rhs when you are ready.
-learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Internal("learn rule", 1170, $1, $2, $3); }
+// learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new Internal("learn rule", 1170, $1, $2, $3); }
+learn_rule: rule_lhs RULE rule_rhs SEMICOLON{ $$ = new LearnRule($1, $2, $3); }
 ;
 
 rule_rhs: seq

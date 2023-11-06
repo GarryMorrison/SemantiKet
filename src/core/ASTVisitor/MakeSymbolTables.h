@@ -15,6 +15,7 @@
 #include "../AST/FunctionDefinition.h"
 #include "../AST/Chunk.h"
 #include "../AST/ChunkRule.h"
+#include "../AST/LearnRule.h"
 #include "ASTVisitor.h"
 // #include "../misc/misc.h"
 #include "../Symbol/BaseSymbol.h"
@@ -269,6 +270,8 @@ namespace SKet {
 		virtual void visit(ChunkRule& node) override {
 			currentFrame->insertRule(node);
 		}
+
+		virtual void visit(LearnRule& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
 	};
 
 }
