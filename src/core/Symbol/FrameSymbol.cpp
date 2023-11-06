@@ -37,9 +37,9 @@ std::string FrameSymbol::to_string(int level)
 	std::string s;
 	s = indent(2 * level) + "Frame: " + name + "\n";
 	
-	s += indent(2 * level) + "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
-	s += indent(2 * level) + "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
-	s += indent(2 * level) + "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
+	s += indent(2 * level + 2) + "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
+	s += indent(2 * level + 2) + "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
+	s += indent(2 * level + 2) + "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
 	
 	/*
 	s += "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");

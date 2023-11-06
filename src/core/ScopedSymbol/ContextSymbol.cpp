@@ -137,14 +137,15 @@ std::string ContextSymbol::to_string(int level) {  // do something better here l
 	{
 		if (elt.second != nullptr)
 		{
-			s += indent(2 * level + 6) + elt.second->to_string() + "\n";
+			// s += indent(2 * level + 6) + elt.second->to_string() + "\n";
+			s += elt.second->to_string(level + 3) + "\n";
 		}
 	}
 	for (const auto& elt : context_symbols)
 	{
 		if (elt.second != nullptr)
 		{
-			s += indent(2 * level + 6) + elt.second->to_string() + "\n";
+			s += indent(2 * level + 6) + elt.second->to_string() + "\n"; // use to_string(level) here too?
 		}
 	}
 	/*
