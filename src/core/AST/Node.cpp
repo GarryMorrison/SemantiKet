@@ -25,6 +25,7 @@ const std::map<Node::NType, std::string> Node::NTypeStringMap = {
 	{ Node::NType::GlobalAssignment, "GlobalAssignment"},
 	{ Node::NType::FunctionDefinition, "FunctionDefinition"},
 	{ Node::NType::Chunk, "Chunk"},
-	{ Node::NType::ChunkRule, "ChunkRule"}
+	{ Node::NType::ChunkRule, "ChunkRule"},
+	{ Node::NType::LearnRule, "LearnRule"}
 };
 
