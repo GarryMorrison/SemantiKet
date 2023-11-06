@@ -249,11 +249,26 @@ namespace SKet {
 		virtual void visit(Chunk& node) override {
 			if (currentScope)
 			{
-				currentScope->define(new FrameSymbol(node, currentContext));
+				FrameSymbol* tmp = new FrameSymbol(node, currentContext);
+				currentScope->define(tmp);
+				if (tmp)
+				{
+					currentFrame = tmp;
+				}
+			}
+			for (AST* tree : node.getKids())
+			{
+				if (tree)
+				{
+					tree->accept(*this);
+				}
 			}
 		}
 
-		virtual void visit(ChunkRule& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
+		// virtual void visit(ChunkRule& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
+		virtual void visit(ChunkRule& node) override {
+			currentFrame->insertRule(node);
+		}
 	};
 
 }
