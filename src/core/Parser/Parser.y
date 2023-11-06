@@ -651,8 +651,8 @@ chunk_rules: chunk_rule
 | chunk_rule chunk_rules{ $$ = new Internal("chunk rules", 1520, $1, $2); }
 ;
 
-chunk_rule: ID RULE rule_rhs SEMICOLON{ $$ = new Internal("chunk rule", 1530, $1, $2, $3); } // rule_rhs vs seq on the rhs of a chunk_rule?
-// chunk_rule: ID RULE rule_rhs SEMICOLON{ $$ = new ChunkRule($1, $2, $3); } // rule_rhs vs seq on the rhs of a chunk_rule?
+// chunk_rule: ID RULE rule_rhs SEMICOLON{ $$ = new Internal("chunk rule", 1530, $1, $2, $3); } // rule_rhs vs seq on the rhs of a chunk_rule?
+chunk_rule: ID RULE rule_rhs SEMICOLON{ $$ = new ChunkRule($1, $2, $3); } // rule_rhs vs seq on the rhs of a chunk_rule?
 ;
 
 
