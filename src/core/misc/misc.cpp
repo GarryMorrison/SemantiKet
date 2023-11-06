@@ -1,4 +1,6 @@
 #include "misc.h"
+#include <cmath>
+
 
 std::string file_to_string(const std::string& filename, bool verbose)
 {
@@ -251,7 +253,7 @@ std::string float_to_str(double f, int digits)  // Not super happy with this imp
 */
 
 bool double_eq(double F1, double F2) {
-    if (fabs(F1 - F2) < EPSILON) {
+    if (std::abs(F1 - F2) < EPSILON) {
         return true;
     }
     return false;
@@ -270,12 +272,12 @@ int ipower(int a, int n)  // From here: https://stackoverflow.com/questions/1505
 }
 
 std::string float_to_str(double F1, unsigned int places) {
-    if (double_eq(F1, round(F1))) {
-        return std::to_string(static_cast<long long int>(round(F1)));
+    if (double_eq(F1, std::round(F1))) {
+        return std::to_string(static_cast<long long int>(std::round(F1)));
     }
     std::ostringstream buffer;
     int tens = ipower(10, places);           // Need to test it works, but it should be correct.
-    buffer << round(F1 * tens) / tens;
+    buffer << std::round(F1 * tens) / tens;
     return buffer.str();
 }
 
