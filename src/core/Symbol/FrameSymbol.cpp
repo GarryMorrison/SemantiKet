@@ -1,5 +1,6 @@
 #include "FrameSymbol.h"
 #include "../misc/misc.h"
+#include "../ASTVisitor/PrintTree.h"
 
 // Author: Garry Morrison
 // Added: 2023-11-6
@@ -39,7 +40,7 @@ void FrameSymbol::insertRule(SKet::ChunkRule& rule)
 		std::cout << "Error in FrameSymbol insertRule, wrong number of kids!\n"; // Add Error EType later!
 		return;
 	}
-	if (rule_kids[0])
+	if (rule_kids[0] && rule_kids[1] && rule_kids[2])
 	{
 		std::string op = rule_kids[0]->getToken().text;
 		supported_ops.insert(op);
@@ -47,8 +48,22 @@ void FrameSymbol::insertRule(SKet::ChunkRule& rule)
 		{
 			parentContext->setSupportedOp(op);
 		}
+		Rule::RType rtype = Rule::from_string(rule_kids[1]->getToken().text);
+		idRType[op] = rtype;
+		idRHS[op] = rule_kids[2];
+		if (rule_kids[2]->getNType() == Node::NType::Leaf)
+		{
+			std::string ket = rule_kids[2]->getToken().text;
+			if (parentContext)
+			{
+				parentContext->setTerminal(ket);
+			}
+			if (non_terminals.find(ket) == non_terminals.end()) // if a rule is non-terminal, then it can't also be terminal!
+			{
+				terminals.insert(ket);
+			}
+		}
 	}
-
 }
 
 std::string FrameSymbol::to_string(int level)
@@ -60,5 +75,19 @@ std::string FrameSymbol::to_string(int level)
 	s += indent(2 * level + 2) + "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
 	s += indent(2 * level + 2) + "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
 	
+	if (idRType.size() == idRHS.size())  // not sure why they would be different lengths, but check anyway.
+	{
+		for (const auto& iter : idRType)
+		{
+			s += indent(2 * level + 4) + iter.first + " " + Rule::to_string(iter.second) + "\n";
+
+			s += indent(2 * level + 4) + "RHS:\n";
+			SKet::PrintTree Print(level + 2);
+			idRHS[iter.first]->accept(Print);
+			s += indent(2 * level + 4) + "----\n";
+			s += Print.to_string();
+			s += indent(2 * level + 4) + "----\n";
+		}
+	}
 	return s;
 }
