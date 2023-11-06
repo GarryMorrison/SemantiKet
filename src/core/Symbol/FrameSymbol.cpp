@@ -32,17 +32,19 @@ void FrameSymbol::insertRule(SKet::ChunkRule& rule)
 	// unpack a rule, and insert it into the current frame
 }
 
-std::string FrameSymbol::to_string()
+std::string FrameSymbol::to_string(int level)
 {
 	std::string s;
-	s = "Frame: " + name + "\n";
+	s = indent(2 * level) + "Frame: " + name + "\n";
+	
+	s += indent(2 * level) + "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
+	s += indent(2 * level) + "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
+	s += indent(2 * level) + "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
+	
 	/*
-	s += indent(2 * level + 6) + "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
-	s += indent(2 * level + 6) + "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
-	s += indent(2 * level + 6) + "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
-	*/
 	s += "supported-ops: " + pmp_str(supported_ops, "[", ", ", "]\n");
 	s += "non-terminals: " + pmp_str(non_terminals, "|", ">, |", ">\n");
 	s += "terminals: " + pmp_str(terminals, "|", ">, |", ">\n");
+	*/
 	return s;
 }

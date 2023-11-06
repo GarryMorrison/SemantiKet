@@ -36,8 +36,8 @@ BaseSymbol* BaseSymbol::Construct(SKet::yyTOKEN tok)
 }
 
 
-std::string BaseSymbol::to_string() {
-	std::string s;
+std::string BaseSymbol::to_string(int level) {
+	std::string s = indent(2 * level);
 	if (type != nullptr) 
 	{ 
 		s = "<" + getName() + ":" + type->getName() + ">"; 

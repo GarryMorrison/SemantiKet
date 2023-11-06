@@ -40,6 +40,6 @@ public:
 	// std::set<int> getLines() { return line_numbers; }
 
 	std::string getName() { return name; }
-	std::string to_string() override;
-	// std::string to_string(int level); // Add later.
+	std::string to_string() override { return to_string(0); }
+	std::string to_string(int level);
 };

@@ -37,7 +37,8 @@ public:
 	virtual std::string getName() { return name; }
 	void setType(Type* type) { this->type = type; }
 	Type* getType() { return type; }
-	virtual std::string to_string();
+	virtual std::string to_string() { return to_string(0); }
+	virtual std::string to_string(int level);
 	virtual void appendLine(int line) {};  // Looks like we need this here in Symbol
 	virtual std::set<int> getLines() { std::set<int> empty_set; return empty_set; } // This too
 };

@@ -12,9 +12,10 @@ ConstantSymbol::ConstantSymbol(SKet::yyTOKEN tok)
 	is_const = true;
 }
 
-std::string ConstantSymbol::to_string()
+std::string ConstantSymbol::to_string(int level)
 {
-	std::string s = pad_str(Symbol::to_string(stype), " ", 15, false); // maybe larger than 25 later?
+	std::string s = indent(2 * level);
+	s += pad_str(Symbol::to_string(stype), " ", 15, false); // maybe larger than 25 later?
 	if (ttype != SKet::Parser::token_type::UNKNOWN)
 	{
 		s += "<" + getName() + ":" + SKet::yyTOKEN::to_string(ttype) + ">";

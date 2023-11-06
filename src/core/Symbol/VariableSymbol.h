@@ -33,5 +33,6 @@ public:
 	void appendLine(int line) { line_numbers.insert(line); }  // do we need this method in Symbol too?
 	std::set<int> getLines() { return line_numbers; }
 
-	std::string to_string() override;
+	std::string to_string() override { return to_string(0); }
+	std::string to_string(int level);
 };
