@@ -21,6 +21,8 @@
 #include "../SymTable/SymbolTable.h"
 #include "../ScopedSymbol/ContextSymbol.h"
 #include "../ScopedSymbol/FunctionSymbol.h"
+#include "../Symbol/FrameSymbol.h"
+
 
 // namespace SKet??
 
@@ -33,6 +35,7 @@ namespace SKet {
 		BaseScope* globalScope = nullptr;
 		BaseScope* currentScope = nullptr;
 		ContextSymbol* currentContext = nullptr;
+		FrameSymbol* currentFrame = nullptr;
 		MakeSymbolTables(SymbolTable* symtab) { 
 			if (symtab)  // we should error if symtab is nullptr!
 			{
@@ -242,7 +245,14 @@ namespace SKet {
 			}
 		}
 
-		virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
+		// virtual void visit(Chunk& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
+		virtual void visit(Chunk& node) override {
+			if (currentScope)
+			{
+				currentScope->define(new FrameSymbol(node, currentContext));
+			}
+		}
+
 		virtual void visit(ChunkRule& Node) override { visit(static_cast<Internal&>(Node)); } // Do more here later!
 	};
 

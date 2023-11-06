@@ -7,6 +7,7 @@
 #include <string>
 #include <set>
 #include <map>
+#include <vector>
 #include "../AST/AST.h"
 #include "Symbol.h"
 #include "BaseSymbol.h"
@@ -21,6 +22,7 @@ public:
 	Symbol::SType stype = Symbol::SType::Frame;
 	std::string name;
 	ContextSymbol* parentContext = nullptr;
+	std::vector<SKet::AST*> kids;
 	std::set<std::string> supported_ops;
 	std::set<std::string> non_terminals;
 	std::set<std::string> terminals;
