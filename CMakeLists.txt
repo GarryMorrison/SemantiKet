@@ -24,6 +24,9 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # enable debugging symbols: Nope. Doesn't work
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
+# enable debugging mode:
+set(CMAKE_BUILD_TYPE Debug)
+
 # find build requirements
 FIND_PACKAGE(BISON 3.3 REQUIRED)
 FIND_PACKAGE(FLEX)
@@ -77,6 +80,7 @@ set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/Symbol/VariableSymbol.h" "src/core/Symbol/VariableSymbol.cpp"
 "src/core/Symbol/ConstantSymbol.h" "src/core/Symbol/ConstantSymbol.cpp"
 "src/core/Symbol/KetSymbol.h" "src/core/Symbol/KetSymbol.cpp"
+"src/core/Symbol/FrameSymbol.h" "src/core/Symbol/FrameSymbol.cpp"
 "src/core/SymTable/SymbolTable.h" "src/core/SymTable/SymbolTable.cpp"
 "src/core/Scope/BaseScope.h"
 "src/core/Scope/GlobalScope.h" "src/core/Scope/GlobalScope.cpp"
@@ -84,6 +88,7 @@ set(SYM_SRC "src/core/Symbol/Symbol.h" "src/core/Symbol/Symbol.cpp"
 "src/core/ScopedSymbol/BaseScopedSymbol.h"
 "src/core/ScopedSymbol/ContextSymbol.h" "src/core/ScopedSymbol/ContextSymbol.cpp"
 "src/core/ScopedSymbol/FunctionSymbol.h" "src/core/ScopedSymbol/FunctionSymbol.cpp"
+
 )
 
 # Core source files:

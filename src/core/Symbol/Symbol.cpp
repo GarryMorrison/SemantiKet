@@ -23,5 +23,6 @@ const std::map<Symbol::SType, std::string> Symbol::STypeStringMap = {
 	{ Symbol::SType::Context, "Context"},
 	{ Symbol::SType::LearnRule, "LearnRule"},
 	{ Symbol::SType::WildcardLearnRule, "WildcardLearnRule"},
-	{ Symbol::SType::Function, "Function"}
+	{ Symbol::SType::Function, "Function"},
+	{ Symbol::SType::Frame, "Frame"}
 };

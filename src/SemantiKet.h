@@ -35,6 +35,7 @@
 #include "core/Parser/Driver.h"
 #include "core/Symbol/Symbol.h"
 #include "core/Symbol/VariableSymbol.h"
+#include "core/Symbol/FrameSymbol.h"
 #include "core/Symbol/BaseSymbol.h"
 // #include "core/SymTable/VariableSymbol.h"
 #include "core/SymTable/SymbolTable.h"
